@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('price') ? 'has-error' : ''}}">
-                                <label class="col-md-4 control-label">Giá</label>
+                                <label class="col-md-4 control-label">Giá (VNĐ)</label>
                                 <div class="col-md-8">
                                     <input type="text" name="price" value="{{ old('price') ?: null}}" class="form-control"
                                         id="">
@@ -89,11 +89,24 @@
                             </div>
 
                             <div class="form-group {{ $errors->has('area') ? 'has-error' : ''}}">
-                                <label for="area" class="col-md-4 control-label">Diện tích</label>
+                                <label for="area" class="col-md-4 control-label">Diện tích (m<sup>2</sup>)</label>
                                 <div class="col-md-8">
                                     <input type="text" name="area" value="{{ old('area') ?: null}}" class="form-control">
                                     <span class="help-block" role="alert">
                                         {{ $errors->first('area') }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
+                                <label for="area" class="col-md-4 control-label">Trạng thái</label>
+                                <div class="col-md-8">
+                                    <select name="status" class="form-control">
+                                        <option {{ old('status') == 'pending' ? 'selected' : ''}} value="pending">Pending</option>
+                                        <option {{ old('status') == 'published' ? 'selected' : ''}} value="published">Published</option>
+                                        <option {{ old('status') == 'blocked' ? 'selected' : ''}} value="blocked">Blocked</option>
+                                    </select>
+                                    <span class="help-block" role="alert">
+                                        {{ $errors->first('status') }}
                                     </span>
                                 </div>
                             </div>

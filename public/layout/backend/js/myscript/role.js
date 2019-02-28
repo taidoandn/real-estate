@@ -23,7 +23,7 @@ function editRoleForm(id) {
     $('.btn-save').text('Chỉnh sửa');
     $.ajax({
         type: "get",
-        url: window.location.href + "/" + id + "/edit",
+        url: base_url + "/admin/role/" + id + "/edit",
         data: $("#modal-form #form-role").serialize(),
         dataType: "json",
         success: function (data) {
@@ -51,9 +51,9 @@ $(document).ready(function () {
 
         var id = $("#id").val();
         if (save_method == 'add') {
-            url = window.location.href;
+            url = base_url + "/admin/role";
         }else{
-            url = window.location.href + "/" + id;
+            url = base_url + "/admin/role/" + id;
         }
 
         $.ajax({
@@ -84,7 +84,7 @@ function deleteRoleData(id) {
     if (confirm('Bạn có chắc là muốn xóa?')) {
         $.ajax({
             type: "post",
-            url: window.location.href + "/"+ id ,
+            url: base_url + "/admin/role/"+ id ,
             data: {
                 '_method' : "DELETE",
                 '_token' : csrf_token
