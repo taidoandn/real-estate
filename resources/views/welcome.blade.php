@@ -80,6 +80,8 @@
             @endif
 
             <div class="content">
+                    @component('component.who')
+                    @endcomponent
                 <div class="title m-b-md">
                     Laravel
                 </div>

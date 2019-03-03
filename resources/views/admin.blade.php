@@ -13,9 +13,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
+
+                    {{-- You are logged in as <strong>ADMIN</strong> --}}
                     @component('component.who')
                     @endcomponent
-                    {{-- You are logged in as <strong>USER</strong> --}}
                 </div>
             </div>
         </div>

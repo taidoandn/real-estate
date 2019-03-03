@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Admin;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -29,7 +30,7 @@ class UserController extends Controller
     public function getUsers(Request $request)
     {
         if ($request->ajax()) {
-            $users = User::select(['id','name','email','phone']);
+            $users = Admin::select(['id','name','email','phone']);
             return DataTables::of($users)
                     ->addColumn('action',function ($user){
                         return view('backend.user._action',compact('user'));
@@ -84,7 +85,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = Admin::findOrFail($id);
         $data = [
             'user' => $user,
             'role' => $user->roles
@@ -112,7 +113,7 @@ class UserController extends Controller
         if ($request->has('password')) {
             $data['password'] = bcrypt($request->password);
         }
-        $user = User::findOrFail($id);
+        $user = Admin::findOrFail($id);
         $user->update($data);
         $user->roles()->sync($request->role);
         return 'Cập nhật thành công';
@@ -126,7 +127,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        Admin::destroy($id);
         return "Xóa tài khoản thành công";
     }
 }

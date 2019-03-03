@@ -24,7 +24,8 @@ class UserTableSeeder extends Seeder
                 'updated_at' => now(),
             ]
         );
-        factory(App\Models\User::class, 50)->create()->each(function($user){
+        factory(App\Models\User::class,50)->create();
+        factory(App\Models\Admin::class, 20)->create()->each(function($user){
             $boolean = random_int(0,1);
             if ($boolean) {
                 $ids = App\Models\Role::all()->random(random_int(1,3));
