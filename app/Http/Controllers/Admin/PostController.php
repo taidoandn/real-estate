@@ -54,7 +54,6 @@ class PostController extends Controller
      */
     public function store(PostStoreRequest $request){
         $data = $request->all();
-        $data['user_id'] = 1;
 
         if ($request->hasFile('fImage')) {
             $image_name = $this->saveImage($request->file('fImage'));

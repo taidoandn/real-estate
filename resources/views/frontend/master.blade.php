@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title> Website Bất động sản </title>
+    <title> Website Bất động sản | @yield('title') </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -31,40 +31,52 @@
     <link rel="stylesheet" href="{{ asset('layout/frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('layout/frontend/plugins/fotorama-4.6.4/fotorama.css') }}">
     <link rel="stylesheet" href="{{ asset('layout/frontend/plugins/owl.carousel.css') }}">
-
-
+    <script src="{{ asset('layout/frontend/js/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script>
     @stack('css')
 </head>
 
 <body>
+    <div class="header-nav-top">
+        @include('frontend.partial.header')
+    </div>
 
-    @include('frontend.partial.header')
+    <nav class="navbar navbar-default" role="navigation">
+        @include('frontend.partial.navbar')
+    </nav>
 
-    <div class="container">
-        @yield('content')
-    </div> <!-- /#container -->
+    <div class="modern-top-intoduce-section">
+        @include('frontend.partial.search')
+    </div>
 
-    @include('frontend.partial.footer')
+    @yield('content')
+
+    <div class="footer">
+        @include('frontend.partial.footer')
+    </div>
+
+    <div id="loadingOverlay" style="display: none;">
+        <div class="circleLoader"></div>
+        <p>Loading...</p>
+    </div>
 
 
     {{-- <script data-cfasync="false" src="{{ asset('layout/frontend/js/email-decode.min.js') }}"></script> --}}
-    <script src="{{ asset('layout/frontend/js/vendor/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('layout/frontend/js/vendor/jquery-1.11.2.min.js') }}"></script>
     <script src="{{ asset('layout/frontend/js/vendor/bootstrap.min.js') }}"></script>
     <script src="{{ asset('layout/frontend/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('layout/frontend/select2-3.5.3/select2.min.js') }}"></script>
     <script src="{{ asset('layout/frontend/plugins/nprogress/nprogress.js') }}"></script>
-    <script src="{{ asset('layout/frontend/js/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script>
     <script src="{{ asset('layout/frontend/plugins/owl.carousel.min.js') }}"></script>
 
     <script type="text/javascript">
         NProgress.start();
         NProgress.done();
+
     </script>
 
     <!-- Conditional page load script -->
     <script src="{{ asset('layout/frontend/js/main.js') }}"></script>
     @stack('js')
-
 </body>
 
 </html>

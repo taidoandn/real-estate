@@ -31,19 +31,25 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <li class="{{ Request::is("admin/user") ? "active" : "" }}">
-                <a href="{{ route('admin.user.index') }}">
-                    <i class="fa fa-users"></i>
-                    <span>User Account</span>
-                </a>
-            </li>
             <li class="{{ Request::is("admin/role") ? "active" : "" }}">
                 <a href="{{ route('admin.role.index') }}">
                     <i class="fa fa-user-times"></i>
                     <span>Role</span>
                 </a>
             </li>
-            <li class="treeview">
+            <li class="{{ Request::is("admin/user*") ? "active" : "" }}">
+                <a href="{{ route('admin.user.index') }}">
+                    <i class="fa fa-user-times"></i>
+                    <span>Admin</span>
+                </a>
+            </li>
+            <li class="{{ Request::is("admin/account*") ? "active" : "" }}">
+                <a href="{{ route('admin.account.index') }}">
+                    <i class="fa fa-user-circle-o"></i>
+                    <span>Account</span>
+                </a>
+            </li>
+            <li class="treeview {{ Request::is("admin/post*") ? "active" : "" }}">
                 <a href="#">
                     <i class="fa fa-edit"></i> <span>Bài viết</span>
                     <span class="pull-right-container">
@@ -51,8 +57,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.post.index') }}"><i class="fa fa-circle-o"></i> Danh sách bài viết</a></li>
-                    <li><a href="{{ route('admin.post.create') }}"><i class="fa fa-circle-o"></i> Thêm bài viết</a></li>
+                    <li class="{{ Request::is("admin/post") ? "active" : "" }}"><a href="{{ route('admin.post.index') }}"><i class="fa fa-circle-o"></i> Danh sách bài viết</a></li>
+                    <li class="{{ Request::is("admin/post/create") ? "active" : "" }}"><a href="{{ route('admin.post.create') }}"><i class="fa fa-circle-o"></i> Thêm bài viết</a></li>
                 </ul>
             </li>
         </ul>

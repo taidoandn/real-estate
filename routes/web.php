@@ -22,8 +22,9 @@ Route::get('/dashboard', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/detail','HomeController@getDetail');
 Route::get('/user-logout','Auth\LoginController@userLogout')->name('user.logout');
+
 Route::group(['prefix' => 'admin'], function () {
     Route:: get('/', 'AdminController@index')->name('admin.dashboard');
     Route:: get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
@@ -37,10 +38,14 @@ Route::group(['prefix' => 'ajax'], function () {
     Route::get('/delete-image','AjaxController@deleteImage')->name('ajax.delete-image');
 });
 
-Route::group(['namespace' => 'Admin','prefix'=>'admin','as' => 'admin.'], function () {
+Route::group(['namespace' => 'Admin','prefix'=>'admin','as' => 'admin.','middleware'=>'auth:admin'], function () {
     //Route: user
     Route::get('/users','UserController@getUsers')->name('api.users');
     Route::resource('user', 'UserController',['except'=>['create','show']]);
+
+    //Route: account
+    Route::get('/accounts','AccountController@getUsers')->name('api.accounts');
+    Route::resource('account', 'AccountController',['except'=>['create','show']]);
 
     //Route: role
     Route::get('/roles','RoleController@getRoles')->name('api.roles');

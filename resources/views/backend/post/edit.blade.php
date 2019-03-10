@@ -110,6 +110,20 @@
                                     </span>
                                 </div>
                             </div>
+
+                            <div class="form-group {{ $errors->has('user_id') ? 'has-error' : ''}}">
+                                <label for="area" class="col-md-4 control-label">Người đăng</label>
+                                <div class="col-md-8">
+                                    <select name="user_id" class="form-control">
+                                        @foreach ($users as $user)
+                                            <option {{ $post->user_id == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="help-block" role="alert">
+                                        {{ $errors->first('user_id') }}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6 ">
                             <div class="form-group {{ $errors->has('fImage') ? 'has-error' : '' }}">

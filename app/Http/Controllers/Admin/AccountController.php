@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Role;
 use App\Models\User;
-use App\Models\Admin;
-use App\Models\Permission;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class AccountController extends Controller
 {
     public function __construct() {
 
@@ -23,22 +20,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('backend.user.show',compact('roles'));
+        return view('backend.account.show');
     }
 
     public function getUsers(Request $request)
     {
         if ($request->ajax()) {
-            $users = Admin::select(['id','name','email','phone']);
+            $users = User::select(['id','name','email','phone']);
             return DataTables::of($users)
                     ->addColumn('action',function ($user){
-                        return view('backend.user._action',compact('user'));
+                        return view('backend.account._action',compact('user'));
                     })
-                    ->addColumn('role',function ($user){
-                        return view('backend.user._role',compact('user'));
-                    })
-                    ->rawColumns(['action', 'role'])->make(true);
+                    ->rawColumns(['action'])->make(true);
         }
     }
 
@@ -62,7 +55,7 @@ class UserController extends Controller
     {
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
-        $user = Admin::create($data);
+        $user = User::create($data);
         $user->roles()->attach($request->role);
         return "Thêm tài khoản thành công!!";
     }
@@ -85,12 +78,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = Admin::findOrFail($id);
-        $data = [
-            'user' => $user,
-            'role' => $user->roles
-        ];
-        return response()->json($data, 200);;
+        $user = User::findOrFail($id);
+        return response()->json($user, 200);;
     }
 
     /**
@@ -113,9 +102,8 @@ class UserController extends Controller
         if ($request->has('password')) {
             $data['password'] = bcrypt($request->password);
         }
-        $user = Admin::findOrFail($id);
+        $user = User::findOrFail($id);
         $user->update($data);
-        $user->roles()->sync($request->role);
         return 'Cập nhật thành công';
     }
 
@@ -127,7 +115,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        Admin::destroy($id);
+        User::destroy($id);
         return "Xóa tài khoản thành công";
     }
 }

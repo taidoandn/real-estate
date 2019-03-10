@@ -37,6 +37,7 @@ class PostStoreRequest extends FormRequest
             'fImage'          => 'required|image|mimes:jpg,jpeg,bmp,png|max:2048',
             'fImageDetails.*' => 'image|max:2048',
             'type_id'         => 'required|exists:property_types,id',
+            'user_id'         => 'required|exists:users,id',
         ];
     }
 }

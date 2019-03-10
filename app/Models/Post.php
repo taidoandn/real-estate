@@ -21,6 +21,9 @@ class Post extends Model
     public function detail(){
         return $this->hasOne('App\Models\PropertyDetail', 'post_id', 'id');
     }
+    public function property_type(){
+        return $this->belongsTo('App\Models\PropertyType', 'type_id', 'id');
+    }
 
     public function district(){
         return $this->belongsTo('App\Models\District', 'district_id', 'id');

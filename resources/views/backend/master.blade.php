@@ -18,13 +18,12 @@
     <link rel="stylesheet" href="{{  asset('layout/backend/css/skins/skin-blue.min.css') }}">
     <link rel="stylesheet" href="{{  asset('layout/backend/css/style.css') }}">
     <link rel="stylesheet" href="{{  asset('layout/backend/css/toastr.min.css') }}">
+    <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script type="text/javascript">
         var base_url = {!! json_encode(url('/')) !!};
     </script>
     @stack('css')
-
-    <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
 <body class="hold-transition fixed skin-blue sidebar-mini">

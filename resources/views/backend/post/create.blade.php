@@ -110,6 +110,21 @@
                                     </span>
                                 </div>
                             </div>
+
+                            <div class="form-group {{ $errors->has('user_id') ? 'has-error' : ''}}">
+                                    <label for="area" class="col-md-4 control-label">Người đăng</label>
+                                    <div class="col-md-8">
+                                        <select name="user_id" class="form-control">
+                                            <option value="">Chọn người đăng</option>
+                                            @foreach ($users as $user)
+                                                <option {{ old('user_id') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <span class="help-block" role="alert">
+                                            {{ $errors->first('user_id') }}
+                                        </span>
+                                    </div>
+                                </div>
                         </div>
                         <div class="col-md-6 ">
                             <div class="form-group {{ $errors->has('fImage') ? 'has-error' : '' }}">
@@ -339,12 +354,13 @@
                 loadUnit('sale');
             } else if ($(this).val() == 'rent') {
                 loadUnit('rent');
+            }else{
+                $('select[name="unit"]').html('');
             }
         });
 
         if($('select[name="purpose"]').val()) {
             var purpose = $('select[name="purpose"]').val();
-            console.log(purpose);
             loadUnit(purpose);
         }
 

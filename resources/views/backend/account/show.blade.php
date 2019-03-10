@@ -4,7 +4,7 @@
 
 <section class="content-header">
     <h1>
-        List User
+        List Account
         <small>Version 2.0</small>
     </h1>
     <ol class="breadcrumb">
@@ -12,7 +12,7 @@
         <li class="active">Account</li>
     </ol>
 </section>
-@include('backend.user._modal')
+@include('backend.account._modal')
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -20,7 +20,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <p class="panel-title">
-                        DataTables Users
+                        DataTables Accounts
                     </p>
                 </div>
                 <div class="panel-body">
@@ -29,14 +29,13 @@
                         <button onclick="refresh()" class="btn bg-blue "><i class="fa fa-refresh"></i> Refresh</button>
                     </div>
 
-                    <table id="users-table" class="table table-bordered table-striped">
+                    <table id="accounts-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th style="width: 18%">Role</th>
                                 <th style="width: 18%">Action</th>
                             </tr>
                         </thead>
@@ -54,19 +53,18 @@
 <script src="{{ asset('layout/backend/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('layout/backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <script>
-    var users_table = $('#users-table').DataTable({
+    var users_table = $('#accounts-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{!! route('admin.api.users') !!}',
+        ajax: '{!! route('admin.api.accounts') !!}',
         columns: [
             {data: 'id',name: 'id'},
             {data: 'name',name: 'name'},
             {data: 'email',name: 'email'},
             {data: 'phone',name: 'phone'},
-            {data: 'role', name: 'role', orderable: false, searchable: false},
             {data: 'action', name: 'action', orderable: false, searchable: false}
         ]
     });
 </script>
-<script src="{{  asset('layout/backend/js/myscript/user.js') }}"></script>
+<script src="{{  asset('layout/backend/js/myscript/account.js') }}"></script>
 @endpush

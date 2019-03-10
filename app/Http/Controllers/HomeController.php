@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['index','getDetail']);
     }
 
     /**
@@ -23,7 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $latest_posts = Post::latest()->take(8)->get();
+        return view('frontend.home',compact('latest_posts'));
+    }
+
+    public function getDetail(){
+        return view('frontend.detail');
     }
 
 
