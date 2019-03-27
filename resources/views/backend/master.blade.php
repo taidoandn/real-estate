@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{  asset('layout/backend/css/style.css') }}">
     <link rel="stylesheet" href="{{  asset('layout/backend/css/toastr.min.css') }}">
     <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script type="text/javascript">
         var base_url = {!! json_encode(url('/')) !!};
     </script>
@@ -50,25 +50,14 @@
     <!-- AdminLTE App -->
     <script src="{{  asset('layout/backend/js/adminlte.min.js') }}"></script>
     <script src="{{  asset('layout/backend/js/toastr.min.js') }}"></script>
-    @if(Session::has('message'))
+    @if(Session::has('success'))
     <script>
-        var type = "{{Session::get('level')}}"
-        switch (type) {
-            case 'info':
-                toastr.info("{{ Session::get('message') }}","Info Alert");
-                break;
-            case 'success':
-                toastr.success("{{ Session::get('message') }}","Success Alert");
-                break;
-            case 'warning':
-                toastr.warning("{{ Session::get('message') }}","Warning Alert");
-                break;
-            case 'error':
-                toastr.error("{{ Session::get('message') }}","Error Alert");
-                break;
-            default:
-                toastr.success("{{ Session::get('message') }}","Success Alert");
-        }
+        toastr.success("{{ Session::get('success') }}","Success Alert");
+    </script>
+    @endif
+    @if(Session::has('error'))
+    <script>
+        toastr.success("{{ Session::get('error') }}","Error Alert");
     </script>
     @endif
     @stack('script')

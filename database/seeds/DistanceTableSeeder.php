@@ -12,8 +12,8 @@ class DistanceTableSeeder extends Seeder
     public function run()
     {
         factory(App\Models\Distance::class, 5)->create()->each(function($distance){
-            $ids = range(1,20);
-            $distance->posts()->attach($ids,['meters'=> random_int(1,100)]);
+            $ids = range(1,App\Models\Post::count());
+            $distance->posts()->attach($ids,['meters'=> random_int(1,App\Models\Post::count())]);
         });
     }
 }

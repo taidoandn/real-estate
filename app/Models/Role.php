@@ -8,9 +8,9 @@ class Role extends Model
 {
     protected $table = 'roles';
     protected $fillable = ['name','created_at','updated_at'];
-    public function users()
+    public function admins()
     {
-        return $this->belongsToMany('App\Models\User', 'user_roles', 'role_id', 'user_id');
+        return $this->belongsToMany('App\Models\Admin', 'admin_roles', 'role_id', 'admin_id');
     }
 
     public function permissions()

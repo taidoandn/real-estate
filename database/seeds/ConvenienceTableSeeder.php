@@ -12,7 +12,7 @@ class ConvenienceTableSeeder extends Seeder
     public function run()
     {
         factory(App\Models\Convenience::class, 15)->create()->each(function($convenience){
-            $ids = App\Models\Post::all()->random(random_int(1,15));
+            $ids = App\Models\Post::all()->random(random_int(1,App\Models\Post::count()));
             $convenience->posts()->attach($ids);
         });
     }

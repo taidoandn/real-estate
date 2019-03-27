@@ -16,46 +16,58 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('frontend.dashboard');
+    return view('frontend.post.create');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/detail','HomeController@getDetail');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/detail/{slug}','HomeController@getDetail')->name('detail');
+
+Route::get('/search', 'SearchController@getSearch')->name('getSearch');
+Route::post('/search', 'SearchController@postSearch')->name('postSearch');
+
+Route::resource('/posts', 'PostController');
+
+Route::group(['prefix' => 'profile','middleware'=>'auth'], function () {
+    Route::get('/', 'ProfileController@index')->name('profile.index');
+    Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
+    Route::post('/update', 'ProfileController@update')->name('profile.update');
+    Route::get('/change-pass', 'ProfileController@changePassword')->name('profile.change-pass');
+});
+
 Route::get('/user-logout','Auth\LoginController@userLogout')->name('user.logout');
 
+Route::group(['prefix' => 'ajax','as'=>'ajax.'], function () {
+    Route::post('/upload-image','AjaxController@uploadImage')->name('upload-image');
+    Route::get('/delete-image','AjaxController@deleteImage')->name('delete-image');
+    Route::get('/districts','AjaxController@getDistricts')->name('districts');
+});
+
 Route::group(['prefix' => 'admin'], function () {
-    Route:: get('/', 'AdminController@index')->name('admin.dashboard');
     Route:: get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route:: post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route:: get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 });
 
 
-Route::group(['prefix' => 'ajax'], function () {
-    Route::post('/upload-image','AjaxController@uploadImage')->name('ajax.upload');
-    Route::get('/delete-image','AjaxController@deleteImage')->name('ajax.delete-image');
-});
-
 Route::group(['namespace' => 'Admin','prefix'=>'admin','as' => 'admin.','middleware'=>'auth:admin'], function () {
+    Route:: get('/', 'AdminController@index')->name('dashboard');
+
     //Route: user
-    Route::get('/users','UserController@getUsers')->name('api.users');
-    Route::resource('user', 'UserController',['except'=>['create','show']]);
+    Route::get('/list-users','UserController@getUsers')->name('api.users');
+    Route::resource('/users', 'UserController',['except'=>['create','show']]);
 
     //Route: account
-    Route::get('/accounts','AccountController@getUsers')->name('api.accounts');
-    Route::resource('account', 'AccountController',['except'=>['create','show']]);
+    Route::get('/list-accounts','AccountController@getUsers')->name('api.accounts');
+    Route::resource('/accounts', 'AccountController',['except'=>['create','show']]);
 
     //Route: role
-    Route::get('/roles','RoleController@getRoles')->name('api.roles');
-    Route::resource('role', 'RoleController',['except'=>['create','show']]);
+    Route::get('/list-roles','RoleController@getRoles')->name('api.roles');
+    Route::resource('/roles', 'RoleController',['except'=>['create','show']]);
 
     //Route: post
-    Route::get('/posts','PostController@getPosts')->name('api.posts');
-    Route::resource('post', 'PostController',['except'=>['show']]);
-
-    Route::get('/image-view','PostController@storeImage')->name('store.image');
-    Route::get('/districts','PostController@getDistricts')->name('api.districts');
+    Route::get('/list-posts','PostController@getPosts')->name('api.posts');
+    Route::resource('/posts', 'PostController',['except'=>['show']]);
 
 });

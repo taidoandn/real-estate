@@ -8,12 +8,8 @@ use App\Models\User;
 use App\Models\Distance;
 use App\Models\Convenience;
 use App\Models\PropertyType;
-use App\Models\PropertyImage;
-use App\Models\PropertyDetail;
-use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
@@ -83,7 +79,7 @@ class PostController extends Controller
                 $post->images()->create(['path'=>$file_name]);
             }
         }
-        return redirect()->route('admin.post.index')->with(['level'=>'success','message'=>'Thêm bài viết thành công']);
+        return redirect()->route('admin.posts.index')->with('success','Thêm bài viết thành công');
     }
 
     /**
@@ -149,7 +145,7 @@ class PostController extends Controller
             $post->distances()->updateExistingPivot($key,['meters'=> $distance]);
         }
 
-        return redirect()->route('admin.post.index')->with(['level'=>'success','message'=>'Cập nhật bài viết thành công']);
+        return redirect()->route('admin.posts.index')->with('success','Cập nhật bài viết thành công');
     }
 
     /**
@@ -178,22 +174,14 @@ class PostController extends Controller
                         $url= asset('uploads/images/'.$post->image);
                         return '<img src="'.$url.'" alt="'.$post->title.'" width="200px" >';
                     })
-                    ->editColumn('price','{{ number_format($price,0,",","."). " đồng" }}')
+                    ->editColumn('price',function($post){
+                        return $post->priceFormat;
+                    })
                     ->editColumn('status',function ($post){
                         return view('backend.post._status',compact('post'));
                     })
-                    ->rawColumns(['action', 'image','status'])
+                    ->rawColumns(['action', 'image','status','price'])
                     ->make(true);
-        }
-    }
-
-    public function getDistricts(Request $request){
-        if ($request->ajax()) {
-            $districts =  DB::table('districts')
-                            ->where('city_id',$request->city_id)
-                            ->select('id','name','city_id')
-                            ->get();
-            return $districts;
         }
     }
 
@@ -206,16 +194,6 @@ class PostController extends Controller
     public function saveImage($image){
         $image_name = rand(1111,9999).time().".".$image->getClientOriginalExtension();
         $image->move(public_path('uploads/images/'),$image_name);
-
-        $resizeImage = function ($suffix = 'thumb',$width = 300 , $height = 170 ) use($image_name,$image){
-            $extension = $image->getClientOriginalExtension();
-            $thumb     = str_replace(".$extension","_{$suffix}.{$extension}",$image_name);
-            Image::make(public_path("uploads/images/$image_name"))
-                ->resize($width,$height)
-                ->save(public_path("uploads/images/$thumb"))
-                ->destroy();
-        };
-        $resizeImage();
         return $image_name;
     }
 
@@ -225,16 +203,9 @@ class PostController extends Controller
      * @param [string] image_name
      * @return void
      */
-    public function deleteImage($image){
-        if (file_exists(public_path("uploads/images/$image"))) {
-            unlink(public_path("uploads/images/$image"));
+    public function deleteImage($image_name){
+        if (file_exists(public_path("uploads/images/$image_name"))) {
+            unlink(public_path("uploads/images/$image_name"));
         };
-
-        $deleteResize = function ($suffix = 'thumb') use($image){
-            if (file_exists(public_path("uploads/images/".get_thumbnail($image,$suffix)))) {
-                unlink(public_path("uploads/images/".get_thumbnail($image,$suffix)));
-            };
-        };
-        $deleteResize();
     }
 }

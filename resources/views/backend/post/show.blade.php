@@ -24,7 +24,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group clearfix">
-                        <a href="{{ route('admin.post.create') }}" class="btn bg-blue pull-right"><i class="fa fa-plus"></i> Thêm mới</a>
+                        <a href="{{ route('admin.posts.create') }}" class="btn bg-blue pull-right"><i class="fa fa-plus"></i> Thêm mới</a>
                         <button type="button" class="btn bg-blue" data-toggle="collapse" data-target="#filter-user"><i class="fa fa-filter"></i> Filter</button>
 
                         <button type="button" onclick="refresh()" class="btn bg-blue"><i class="fa fa-refresh"></i> Refresh</button>

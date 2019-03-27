@@ -18,6 +18,41 @@ a{
 /* ==========================================================================
   color-dodger-blue.css
    ========================================================================== */
+.m-t-05 { margin-top: 0.5em !important; }
+.m-t-10 { margin-top: 1.0em !important; }
+.m-t-15 { margin-top: 1.5em !important; }
+.m-t-20 { margin-top: 2.0em !important; }
+.m-t-25 { margin-top: 2.5em !important; }
+.m-t-30 { margin-top: 3.0em !important; }
+
+.m-t--05 { margin-top: -0.5em !important; }
+.m-t--10 { margin-top: -1.0em !important; }
+.m-t--15 { margin-top: -1.5em !important; }
+.m-t--20 { margin-top: -2.0em !important; }
+.m-t--25 { margin-top: -2.5em !important; }
+.m-t--30 { margin-top: -3.0em !important; }
+
+.m-r-05 { margin-right: 0.5em !important; }
+.m-r-10 { margin-right: 1.0em !important; }
+.m-r-15 { margin-right: 1.5em !important; }
+.m-r-20 { margin-right: 2.0em !important; }
+.m-r-25 { margin-right: 2.5em !important; }
+.m-r-30 { margin-right: 3.0em !important; }
+
+.m-l-05 { margin-left: 0.5em !important; }
+.m-l-10 { margin-left: 1.0em !important; }
+.m-l-15 { margin-left: 1.5em !important; }
+.m-l-20 { margin-left: 2.0em !important; }
+.m-l-25 { margin-left: 2.5em !important; }
+.m-l-30 { margin-left: 3.0em !important; }
+.m-l-80 { margin-left: 8.0em !important; }
+
+.m-b-05 { margin-bottom: 0.5em !important; }
+.m-b-10 { margin-bottom: 1.0em !important; }
+.m-b-15 { margin-bottom: 1.5em !important; }
+.m-b-20 { margin-bottom: 2.0em !important; }
+.m-b-25 { margin-bottom: 2.5em !important; }
+.m-b-30 { margin-bottom: 3.0em !important; }
 a:hover{
     color: #22313f;
 }
@@ -1106,7 +1141,7 @@ img.thumb-listing-table {
 }
 .or-search::after, .or-search::before {
     background-color: #fff;
-    content: "Â ";
+    content: "ï¿½ ";
     height: 2px;
     overflow: hidden;
     position: absolute;

@@ -7,6 +7,7 @@ use App\Models\Post;
 
 class HomeController extends Controller
 {
+    private $limit = 6;
     /**
      * Create a new controller instance.
      *
@@ -14,7 +15,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','getDetail']);
     }
 
     /**
@@ -24,14 +24,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $latest_posts = Post::latest()->take(8)->get();
-        return view('frontend.home',compact('latest_posts'));
+        $latest_posts = Post::with('detail','district.city')->isPublished()->latest()->take($this->limit)->get();
+        return view('frontend.page.home',compact('latest_posts'));
     }
 
-    public function getDetail(){
-        return view('frontend.detail');
+    public function getDetail(Request $request,$slug){
+        $post = Post::with('detail','user','images','conveniences','distances')->where('slug',$slug)->firstOrFail();
+        return view('frontend.page.detail',compact('post'));
     }
-
-
 
 }

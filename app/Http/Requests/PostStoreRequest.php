@@ -24,8 +24,8 @@ class PostStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'purpose'         => 'required',
             'title'           => 'required|max:255|unique:posts,title',
+            'purpose'         => 'required',
             'price'           => 'required|numeric',
             'area'            => 'required|numeric',
             'description'     => 'required|min:100',
@@ -34,8 +34,8 @@ class PostStoreRequest extends FormRequest
             'address'         => 'required',
             'latitude'        => 'required',
             'longitude'       => 'required',
-            'fImage'          => 'required|image|mimes:jpg,jpeg,bmp,png|max:2048',
-            'fImageDetails.*' => 'image|max:2048',
+            'fImage'          => 'required|mimes:jpg,jpeg,bmp,png|max:2048',
+            'fImageDetails.*' => 'mimes:jpg,jpeg,bmp,png|max:2048',
             'type_id'         => 'required|exists:property_types,id',
             'user_id'         => 'required|exists:users,id',
         ];

@@ -15,6 +15,7 @@
 @include('backend.user._modal')
 <!-- Main content -->
 <section class="content">
+    {{-- {{ dd($roles[0]->admins[0]->name) }} --}}
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">

@@ -23,8 +23,8 @@ class RoleController extends Controller
     }
 
     public function getRoles(){
-        $role = Role::query();;
-        return DataTables::of($role)
+        $roles = Role::query();
+        return DataTables::of($roles)
                 ->addColumn('action',function ($role){
                     return view('backend.role._action',compact('role'));
                 })->make(true);

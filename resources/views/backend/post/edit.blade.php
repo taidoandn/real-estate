@@ -12,7 +12,7 @@
 </section>
 <section class="content">
     <div class="row">
-    <form action="{{ route('admin.post.update',['id'=> $post->id]) }}" data-id="{{ $post->id }}" id="form-data" method="POST" enctype="multipart/form-data" class="form-horizontal">
+    <form action="{{ route('admin.posts.update',['id'=> $post->id]) }}" data-id="{{ $post->id }}" id="form-data" method="POST" enctype="multipart/form-data" class="form-horizontal">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="col-md-12">
@@ -417,7 +417,7 @@
             var old_district_id = "{{ $post->district_id }}";
             $.ajax({
                 type: 'get',
-                url: '{{ route('admin.api.districts') }}',
+                url: '{{ route('ajax.districts') }}',
                 data: { city_id: city_id },
                 success: function(data) {
                     var options ="<option value=''> Chọn quận/huyện</option>";

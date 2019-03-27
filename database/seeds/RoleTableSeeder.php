@@ -28,7 +28,7 @@ class RoleTableSeeder extends Seeder
         $writer->save();
 
         foreach (App\Models\Role::all() as $role) {
-            $ids = \App\Models\Permission::pluck('id')->random(random_int(1,8));
+            $ids = \App\Models\Permission::pluck('id')->random(random_int(1,App\Models\Role::count()));
             $role->permissions()->attach($ids);
         }
     }

@@ -8,6 +8,7 @@ class PropertyType extends Model
 {
     protected $table =  'property_types';
     protected $fillable = ['name','slug'];
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;

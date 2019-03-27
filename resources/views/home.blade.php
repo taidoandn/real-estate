@@ -15,7 +15,6 @@
                     @endif
                     @component('component.who')
                     @endcomponent
-                    {{-- You are logged in as <strong>USER</strong> --}}
                 </div>
             </div>
         </div>

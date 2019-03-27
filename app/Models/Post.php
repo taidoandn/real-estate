@@ -12,6 +12,8 @@ class Post extends Model
         'district_id','user_id','detail_id','area','unit','type_id','description'
     ];
 
+    protected $currency = "VND";
+
     public function setTitleAttribute($value){
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = str_slug($value);
@@ -38,7 +40,7 @@ class Post extends Model
     }
 
     public function city(){
-        return $this->district->belongsTo('App\Models\City', 'city_id', 'id');
+        return $this->district->city();
     }
 
     public function conveniences(){
@@ -48,6 +50,36 @@ class Post extends Model
     public function images()
     {
         return $this->hasMany('App\Models\PropertyImage', 'post_id', 'id');
+    }
+
+    public function scopeIsPublished($query){
+        return $query->where('status','published');
+    }
+
+    public function getPriceFormatAttribute(){
+        $unit = $this->attributes['unit'];
+        switch ($unit) {
+            case 'total_area':
+                return number_format($this->attributes['price'],0,',','.')." $this->currency / Total Area";
+                break;
+            case 'm2':
+                return number_format($this->attributes['price'],0,',','.')." $this->currency / m<sup>2</sup>";
+                break;
+            case 'month':
+                return number_format($this->attributes['price'],0,',','.')." $this->currency / Month";
+                break;
+            default:
+                return number_format($this->attributes['price'],0,',','.')." $this->currency / Year";
+                break;
+        }
+    }
+
+    public function getDescriptionHtmlAttribute(){
+        return \Parsedown::instance()->text($this->description);
+    }
+
+    public function getCreatedDateAttribute(){
+        return $this->created_at->diffForHumans();
     }
 
 }

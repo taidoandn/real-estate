@@ -12,7 +12,7 @@
 </section>
 <section class="content">
     <div class="row">
-        <form action="{{ route('admin.post.store') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+        <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
             @csrf
             @method('POST')
             <div class="col-md-12">
@@ -246,7 +246,7 @@
                                         @if ($convenience->type == "exterior")
                                         <div class="checkbox col-md-6">
                                             <label><input type="checkbox" name="conveniences[]"
-                                                    {{ in_array($convenience->id, old('conveniences', [])) ? 'checked' : '' }}
+                                                {{ in_array($convenience->id, old('conveniences', [])) ? 'checked' : '' }}
                                                     value="{{ $convenience->id }}">{{
                                                 $convenience->name }}</label>
                                         </div>
@@ -385,7 +385,7 @@
             var old_district_id = '{{  old('district_id') ?? "" }}';
             $.ajax({
                 type: 'get',
-                url: '{{ route('admin.api.districts') }}',
+                url: '{{ route('ajax.districts') }}',
                 data: { city_id: city_id },
                 dataType: "json",
                 success: function(data) {

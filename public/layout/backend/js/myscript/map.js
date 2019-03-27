@@ -41,7 +41,7 @@ function initSeachBox () {
     });
 }
 
-function showMap(pos = {lat: 16.047079, lng: 108.206230},zoom = 8) {
+function showMap(pos = {lat: 16.047079, lng: 108.206230},zoom = 12) {
     map = new google.maps.Map(document.getElementById('map'), {
         center: pos,
         zoom: zoom,
@@ -58,7 +58,14 @@ function showMap(pos = {lat: 16.047079, lng: 108.206230},zoom = 8) {
         geocoder.geocode({'latLng': event.latLng}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
-                    $("#address").val(results[0].formatted_address);
+                    var address = [];
+                    $.each(results[0].address_components, function (key, value) {
+                        if (value.types != 'postal_code') {
+                            address.push(value.long_name);
+                        }
+                    });
+                    $("#address").val(address.join(", "));
+                    // $("#address").val(results[0].formatted_address);
                 }
             }
         });
@@ -86,6 +93,7 @@ function successCallback(position) {
         $("#latitude").val(latlng.lat);
         $("#longitude").val(latlng.lng);
         $("#address").val(location.results[0].formatted_address);
+        console.log(location.results[0]);
     })
 }
 
@@ -98,7 +106,6 @@ function createMarker(pos){
         position: pos,
         animation: google.maps.Animation.BOUNCE,
         clickable: true,
-        draggable: true
     });
     marker.setMap(map);
 }

@@ -14,18 +14,17 @@
     <div id="navbar" class="navbar-collapse collapse">
 
         <ul class="nav navbar-nav navbar-right">
-            @if (!Auth::check())
+            @guest
+                <li>
+                    <a href="{{ route('login') }}"> <i class="fa fa-lock"></i> Login </a>
+                </li>
+                <li>
+                    <a href="{{ route('register') }}"> <i class="fa fa-save"></i>
+                        Register</a>
+                </li>
+            @endguest
             <li>
-                <a href="https://demo.themeqx.com/themeqxestate/login"> <i class="fa fa-lock"></i> Login </a>
-            </li>
-            <li>
-                <a href="https://demo.themeqx.com/themeqxestate/user/create"> <i class="fa fa-save"></i>
-                    Register</a>
-            </li>
-            @endif
-
-            <li>
-                <a href="https://demo.themeqx.com/themeqxestate/dashboard/u/posts/create"> <i class="fa fa-tag"></i>
+                <a href="{{ route('posts.create') }}"> <i class="fa fa-tag"></i>
                     Post an ad</a>
             </li>
             <li>
