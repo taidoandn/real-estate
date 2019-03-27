@@ -1,7 +1,5 @@
 <?php
-
-$DATABASE_URL = parse_url('postgres://dsbebylzljcizo:24d20dc6d717f9b6a5eb31e75a10954a343d7cf780811831a33a803565db7d86@ec2-50-17-231-192.compute-1.amazo
-naws.com:5432/d5uj8iurconq13');
+$DATABASE_URL = parse_url(getenv("DATABASE_URL"));
 return [
 
     /*
@@ -15,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' => env('DB_CONNECTION', 'pgsql_production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -58,7 +56,7 @@ return [
             'engine' => null,
         ],
 
-        'pgsql' => [
+        'pgsql_production' => [
             'driver' => 'pgsql',
             'host' => $DATABASE_URL["host"],
             'port' => $DATABASE_URL["port"],
@@ -69,6 +67,19 @@ return [
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'require',
+        ],
+        'pgsql' => [
+            'driver' => 'pgsql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'schema' => 'public',
+            'sslmode' => 'prefer',
         ],
 
         'sqlsrv' => [
