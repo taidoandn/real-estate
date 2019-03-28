@@ -37,7 +37,6 @@ class AppServiceProvider extends ServiceProvider
             $property_types = PropertyType::get();
             $view->with(['cities'=>$cities,'conveniences'=>$conveniences,'property_types'=>$property_types]);
         });
-        \Debugbar::disable();
     }
 
     /**
