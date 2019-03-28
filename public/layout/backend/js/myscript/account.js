@@ -20,7 +20,7 @@ function editForm(id) {
     $('.btn-save').text('Chỉnh sửa');
     $.ajax({
         type: "get",
-        url: base_url + "/admin/account/" + id + "/edit",
+        url: base_url + "/admin/accounts/" + id + "/edit",
         data: $("#modal-form #form-account").serialize(),
         dataType: "json",
         success: function (data) {
@@ -46,9 +46,9 @@ $(document).ready(function () {
 
         var id = $("#id").val();
         if (save_method == 'add') {
-            url = base_url + "/admin/account";
+            url = base_url + "/admin/accounts";
         }else{
-            url = base_url+ "/admin/account/" + id;
+            url = base_url+ "/admin/accounts/" + id;
         }
 
         $.ajax({
@@ -79,7 +79,7 @@ function deleteData(id) {
     if (confirm('Bạn có chắc là muốn xóa?')) {
         $.ajax({
             type: "post",
-            url: base_url+ "/admin/account/" + id ,
+            url: base_url+ "/admin/accounts/" + id ,
             data: {
                 '_method' : "DELETE",
                 '_token' : csrf_token
