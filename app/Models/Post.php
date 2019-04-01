@@ -74,6 +74,23 @@ class Post extends Model
         }
     }
 
+    public function scopeSort($q,$sortBy){
+        switch ($sortBy) {
+            case 'latest':
+                $q->orderBy('created_at','desc');
+                break;
+            case 'price_asc':
+                $q->orderBy('price','asc');
+                break;
+            case 'price_desc':
+                $q->orderBy('price','desc');
+                break;
+            default:
+                $q->orderBy('id','desc');
+                break;
+        }
+    }
+
     public function getDescriptionHtmlAttribute(){
         return \Parsedown::instance()->text($this->description);
     }

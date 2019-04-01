@@ -30,9 +30,9 @@ class SearchController extends Controller
                 $q->whereIn('id',request()->convenience);
             });
         });
-        $query->when($request->property_type , function ($q){
-            $q->whereHas('property_type',function ($q){
-                $q->where('name',request()->property_type);
+        $query->when($request->property_type , function ($q) use($request){
+            $q->whereHas('property_type',function ($q) use($request){
+                $q->where('slug',$request->property_type);
             });
         });
         $query->when($request->q , function ($q) use($request){
@@ -42,20 +42,7 @@ class SearchController extends Controller
             $q->where('purpose',$request->purpose);
         });
         $query->when($request->sort , function ($q) use($request){
-            switch ($request->sort) {
-                case 'latest':
-                    $q->orderBy('created_at','desc');
-                    break;
-                case 'price_asc':
-                    $q->orderBy('price','asc');
-                    break;
-                case 'price_desc':
-                    $q->orderBy('price','desc');
-                    break;
-                default:
-                    $q->orderBy('id','desc');
-                    break;
-            }
+            $q->sort($request->sort);
         });
         $sort = $request->sort;
         $grid    = $request->gridView === 'false' ? 'false' : 'true';
