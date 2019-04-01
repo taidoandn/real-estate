@@ -13,8 +13,7 @@
                     <li>
                         <a href="/cdn-cgi/l/email-protection#0c65626a634c6f797f786361697e226f63612c">
                             <i class="fa fa-envelope"></i>
-                            <span class="__cf_email__"
-                                data-cfemail="771e1911183714020403181a12055914181a">ádasd</span>
+                            <span class="__cf_email__" data-cfemail="771e1911183714020403181a12055914181a">ádasd</span>
                         </a>
                     </li>
                 </ul>
@@ -22,8 +21,8 @@
 
         </div>
         <div class="col-md-8 col-sm-12">
-            @if (Auth::check())
             <div class="topContactInfo">
+                @if (Auth::check())
                 <ul class="nav nav-pills navbar-right">
                     <li>
                         <a href="{{ route('profile.index') }}">
@@ -37,17 +36,15 @@
                     </li>
                 </ul>
                 @else
-                <form method="POST" action="{{ route('login') }}" accept-charset="UTF-8"
-                    class="navbar-form navbar-right" role="form">
-                    @csrf
-                    <div class="form-group">
-                        <input type="email" class="form-control" name="email" placeholder="Email address">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-success">Sign In</button>
-                </form>
+                <ul class="nav nav-pills navbar-right">
+                    <li>
+                        <a href="{{ route('login') }}"> <i class="fa fa-lock"></i> Login </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('register') }}"> <i class="fa fa-save"></i>
+                            Register</a>
+                    </li>
+                </ul>
                 @endif
             </div>
         </div>

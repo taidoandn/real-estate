@@ -30,7 +30,7 @@ class PostStoreRequest extends FormRequest
             'area'            => 'required|numeric',
             'description'     => 'required|min:100',
             'district_id'     => 'required',
-            'city'            => 'required',
+            'city_id'         => 'required|exists:cities,id',
             'address'         => 'required',
             'latitude'        => 'required',
             'longitude'       => 'required',

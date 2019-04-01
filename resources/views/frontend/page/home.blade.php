@@ -44,7 +44,7 @@
                                 <tr>
                                     <td>
                                         <a class="location text-muted">
-                                            <i class="fa fa-map-marker"></i> {{ $post->district->city->name }} </a>
+                                            <i class="fa fa-map-marker"></i> {{ str_limit($post->district->city->name ." / ".$post->district->name, 16) }} </a>
                                     </td>
                                     <td>
                                         <p class="date-posted text-muted"> <i class="far fa-clock"></i> 1 year ago</p>
@@ -75,7 +75,7 @@
     </div>
 </div>
 @endsection
-@section('js')
+@push('js')
 <script>
     $(document).ready(function () {
         $(".themeqx_new_premium_ads_wrap").owlCarousel({
@@ -170,4 +170,48 @@
     });
 
 </script>
-@endsection
+<script>
+    $(document).ready(function () {
+        var old_district_id = '{{ request()->district_id ?? null }}';
+        $('select[name="city_id"]').change(function () {
+            $('select[name="district_id"]').select2('val',"");
+            var city_id = $(this).val();
+            $.ajax({
+                type : 'get',
+                url : '{{ route('ajax.districts') }}',
+                data : { city_id : city_id },
+                success : function (data) {
+                    getDistrict(data);
+                }
+            });
+        });
+        if($('select[name="city_id"]').val()) {
+            var city_id = $('select[name="city_id"]').val();
+            $.ajax({
+                type : 'get',
+                url : '{{ route('ajax.districts') }}',
+                data : { city_id : city_id },
+                success : function (data) {
+                    getDistrict(data,old_district_id);
+                }
+            });
+        }
+    });
+
+    function getDistrict(data,district_id = null){
+        var options = '';
+        options += '<option value="" selected> Chọn Quận/huyện </option>';
+        if (data.length > 0) {
+            $.each(data, function (key, value) {
+                options += "<option value='" + value.id + "'>" + value.name + "</option>";
+            });
+            $('select[name="district_id"]').html(options);
+            $('select[name="district_id"]').select2();
+            $('select[name="district_id"]').val(district_id).change();
+        }else {
+            $('select[name="district_id"]').html(options);
+            $('select[name="district_id"]').select2();
+        }
+    }
+</script>
+@endpush

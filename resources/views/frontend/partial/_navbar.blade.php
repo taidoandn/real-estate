@@ -14,15 +14,6 @@
     <div id="navbar" class="navbar-collapse collapse">
 
         <ul class="nav navbar-nav navbar-right">
-            @guest
-                <li>
-                    <a href="{{ route('login') }}"> <i class="fa fa-lock"></i> Login </a>
-                </li>
-                <li>
-                    <a href="{{ route('register') }}"> <i class="fa fa-save"></i>
-                        Register</a>
-                </li>
-            @endguest
             <li>
                 <a href="{{ route('posts.create') }}"> <i class="fa fa-tag"></i>
                     Post an ad</a>

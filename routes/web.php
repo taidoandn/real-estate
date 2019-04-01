@@ -36,7 +36,7 @@ Route::group(['prefix' => 'profile','middleware'=>'auth'], function () {
     Route::get('/change-pass', 'ProfileController@changePassword')->name('profile.change-pass');
 });
 
-Route::get('/user-logout','Auth\LoginController@userLogout')->name('user.logout');
+Route::get('/logout','Auth\LoginController@userLogout')->name('user.logout');
 
 Route::group(['prefix' => 'ajax','as'=>'ajax.'], function () {
     Route::post('/upload-image','AjaxController@uploadImage')->name('upload-image');

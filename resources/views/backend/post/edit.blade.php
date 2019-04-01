@@ -26,9 +26,9 @@
                                     <input type="text" id="title" class="form-control" value="{{ $post->title ?? '' }}" name="title"
                                         placeholder="Nhập tiêu đề">
                                 </div>
-                                <span class="help-block" role="alert">
+                                <strong class="help-block" role="alert">
                                     {{ $errors->first('title') }}
-                                </span>
+                                </strong>
                             </div>
                             <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                                 <label for="description" class="col-md-2 control-label">Thông tin mô tả</label>
@@ -37,9 +37,9 @@
 										{{ $post->description }}
                                     </textarea>
                                 </div>
-                                <span class="help-block" role="alert">
+                                <strong class="help-block" role="alert">
                                     {{ $errors->first('description') }}
-                                </span>
+                                </strong>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -51,9 +51,9 @@
                                         <option {{ $post->type_id == $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{$type->name}}</option>
                                         @endforeach
                                     </select>
-                                    <span class="help-block" role="alert">
+                                    <strong class="help-block" role="alert">
                                         {{ $errors->first('type_id') }}
-                                    </span>
+                                    </strong>
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('purpose') ? 'has-error' : ''}}">
@@ -61,21 +61,21 @@
                                 <div class="radio col-md-8">
                                     <select name="purpose" id="purpose" class="form-control">
                                         <option value="">Chọn hình thức</option>
-                                        <option {{ $post->purpose == 'sale'? 'selected' : '' }} value="sale">Bán</option>
-                                        <option {{ $post->purpose == 'rent' ? 'selected' : '' }} value="rent">Cho thuê</option>
+                                        <option {{ old('purpose',$post->purpose) == 'sale'? 'selected' : '' }} value="sale">Bán</option>
+                                        <option {{ old('purpose',$post->purpose) == 'rent' ? 'selected' : '' }} value="rent">Cho thuê</option>
                                     </select>
-                                    <span class="help-block" role="alert">
+                                    <strong class="help-block" role="alert">
                                         {{ $errors->first('purpose') }}
-                                    </span>
+                                    </strong>
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('price') ? 'has-error' : ''}}">
                                 <label class="col-md-4 control-label">Giá (VNĐ)</label>
                                 <div class="col-md-8">
                                     <input type="text" name="price" value="{{ $post->price ?: ''}}" class="form-control">
-                                    <span class="help-block" role="alert">
+                                    <strong class="help-block" role="alert">
                                         {{ $errors->first('price') }}
-                                    </span>
+                                    </strong>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -91,9 +91,9 @@
                                 <label for="area" class="col-md-4 control-label">Diện tích (m<sup>2</sup>)</label>
                                 <div class="col-md-8">
                                     <input type="text" name="area" value="{{ $post->area ?: ''}}" class="form-control">
-                                    <span class="help-block" role="alert">
+                                    <strong class="help-block" role="alert">
                                         {{ $errors->first('area') }}
-                                    </span>
+                                    </strong>
                                 </div>
                             </div>
 
@@ -105,9 +105,9 @@
                                         <option {{ $post->status == 'published' ? 'selected' : ''}} value="published">Published</option>
                                         <option {{ $post->status == 'blocked' ? 'selected' : ''}} value="blocked">Blocked</option>
                                     </select>
-                                    <span class="help-block" role="alert">
+                                    <strong class="help-block" role="alert">
                                         {{ $errors->first('status') }}
-                                    </span>
+                                    </strong>
                                 </div>
                             </div>
 
@@ -119,9 +119,9 @@
                                             <option {{ $post->user_id == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
-                                    <span class="help-block" role="alert">
+                                    <strong class="help-block" role="alert">
                                         {{ $errors->first('user_id') }}
-                                    </span>
+                                    </strong>
                                 </div>
                             </div>
                         </div>
@@ -130,14 +130,14 @@
                                 <label for="description" class="col-md-2 control-label">Hình ảnh</label>
                                 <input type="file" name="fImage" id="img" class="form-control hidden" onchange="changeImg(this)">
                                 <img id="avatar"  src="{{ asset('uploads/images/'.$post->image ?? 'layout/backend/img/new_seo-10-512.png') }}">
-                                <span class="help-block" role="alert">
+                                <strong class="help-block" role="alert">
                                     {{ $errors->first('fImage') }}
-                                </span>
+                                </strong>
                             </div>
                         </div>
 
                         <div class="col-md-12">
-                            <legend>Image</legend>
+                            <legend>Ảnh chi tiết</legend>
                             <div class="progress">
                                 <div id="progressBar" class="progress-bar progress-bar-striped active " role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
                                     0%
@@ -174,7 +174,7 @@
                                     <input type="number" min="0" value="{{ $post->detail->floor ?? null }}" placeholder="floor"
                                         name="floor" class="form-control">
                                 </div>
-                                <span class="help-block">tầng</span>
+                                <strong class="help-block">tầng</strong>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Số phòng ngủ</label>
@@ -182,7 +182,7 @@
                                     <input type="number" min="0" value="{{ $post->detail->bed_room ?? null }}" placeholder="bed_room"
                                         name="bed_room" class="form-control">
                                 </div>
-                                <span class="help-block">phòng</span>
+                                <strong class="help-block">phòng</strong>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Số phòng tắm</label>
@@ -190,7 +190,7 @@
                                     <input type="number" min="0" value="{{ $post->detail->bath ?? null }}" placeholder="bath"
                                         name="bath" class="form-control">
                                 </div>
-                                <span class="help-block">phòng</span>
+                                <strong class="help-block">phòng</strong>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Ban công</label>
@@ -198,7 +198,7 @@
                                     <input type="number" min="0" value="{{ $post->detail->balcony ?? null }}" placeholder="balcony"
                                         name="balcony" class="form-control">
                                 </div>
-                                <span class="help-block">chỗ</span>
+                                <strong class="help-block">chỗ</strong>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Toilet</label>
@@ -206,7 +206,7 @@
                                     <input type="number" value="{{ $post->detail->toilet ?? null }}" min="0" placeholder="toilet"
                                         name="toilet" class="form-control">
                                 </div>
-                                <span class="help-block">cái</span>
+                                <strong class="help-block">cái</strong>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label m-r-10">Bổ sung</label>
@@ -231,12 +231,12 @@
                                         class="form-control"
                                         @foreach ($post->distances as $post_distance)
                                             @if ($post_distance->id == $distance->id)
-                                                value="{{ $post_distance->pivot->meters }}"
+                                                value="{{ old('distances.'.$distance->id,$post_distance->pivot->meters) }}"
                                             @endif
                                         @endforeach
                                     />
                                 </div>
-                                <span class="help-block">meters</span>
+                                <strong class="help-block">meters</strong>
                             </div>
                             @endforeach
                         </div>
@@ -253,9 +253,10 @@
                                             <label><input type="checkbox"
                                                 @foreach ($post->conveniences as $post_convenience)
                                                     @if ($post_convenience->id == $convenience->id )
-                                                    checked
+                                                        checked
                                                     @endif
                                                 @endforeach
+
                                                 name="conveniences[]" value="{{ $convenience->id }}">
                                                 {{$convenience->name}}</label>
                                         </div>
@@ -289,18 +290,18 @@
                         <div class="col-md-12">
                             <legend>Thông tin địa điểm</legend>
                             <div class="col-md-6">
-                                <div class="form-group {{ $errors->has('city') ? 'has-error' : '' }}">
+                                <div class="form-group {{ $errors->has('city_id') ? 'has-error' : '' }}">
                                     <label class="col-md-4 control-label">Thành phố</label>
                                     <div class="col-md-8">
-                                        <select name="city" id="city" class="form-control select2">
+                                        <select name="city_id" id="city" class="form-control select2">
                                             <option value="">Chọn thành phố</option>
                                             @foreach ($cities as $city)
-                                            <option {{ $post->city->id == $city->id ? 'selected' : '' }} value="{{ $city->id }}">{{$city->name }}</option>
+                                            <option {{ $city->id == old('city_id',$post->city->id) ? 'selected' : '' }} value="{{ $city->id }}">{{$city->name }}</option>
                                             @endforeach
                                         </select>
-                                        <span class="help-block" role="alert">
-                                            {{ $errors->first('city') }}
-                                        </span>
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('city_id') }}
+                                        </strong>
                                     </div>
                                 </div>
                                 <div class="form-group {{ $errors->has('district_id') ? 'has-error' : '' }}">
@@ -309,9 +310,10 @@
                                         <select name="district_id" id="district_id" class="form-control select2">
                                             <option value="">Chọn quận/huyện</option>
                                         </select>
-                                        <span class="help-block" role="alert">
+
+                                        <strong class="help-block" role="alert">
                                             {{ $errors->first('district_id') }}
-                                        </span>
+                                        </strong>
                                     </div>
                                 </div>
                                 <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
@@ -319,9 +321,9 @@
                                     <div class="col-md-8">
                                         <input type="text" class="form-control" value="{{ $post->address ?? '' }}" name="address"
                                             id="address">
-                                        <span class="help-block" role="alert">
+                                        <strong class="help-block" role="alert">
                                             {{ $errors->first('address') }}
-                                        </span>
+                                        </strong>
                                     </div>
                                 </div>
                                 <div class="form-group {{ $errors->has('latitude') ? 'has-error' : '' }}">
@@ -329,19 +331,20 @@
                                     <div class="col-md-8">
                                         <input readonly type="text" class="form-control" value="{{ $post->latitude ?? '' }}"
                                             name="latitude" id="latitude">
-                                        <span class="help-block" role="alert">
+                                        <strong class="help-block" role="alert">
                                             {{ $errors->first('latitude') }}
-                                        </span>
+                                        </strong>
                                     </div>
+
                                 </div>
                                 <div class="form-group {{ $errors->has('longitude') ? 'has-error' : '' }}">
                                     <label class="col-md-4 control-label">Kinh độ</label>
                                     <div class="col-md-8">
                                         <input readonly type="text" class="form-control"
                                         value="{{ $post->longitude ?? '' }}" name="longitude" id="longitude">
-                                        <span class="help-block" role="alert">
+                                        <strong class="help-block" role="alert">
                                             {{ $errors->first('longitude') }}
-                                        </span>
+                                        </strong>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -411,41 +414,52 @@
                 $('select[name="unit"]').val(old_unit);
             }
         }
-
-        function loadDistrict(city_id) {
-            var old_city_id = '{{ $post->city->id }}';
-            var old_district_id = "{{ $post->district_id }}";
-            $.ajax({
-                type: 'get',
-                url: '{{ route('ajax.districts') }}',
-                data: { city_id: city_id },
-                success: function(data) {
-                    var options ="<option value=''> Chọn quận/huyện</option>";
-
-                    $.each(data, function(key, value) {
-                        options += "<option value='" + value.id + "'>" + value.name + "</option>";
-                    });
-
-                    $('select[name="district_id"]').html(options);
-
-                    if(old_city_id == city_id && old_district_id) {
-                        $('select[name="district_id"]').val(old_district_id);
-                    }
-                }
-            });
-        }
-
-        if($('select[name="city"]').val()) {
-            var city_id = $('select[name="city"]').val();
-            loadDistrict(city_id);
-        }
-
-        $('select[name="city"]').change(function() {
-            var city_id = $(this).val();
-            loadDistrict(city_id);
-        });
-
-
     });
 </script>
+
+<script>
+    $(document).ready(function () {
+        $('select[name="city_id"]').change(function () {
+            $('select[name="district_id"]').select2('val',"");
+            var city_id = $(this).val();
+            getDistrict(city_id);
+        });
+        if($('select[name="city_id"]').val()) {
+            var city_id = $('select[name="city_id"]').val();
+            var district_id = '{{ old("district_id",$post->district_id) ?? null }}'
+            getDistrict(city_id,district_id);
+        }
+    });
+
+    function getDistrict(city_id,district_id = null){
+        $.ajax({
+            type : 'get',
+            url : '{{ route('ajax.districts') }}',
+            data : { city_id : city_id },
+            success : function (data) {
+                var options = '';
+                options += '<option value="" selected> Chọn Quận/huyện </option>';
+                if (data.length > 0) {
+                    $.each(data, function (key, value) {
+                        options += "<option value='" + value.id + "'>" + value.name + "</option>";
+                    });
+                    $('select[name="district_id"]').html(options);
+                    $('select[name="district_id"]').select2();
+                    $('select[name="district_id"]').val(district_id).change();
+                }else {
+                    $('select[name="district_id"]').html(options);
+                    $('select[name="district_id"]').select2();
+                }
+            }
+        });
+    }
+</script>
+{{--
+@if ($errors)
+    @foreach ($errors->all() as $error)
+        <script>
+            toastr.error("{{ $error }}");
+        </script>
+    @endforeach
+@endif --}}
 @endpush

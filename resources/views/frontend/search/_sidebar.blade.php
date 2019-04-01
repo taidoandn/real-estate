@@ -87,7 +87,7 @@
                 @foreach ($property_types as $type)
                 <div class="radio">
                     <label class="radio-inline">
-                        <input type="radio" value="{{ $type->slug }}" class="property_type selector" name="type">
+                        <input type="radio" value="{{ $type->slug }}" class="property_type selector" name="property_type">
                         {{ $type->name }} </label>
                 </div>
                 @endforeach

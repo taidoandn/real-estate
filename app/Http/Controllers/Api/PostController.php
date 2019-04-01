@@ -85,7 +85,9 @@ class PostController extends Controller
     {
         $data = $request->all();
         if ($request->hasFile('fImage')) {
-            $this->deleteImage($post->image);
+            if ($post->image != 'call-to-action.jpg' && $post->image != 'themeqx-cover.jpeg') {
+                $this->deleteImage($post->image);
+            }
             $image_name = $this->saveImage($request->file('fImage'));
             $data['image'] = $image_name;
         }
@@ -108,7 +110,7 @@ class PostController extends Controller
             $post->distances()->updateExistingPivot($key,['meters'=> $distance]);
         }
 
-        return new PostResource($post);
+        return response()->json($post);
     }
 
     /**
@@ -119,6 +121,13 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->image != 'call-to-action.jpg' && $post->image != 'themeqx-cover.jpeg') {
+            $this->deleteImage($post->image);
+        }
+        $property_images = $post->images;
+        foreach ($property_images as $image) {
+            $this->deleteImage($image->path);
+        }
         $post->delete();
         return response()->json(['success'=>'deleted!']);
     }
@@ -146,5 +155,15 @@ class PostController extends Controller
             return response()->json(null, 404);
         }
         return response()->json($convenience, 200);
+    }
+
+    public function detail(Post $post){
+        $detail = $post->detail;
+        return response()->json($detail, 200);
+    }
+
+    public function property_type(Post $post){
+        $property_type = $post->property_type;
+        return response()->json($property_type, 200);
     }
 }

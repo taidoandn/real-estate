@@ -1,8 +1,8 @@
 @extends('frontend.master')
 @section('title',$post->title)
-@section('css')
+@push('css')
 <link rel="stylesheet" href="{{ asset('layout/frontend/plugins/fotorama-4.6.4/fotorama.css') }}">
-@endsection
+@endpush
 @section('content')
 <div class="modern-single-ad-top-description-wrap">
     <div class="container">
@@ -346,8 +346,8 @@
 </div>
 @endsection
 
-@section('js')
+@push('js')
 <script src="{{ asset('layout/frontend/js/myscript/map.js') }}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQuDQmtiHkS7CcriyEiYXWja3ODrG4vFI&callback=initMap"></script>
 <script src="{{ asset('layout/frontend/plugins/fotorama-4.6.4/fotorama.js') }}"></script>
-@endsection
+@endpush

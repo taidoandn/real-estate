@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\City;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Distance;
-use App\Models\Convenience;
-use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
@@ -34,12 +30,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        $property_types = PropertyType::get();
-        $distances = Distance::get();
-        $conveniences = Convenience::get();
-        $cities = City::get();
         $users = User::get();
-        return view('backend.post.create',compact('property_types','distances','conveniences','cities','users'));
+        return view('backend.post.create',compact('users'));
     }
 
     /**
@@ -101,13 +93,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $property_types = PropertyType::get();
-        $distances = Distance::get();
-        $conveniences = Convenience::get();
-        $cities = City::get();
         $users = User::get();
-        $post = Post::findOrFail($id);
-        return view('backend.post.edit',compact('post','property_types','distances','conveniences','cities','users'));
+        $post  = Post::with('detail','district.city','property_type')->findOrFail($id);
+        return view('backend.post.edit',compact('post','users'));
     }
 
     /**
@@ -118,6 +106,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(PostUpdateRequest $request, $id){
+        dd($request->all());
         $post = Post::findOrFail($id);
 
         $data = $request->all();

@@ -30,11 +30,11 @@
 
     <div class="wrapper">
         <header class="main-header">
-            @include('backend.partial.header')
+            @include('backend.partial._header')
         </header>
 
         <aside class="main-sidebar">
-            @include('backend.partial.navbar')
+            @include('backend.partial._navbar')
         </aside>
         <div class="content-wrapper">
             @yield('content')

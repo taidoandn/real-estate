@@ -19,7 +19,7 @@
                                     class="thumb-listing-table" alt="">
                             </td>
                             <td>
-                                <h5><a href="https://demo.themeqx.com/themeqxestate/ad/exclusive-flat-in-cheap-price-in-rome"
+                                <h5><a href="#"
                                         target="_blank">{{ $post->title }}</a> (<span
                                         class="text-success">{{ ucwords($post->status) }}</span>)</h5>
                                 <p class="text-muted">
@@ -60,11 +60,11 @@
 </div> <!-- /#container -->
 @endsection
 
-@section('css')
+@push('css')
 <link rel="stylesheet" href="{{ asset('layout\frontend\css\admin.css') }}">
 <link rel="stylesheet" href="{{ asset('layout\frontend\plugins\metisMenu\dist\metisMenu.min.css') }}">
-@endsection
-@section('js')
+@endpush
+@push('js')
 <script src="{{ asset('layout\frontend\plugins\metisMenu\dist\metisMenu.min.js') }}"></script>
 <script>
     $(function () {
@@ -72,4 +72,4 @@
     });
 
 </script>
-@endsection
+@endpush

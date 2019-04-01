@@ -61,11 +61,11 @@
 </div>
 @endsection
 
-@section('css')
+@push('css')
 <link rel="stylesheet" href="{{ asset('layout\frontend\css\admin.css') }}">
 <link rel="stylesheet" href="{{ asset('layout\frontend\plugins\metisMenu\dist\metisMenu.min.css') }}">
-@endsection
-@section('js')
+@endpush
+@push('js')
 <script src="{{ asset('layout\frontend\plugins\metisMenu\dist\metisMenu.min.js') }}"></script>
 <script>
     $(function () {
@@ -73,4 +73,4 @@
     });
 
 </script>
-@endsection
+@endpush

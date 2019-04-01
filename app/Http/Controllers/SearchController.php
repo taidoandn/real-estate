@@ -32,7 +32,7 @@ class SearchController extends Controller
         });
         $query->when($request->property_type , function ($q){
             $q->whereHas('property_type',function ($q){
-                $q->where('name','LIKE',request()->property_type);
+                $q->where('name',request()->property_type);
             });
         });
         $query->when($request->q , function ($q) use($request){
@@ -41,10 +41,27 @@ class SearchController extends Controller
         $query->when($request->purpose , function ($q) use($request){
             $q->where('purpose',$request->purpose);
         });
+        $query->when($request->sort , function ($q) use($request){
+            switch ($request->sort) {
+                case 'latest':
+                    $q->orderBy('created_at','desc');
+                    break;
+                case 'price_asc':
+                    $q->orderBy('price','asc');
+                    break;
+                case 'price_desc':
+                    $q->orderBy('price','desc');
+                    break;
+                default:
+                    $q->orderBy('id','desc');
+                    break;
+            }
+        });
+        $sort = $request->sort;
         $grid    = $request->gridView === 'false' ? 'false' : 'true';
         $keyword = $request->q;
         $posts   = $query->paginate($this->paginate);
-        return view('frontend.search._data',compact('posts','keyword','grid'))->render();
+        return view('frontend.search._data',compact('posts','keyword','grid','sort'))->render();
     }
 
 

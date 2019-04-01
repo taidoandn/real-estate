@@ -2,13 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Routing\UrlGenerator;
 use App\Models\City;
+use App\Models\Distance;
+use App\Models\Convenience;
+use App\Models\PropertyType;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use App\Models\Convenience;
-use App\Models\PropertyType;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,7 +36,13 @@ class AppServiceProvider extends ServiceProvider
             $cities = City::get();
             $conveniences = Convenience::get();
             $property_types = PropertyType::get();
-            $view->with(['cities'=>$cities,'conveniences'=>$conveniences,'property_types'=>$property_types]);
+            $distances = Distance::get();
+            $view->with([
+                'cities'=>$cities,
+                'conveniences'=>$conveniences,
+                'property_types'=>$property_types,
+                'distances' =>$distances
+                ]);
         });
     }
 

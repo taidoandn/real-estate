@@ -1,7 +1,8 @@
 <?php
-use Faker\Generator as Faker;
+// use Faker\Generator as Faker;
 
-$factory->define(App\Models\Post::class, function (Faker $faker) {
+$faker = Faker\Factory::create('vi_VN');
+$factory->define(App\Models\Post::class, function () use($faker){
     $purpose = $faker->randomElement(['sale','rent']);
     if($purpose == 'sale'){
         $sale = ['total_area' , 'm2'];

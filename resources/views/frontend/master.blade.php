@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('layout/frontend/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('layout/frontend/css/bootstrap-theme.min.css') }}">
 
-    <!-- Font awesome 4.4.0 -->
+    <!-- Font awesome 4.7.0 -->
     <link rel="stylesheet" href="{{ asset('layout/frontend/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('layout/frontend/css/css.css') }}">
     <!-- main select2.css -->
@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="{{ asset('layout/frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('layout/frontend/plugins/owl.carousel.css') }}">
     <script src="{{ asset('layout/frontend/js/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script>
-    @yield('css')
+    @stack('css')
 </head>
 
 <body>
@@ -73,6 +73,7 @@
     <script src="{{ asset('layout/frontend/select2-3.5.3/select2.min.js') }}"></script>
     <script src="{{ asset('layout/frontend/plugins/nprogress/nprogress.js') }}"></script>
     <script src="{{ asset('layout/frontend/plugins/owl.carousel.min.js') }}"></script>
+    @stack('js')
 
     <script type="text/javascript">
         NProgress.start();
@@ -82,60 +83,10 @@
     <!-- Conditional page load script -->
     <script src="{{ asset('layout/frontend/js/main.js') }}"></script>
     <script>
-        $(document).ready(function () {
-            var old_district_id = '{{ request()->district_id ?? null }}';
-            $('select[name="city_id"]').change(function () {
-                $('select[name="district_id"]').select2('val',"");
-                var city_id = $(this).val();
-                $.ajax({
-                    type : 'get',
-                    url : '{{ route('ajax.districts') }}',
-                    data : { city_id : city_id },
-                    success : function (data) {
-                        getDistrict(data);
-                    }
-                });
-            });
-            if($('select[name="city_id"]').val()) {
-                var city_id = $('select[name="city_id"]').val();
-                $.ajax({
-                    type : 'get',
-                    url : '{{ route('ajax.districts') }}',
-                    data : { city_id : city_id },
-                    success : function (data) {
-                        getDistrict(data,old_district_id);
-                    }
-                });
-            }
-        });
-
-        function getDistrict(data,district_id = null){
-            var options = '';
-            options += '<option value="" selected> Select a District </option>';
-            if (data.length > 0) {
-                $.each(data, function (key, value) {
-                    options += "<option value='" + value.id + "'>" + value.name + "</option>";
-                });
-                $('select[name="district_id"]').html(options);
-                $('select[name="district_id"]').select2();
-                $('select[name="district_id"]').val(district_id).change();
-            }else {
-                $('select[name="district_id"]').html(options);
-                $('select[name="district_id"]').select2();
-            }
-        }
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}","Success");
+        @endif
     </script>
-    @if(Session::has('success'))
-    <script>
-        toastr.success("{{ Session::get('success') }}","Success");
-    </script>
-    @endif
-    @if(Session::has('error'))
-    <script>
-        toastr.success("{{ Session::get('error') }}","Error");
-    </script>
-    @endif
-    @yield('js')
 </body>
 
 </html>
