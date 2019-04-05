@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             AdminTableSeeder::class,
             DistanceTableSeeder::class,
             ConvenienceTableSeeder::class,
+            FavoriteTableSeeder::class,
         ]);
 
 

@@ -19,31 +19,16 @@
                                     class="thumb-listing-table" alt="">
                             </td>
                             <td>
-                                <h5><a href="{{ $post->url }}"
-                                        target="_blank">{{ $post->title }}</a> (<span
+                                <h5><a href="{{ $post->url }}" target="_blank">{{ $post->title }}</a> (<span
                                         class="text-success">{{ ucwords($post->status) }}</span>)</h5>
                                 <p class="text-muted">
                                     <i class="fa fa-map-marker"></i> {{ $post->address }}
-                                    <a  href="{{ route('getSearch',['city_id'=>$post->district->city->id,'district_id'=>$post->district->id]) }}">
+                                    <a  href="{{ route('getSearch',
+                                    ['city_id'=>$post->district->city->id,'district_id'=>$post->district->id]) }}">
                                         {{ $post->district->name }}</a>,
                                     <a href="{{ route('getSearch', ['city_id'=>$post->district->city->id]) }}"> {{ $post->district->city->name }}</a>
-                                    <br /> <i class="fa fa-clock-o"></i> {{ $post->created_date }}
+                                    <br /> <i class="fa fa-clock-o"></i> Favorited at : {{ $post->pivot->created_at->format('d M. Y') }}
                                 </p>
-                            </td>
-
-                            <td width="100px">
-                                <a href="{{ route('posts.edit',$post->id) }}"
-                                    class="btn btn-primary"><i class="fa fa-edit"></i> </a>
-                                <a href="javascript:;" class="btn btn-danger"
-                                    onclick="event.preventDefault();
-                                    if(confirm('Are you sure to delete this?'))
-                                        document.getElementById('delete-post-{{ $post->id }}').submit();">
-                                        <i class="fa fa-trash"></i>
-                                </a>
-                                <form id="delete-post-{{ $post->id }}" action="{{ route('posts.destroy',$post->id) }}" method="POST" style="display: none;">
-                                    @csrf
-                                    @method('delete')
-                                </form>
                             </td>
                         </tr>
                       @endforeach

@@ -1,5 +1,5 @@
 @extends('backend.master')
-@section('title','Cập nhật bài viết')
+@section('title','Cập nhật bài viết '.$post->title)
 @section('content')
 <section class="content-header">
     <h1>
@@ -126,8 +126,15 @@
                             </div>
                         </div>
                         <div class="col-md-6 ">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Thỏa thuận</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" {{ $post->negotiable == 1 ? 'checked' : '' }} value="1" name="negotiable" id="negotiable"> </label>
+                                </div>
+                            </div>
                             <div class="form-group {{ $errors->has('fImage') ? 'has-error' : '' }}">
-                                <label for="description" class="col-md-2 control-label">Hình ảnh</label>
+                                <label for="img" class="col-md-2 control-label">Hình ảnh</label>
                                 <input type="file" name="fImage" id="img" class="form-control hidden" onchange="changeImg(this)">
                                 <img id="avatar"  src="{{ asset('uploads/images/'.$post->image ?? 'layout/backend/img/new_seo-10-512.png') }}">
                                 <strong class="help-block" role="alert">
@@ -144,6 +151,7 @@
                                 </div>
                             </div>
                             <div id="image_preview">
+                                <div id="uploaded-ads-image-wrap">
                                 @forelse ($post->images as $image)
                                     <div class="creating-ads-img-wrap" id="image-{{ $image->id }}">
                                     @if (file_exists(public_path('uploads/images/').$image->path))
@@ -153,8 +161,9 @@
                                         </div>
                                     @endif
                                     </div>
-                                @empty
-                                @endforelse
+                                    @empty
+                                    @endforelse
+                                </div>
                                 <div class="file-upload-wrap">
                                     <label>
                                     <input type="file" name="fImages" class="m-l-10 hidden" id="fImages" >
@@ -256,7 +265,6 @@
                                                         checked
                                                     @endif
                                                 @endforeach
-
                                                 name="conveniences[]" value="{{ $convenience->id }}">
                                                 {{$convenience->name}}</label>
                                         </div>
@@ -348,11 +356,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <a href="javascript:void(0)" class="btn bg-blue pull-right m-r-10" onclick="getGeolocation()">Get your current location</a>
+                                    <a href="javascript:void(0)" class="btn bg-blue pull-right m-r-10" onclick="initSeachBox();getGeolocation();">Get your current location</a>
                                 </div>
                             </div>
                             <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                            <div id="map" class="col-md-6">
+                            <div class="col-md-6">
+                                <div id="map" style="width: 100%; height: 400px; margin: 20px 0;"></div>
                             </div>
                         </div>
                         <div class="col-md-12">

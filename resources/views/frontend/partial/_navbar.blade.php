@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="https://demo.themeqx.com/themeqxestate">
+        <a class="navbar-brand" href="{{ route('home') }}">
             Home
         </a>
     </div>

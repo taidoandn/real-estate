@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="{{ asset('layout/frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('layout/frontend/plugins/owl.carousel.css') }}">
     <script src="{{ asset('layout/frontend/js/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script>
+    <script type="text/javascript">
+        var base_url = {!! json_encode(url('/')) !!};
+    </script>
     @stack('css')
 </head>
 

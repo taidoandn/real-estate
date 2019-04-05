@@ -16,18 +16,23 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('frontend.post.create');
+    return view('frontend.post.favorite');
 });
 
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/detail/{slug}','HomeController@getDetail')->name('detail');
 
 Route::get('/search', 'SearchController@getSearch')->name('getSearch');
 Route::post('/search', 'SearchController@postSearch')->name('postSearch');
 
-Route::resource('/posts', 'PostController');
+Route::resource('/posts', 'PostController')->except('show');
+Route::get('/posts/favorite-list','PostController@getFavoritePosts')->name('posts.favorite-list');
+Route::get('/posts/{slug}','PostController@show')->name('posts.show');
+
+//Favorite
+Route::post('/posts/favorite','FavoriteController')->name('posts.favorite');
+
 
 Route::group(['prefix' => 'profile','middleware'=>'auth'], function () {
     Route::get('/', 'ProfileController@index')->name('profile.index');

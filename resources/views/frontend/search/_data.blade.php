@@ -16,11 +16,11 @@
                     <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown"
                         class="dropdown-toggle" href="#">Short by <span class="caret"></span></a>
                     <ul class="dropdown-menu" id="sortList">
-                        <li class="{{ $sort == 'price_desc' ? 'active' : ''}}"><a href="#" data-sort="price_desc">Price
+                        <li class="{{ $sort == 'price_desc' ? 'active' : ''}}"><a href="javascript::void(0)" data-sort="price_desc">Price
                                 high to low</a></li>
-                        <li class="{{ $sort == 'price_asc' ? 'active' : ''}}"><a href="#" data-sort="price_asc">Price
+                        <li class="{{ $sort == 'price_asc' ? 'active' : ''}}"><a href="javascript::void(0)" data-sort="price_asc">Price
                                 low to high</a></li>
-                        <li class="{{ $sort == 'latest' ? 'active' : ''}}"><a href="#" data-sort="latest">Latest</a>
+                        <li class="{{ $sort == 'latest' ? 'active' : ''}}"><a href="javascript::void(0)" data-sort="latest">Latest</a>
                         </li>
                     </ul>
                 </li>
@@ -42,7 +42,7 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="ads-item-thumbnail ad-box-regular">
                     <div class="ads-thumbnail">
-                        <a href="{{ route('detail', ['slug'=>$post->slug]) }}">
+                        <a href="{{ $post->url }}">
                             <img src="{{ asset('uploads/images/'.$post->image) }}" height="400px" class="img-bordered"
                                 alt="{{ $post->title }}">
                             <span class="modern-sale-rent-indicator">
@@ -52,7 +52,7 @@
                     </div>
                     <div class="caption">
                         <h4>
-                            <a href="{{ route('detail', ['slug'=>$post->slug]) }}" title="{{ $post->title }}">
+                            <a href="{{ $post->url }}" title="{{ $post->title }}">
                                 <span>{{ str_limit($post->title, 30) }} </span>
                             </a>
                         </h4>
@@ -88,10 +88,6 @@
                         </table>
 
                     </div>
-
-                    <div class="ribbon-wrapper-red">
-                        <div class="ribbon-red">Urgent</div>
-                    </div>
                 </div>
             </div>
             @endforeach
@@ -105,7 +101,7 @@
                     @foreach ($posts as $post)
                     <tr class="ad-regular">
                         <td width="200px">
-                            <a href="{{ route('detail', ['slug'=>$post->slug]) }}">
+                            <a href="{{ $post->url }}">
                                 <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-responsive"
                                     alt="{{ $post->title }}">
                                 <span class="modern-sale-rent-indicator">
@@ -114,7 +110,7 @@
                             </a>
                         </td>
                         <td>
-                            <h4><a href="{{ route('detail', ['slug'=>$post->slug]) }}">{{ $post->title }}</a> </h4>
+                            <h4><a href="{{ $post->url }}">{{ $post->title }}</a> </h4>
                             <p class="price">
                                 <h5 class="text-warning">{!! $post->priceFormat !!} </h5>
                             </p>
@@ -133,7 +129,6 @@
                                     <i class="fa fa-bed"></i> {{ $post->detail->bed_room }} Bedroom(s) </span>
                                 <span>{{ $post->detail->floor }} Floor(s)</span>
                             </p>
-                            <div class="ribbon-red-bar">Urgent</div>
                         </td>
                     </tr>
                     @endforeach

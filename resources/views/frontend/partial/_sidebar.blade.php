@@ -17,10 +17,7 @@
                         <a href="{{ route('posts.create') }}">Create a post</a>
                     </li>
                     <li>
-                        <a href="/u/posts/pending-lists">Pending for approval</a>
-                    </li>
-                    <li>
-                        <a href="/u/posts/favorite-lists">Favourite posts</a>
+                        <a href="{{ route('posts.favorite-list') }}">Favourite posts</a>
                     </li>
                 </ul>
             </li>

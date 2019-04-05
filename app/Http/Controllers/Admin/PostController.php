@@ -42,7 +42,7 @@ class PostController extends Controller
      */
     public function store(PostStoreRequest $request){
         $data = $request->all();
-
+        $data['negotiable'] = $request->negotiable ? true : false;
         if ($request->hasFile('fImage')) {
             $image_name = $this->saveImage($request->file('fImage'));
             $data['image'] = $image_name;
@@ -94,7 +94,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $users = User::get();
-        $post  = Post::with('detail','district.city','property_type')->findOrFail($id);
+        $post  = Post::with('detail','district.city','property_type','conveniences')->findOrFail($id);
         return view('backend.post.edit',compact('post','users'));
     }
 
@@ -106,10 +106,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(PostUpdateRequest $request, $id){
-        dd($request->all());
         $post = Post::findOrFail($id);
 
         $data = $request->all();
+        $data['negotiable'] = $request->negotiable ? true : false;
         if ($request->hasFile('fImage')) {
             $this->deleteImage($post->image);
             $image_name = $this->saveImage($request->file('fImage'));
@@ -193,8 +193,10 @@ class PostController extends Controller
      * @return void
      */
     public function deleteImage($image_name){
-        if (file_exists(public_path("uploads/images/$image_name"))) {
-            unlink(public_path("uploads/images/$image_name"));
-        };
+        if ($image_name != 'call-to-action.jpg' && $image_name != 'themeqx-cover.jpeg') {
+            if (file_exists(public_path("uploads/images/$image_name"))) {
+                unlink(public_path("uploads/images/$image_name"));
+            };
+        }
     }
 }

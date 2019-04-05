@@ -32,7 +32,7 @@ class Post extends Model
     }
 
     public function user(){
-        return $this->belongsTo('App\Models\User', 'user_id', 'id')->select(['id', 'name']);
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
     public function distances(){
@@ -54,6 +54,10 @@ class Post extends Model
 
     public function scopeIsPublished($query){
         return $query->where('status','published');
+    }
+
+    public function getUrlAttribute(){
+        return route('posts.show',$this->slug);
     }
 
     public function getPriceFormatAttribute(){
@@ -98,5 +102,18 @@ class Post extends Model
     public function getCreatedDateAttribute(){
         return $this->created_at->diffForHumans();
     }
+
+    public function favorites(){
+        return $this->belongsToMany(User::class,'favorites')->withTimestamps();
+    }
+
+    public function getIsFavoritedAttribute(){
+        return $this->isFavorited();
+    }
+
+    public function isFavorited(){
+        return $this->favorites()->where('user_id',auth()->id())->count() > 0;
+    }
+
 
 }

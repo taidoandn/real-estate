@@ -1,4 +1,5 @@
 @extends('frontend.master')
+@section('title','Cập nhật bài viết '.$post->title)
 @section('content')
 @section('css')
 <link rel="stylesheet" href="{{ asset('layout\frontend\css\admin.css') }}">
@@ -84,7 +85,7 @@
                             <div class="col-sm-4">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" value="1" name="negotiable" id="negotiable">
+                                        <input type="checkbox" {{ $post->negotiable == 1 ? 'checked' : '' }} value="1" name="negotiable" id="negotiable">
                                         Thỏa thuận </label>
                                 </div>
                             </div>
@@ -92,64 +93,51 @@
 
 
                         <legend>Thông tin chi tiết</legend>
-
                         <div class="form-group ">
-                            <label for="square_unit_space" class="col-sm-3 control-label">Square Unit Space</label>
+                            <label for="floor" class="col-sm-3 control-label">Tầng</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="square_unit_space" value=""
-                                    name="square_unit_space" placeholder="Square Unit Space">
-
-                                <p class="help-block">Unit should be match with price unit, if any </p>
+                                <input type="number" class="form-control" id="floor" value="{{ old('floor',$post->detail->floor) }}" name="floor" placeholder="Tầng">
                             </div>
                         </div>
 
                         <div class="form-group ">
-                            <label for="floor" class="col-sm-3 control-label">Floor</label>
+                            <label for="bed_room" class="col-sm-3 control-label">Phòng ngủ</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="floor" value="" name="floor"
-                                    placeholder="Ex: 1st or 2nd or 10th">
-
+                                <input type="number" class="form-control" id="bed_room" value="{{ old('bed_room',$post->detail->bed_room) }}" name="bed_room"
+                                    placeholder="Phòng ngủ">
                             </div>
                         </div>
 
                         <div class="form-group ">
-                            <label for="beds" class="col-sm-3 control-label">Beds</label>
+                            <label for="attached_bath" class="col-sm-3 control-label">Phòng tắm</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="beds" value="" name="beds"
-                                    placeholder="Beds">
+                                <input type="number" class="form-control" id="bath" value="{{ old('bath',$post->detail->bath) }}"
+                                    name="bath" placeholder="Phòng tắm">
                             </div>
                         </div>
 
                         <div class="form-group ">
-                            <label for="attached_bath" class="col-sm-3 control-label">Attached bath(s)</label>
+                            <label for="balcony" class="col-sm-3 control-label">Ban công</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="attached_bath" value=""
-                                    name="attached_bath" placeholder="Attached bath(s)">
-                            </div>
-                        </div>
-
-                        <div class="form-group ">
-                            <label for="common_bath" class="col-sm-3 control-label">Common bath(s)</label>
-                            <div class="col-sm-9">
-                                <input type="number" class="form-control" id="common_bath" value="" name="common_bath"
-                                    placeholder="Common bath(s)">
-                            </div>
-                        </div>
-
-                        <div class="form-group ">
-                            <label for="balcony" class="col-sm-3 control-label">Balcony(ies)</label>
-                            <div class="col-sm-9">
-                                <input type="number" class="form-control" id="balcony" value="" name="balcony"
+                                <input type="number" class="form-control" id="balcony" value="{{ old('balcony',$post->detail->balcony) }}" name="balcony"
                                     placeholder="Balcony(ies)">
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="balcony" class="col-sm-3 control-label">Toilet</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" id="toilet" value="{{ old('toilet',$post->detail->toilet) }}" name="toilet"
+                                    placeholder="Toilet">
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label for="additional_details" class="col-sm-3 control-label">Additional details</label>
-                            <div class="col-sm-9">
-                                <label><input type="checkbox" value="1" name="dining_space" /> Dining space </label>
-                                <label><input type="checkbox" value="1" name="living_room" /> Living room </label>
+                            <label for="additional_details" class="col-sm-3 control-label">Bổ sung</label>
+                            <div class="col-sm-9 m-t-05">
+                                <label><input type="checkbox" {{ old('dinning_room',$post->detail->dinning_room) == 1 ? 'checked' : '' }} value="1" name="dinning_room" /> Phòng ăn </label>
+                                <label><input type="checkbox" {{ old('living_room',$post->detail->living_room) == 1 ? 'checked' : '' }} value="1" name="living_room" /> Phòng khách </label>
                             </div>
                         </div>
 
@@ -159,27 +147,37 @@
                             <div class="col-sm-12 m-b-10">
                                 <h5>Ngoại thất</h5>
                                 @foreach ($conveniences as $convenience)
-                                @if ($convenience->type == "exterior")
-                                <div class="checkbox col-sm-3">
-                                    <label>
-                                        <input type="checkbox" value="{{ old('conveniences',$convenience->id) }}"
+                                    @if ($convenience->type == "exterior")
+                                    <div class="checkbox col-sm-3">
+                                        <label>
+                                            <input type="checkbox" value="{{ old('conveniences',$convenience->id) }}"
+                                            @foreach ($post->conveniences as $post_convenience)
+                                                @if ($post_convenience->id == $convenience->id )
+                                                    checked
+                                                @endif
+                                            @endforeach
                                             name="conveniences[]"> {{ $convenience->name }}
-                                    </label>
-                                </div>
-                                @endif
+                                        </label>
+                                    </div>
+                                    @endif
                                 @endforeach
                             </div>
                             <div class="col-sm-12">
                                 <h5>Nội thất</h5>
                                 @foreach ($conveniences as $convenience)
-                                @if ($convenience->type == "interior")
-                                <div class="checkbox col-sm-3">
-                                    <label>
-                                        <input type="checkbox" value="{{ old('conveniences',$convenience->id) }}"
+                                    @if ($convenience->type == "interior")
+                                    <div class="checkbox col-sm-3">
+                                        <label>
+                                            <input type="checkbox" value="{{ old('conveniences',$convenience->id) }}"
+                                            @foreach ($post->conveniences as $post_convenience)
+                                                @if ($post_convenience->id == $convenience->id )
+                                                    checked
+                                                @endif
+                                            @endforeach
                                             name="conveniences[]"> {{ $convenience->name }}
-                                    </label>
-                                </div>
-                                @endif
+                                        </label>
+                                    </div>
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
@@ -206,7 +204,17 @@
                         <div class="form-group ">
                             <div class="col-sm-12">
                                 <div id="uploaded-ads-image-wrap">
-
+                                @forelse ($post->images as $image)
+                                <div class="creating-ads-img-wrap" id="image-{{ $image->id }}">
+                                @if (file_exists(public_path('uploads/images/').$image->path))
+                                    <img src="{{ asset('uploads/images/'.$image->path) }}" class="img-responsive">
+                                    <div class="img-action-wrap">
+                                        <a href="javascript:void(0)" id="{{ $image->id }}" class="imgDeleteBtn"><i class="fa fa-trash-o"></i> </a>
+                                    </div>
+                                @endif
+                                </div>
+                                @empty
+                                @endforelse
                                 </div>
                                 <div class="file-upload-wrap">
                                     <label>
@@ -266,11 +274,11 @@
                             <p><i class="fa fa-info-circle"></i> Click on the below map to get your location and
                                 save </p>
                         </div>
-
                         <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+
                         <div id="map" style="width: 100%; height: 400px; margin: 20px 0;"></div>
                         <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-9">
+                            <div class="col-sm-offset-5">
                                 <button type="submit" class="btn btn-primary">Update ad</button>
                             </div>
                         </div>
@@ -290,6 +298,8 @@
 <script src="{{ asset('layout/editor/ckeditor/ckeditor.js')}}"></script>
 <script src="{{ asset('layout/editor/ckfinder/ckfinder.js')}}"></script>
 <script src="{{ asset('layout\frontend\plugins\metisMenu\dist\metisMenu.min.js') }}"></script>
+<script src="{{ asset('layout/backend/js/myscript/map.js')}}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQuDQmtiHkS7CcriyEiYXWja3ODrG4vFI&callback=initMap&libraries=places"></script>
 <script>
     $(function () {
         $('#side-menu').metisMenu();
@@ -312,8 +322,6 @@
         }
 
         function loadUnit(purpose) {
-            var old_purpose = "{{ old('purpose',$post->purpose) }}";
-            var old_unit = "{{ old('unit',$post->unit) }}";
             if (purpose == 'sale') {
                 var options = "<option value='total_area'>Tổng diện tích</option><option value='m2'>Mét vuông</option>";
                 $('select[name="unit"]').html(options);
@@ -321,6 +329,9 @@
                 var options = "<option value='month'>Tháng</option><option value='year'>Năm</option>";
                 $('select[name="unit"]').html(options);
             }
+
+            var old_purpose = "{{ old('purpose',$post->purpose) }}";
+            var old_unit = "{{ old('unit',$post->unit) }}";
 
             if(old_purpose == purpose && old_unit) {
                 $('select[name="unit"]').val(old_unit);

@@ -34,7 +34,7 @@
         </header>
 
         <aside class="main-sidebar">
-            @include('backend.partial._navbar')
+            @include('backend.partial._sidebar')
         </aside>
         <div class="content-wrapper">
             @yield('content')

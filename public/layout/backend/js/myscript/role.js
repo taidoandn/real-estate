@@ -71,7 +71,7 @@ $(document).ready(function () {
                     $.each(res.errors,function (key,value) {
                         $("#"+key).closest(".form-group")
                                     .addClass("has-error")
-                                    .append('<span class="help-block with-errors">'+value+'</span>');
+                                    .append('<strong class="help-block with-errors">'+value+'</strong>');
                     })
                 }
             },

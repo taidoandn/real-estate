@@ -19,7 +19,7 @@
                 <div>
                     <div class="ads-item-thumbnail ad-box-regular">
                         <div class="ads-thumbnail">
-                            <a href="{{ route('detail', ['slug'=>$post->slug]) }}">
+                            <a href="{{ $post->url }}">
                                 <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-responsive" alt="">
 
                                 <span class="modern-sale-rent-indicator">
@@ -29,7 +29,7 @@
                         </div>
                         <div class="caption">
                             <h4>
-                                <a href="{{ route('detail', ['slug'=>$post->slug]) }}" title=""><span>{{ str_limit($post->title, 30) }}</span></a>
+                                <a href="{{ $post->url }}" title=""><span>{{ str_limit($post->title, 30) }}</span></a>
                             </h4>
 
                             <p class="price">
@@ -47,25 +47,20 @@
                                             <i class="fa fa-map-marker"></i> {{ str_limit($post->district->city->name ." / ".$post->district->name, 16) }} </a>
                                     </td>
                                     <td>
-                                        <p class="date-posted text-muted"> <i class="far fa-clock"></i> 1 year ago</p>
+                                        <p class="date-posted text-muted"> <i class="far fa-clock"></i> {{ $post->created_date }}</p>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td> <i class="fa fa-building"></i> {{ $post->property_type->name }} </td>
-                                    <td><i class="fa fa-arrows-alt "></i> {{ $post->area }} sqft</td>
+                                    <td><i class="fa fa-arrows-alt "></i> {{ $post->area }} m<sup>2</sup></td>
                                 </tr>
 
                                 <tr>
                                     <td><i class="fa fa-bed"></i> {{ $post->detail->bed_room }} Bedroom(s)</td>
                                     <td> {{ $post->detail->floor }} Floor(s) </td>
                                 </tr>
-
                             </table>
-
-                        </div>
-                        <div class="ribbon-wrapper-red">
-                            <div class="ribbon-red">Urgent</div>
                         </div>
                     </div>
                 </div>

@@ -15,6 +15,7 @@ function initMap() {
 function initSeachBox () {
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
+    // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     map.addListener('bounds_changed', function() {
         searchBox.setBounds(map.getBounds());
@@ -73,12 +74,12 @@ function showMap(pos = {lat: 16.047079, lng: 108.206230},zoom = 12) {
 }
 
 function getGeolocation() {
+    initMap();
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(successCallback,errorCallback,{maximumAge:600, timeout:5000, enableHighAccuracy:true});
     } else {
         alert("'Error: Your browser doesn\'t support geolocation.'");
     }
-    initSeachBox();
 }
 
 function successCallback(position) {

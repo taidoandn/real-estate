@@ -25,9 +25,4 @@ class HomeController extends Controller
         return view('frontend.page.home',compact('latest_posts'));
     }
 
-    public function getDetail(Request $request,$slug){
-        $post = Post::with('detail','user','images','conveniences','distances')->where('slug',$slug)->firstOrFail();
-        return view('frontend.page.detail',compact('post'));
-    }
-
 }

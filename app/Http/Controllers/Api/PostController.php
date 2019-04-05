@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::with('user','district.city')->paginate(5), 200);
+        return response()->json(Post::with('user','district.city','detail','distances')->paginate(5), 200);
     }
 
     /**
@@ -30,7 +30,7 @@ class PostController extends Controller
     public function store(PostStoreRequest $request)
     {
         $data = $request->all();
-
+        $data['negotiable'] = $request->negotiable ? true : false;
         if ($request->hasFile('fImage')) {
             $image_name = $this->saveImage($request->file('fImage'));
             $data['image'] = $image_name;
@@ -70,7 +70,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $post->load(['user','district.city']);
+        $post->load(['user','district.city','detail','distances']);
         return response()->json($post, 200);
     }
 
@@ -84,10 +84,9 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
+        $data['negotiable'] = $request->negotiable ? true : false;
         if ($request->hasFile('fImage')) {
-            if ($post->image != 'call-to-action.jpg' && $post->image != 'themeqx-cover.jpeg') {
-                $this->deleteImage($post->image);
-            }
+            $this->deleteImage($post->image);
             $image_name = $this->saveImage($request->file('fImage'));
             $data['image'] = $image_name;
         }
@@ -121,9 +120,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if ($post->image != 'call-to-action.jpg' && $post->image != 'themeqx-cover.jpeg') {
-            $this->deleteImage($post->image);
-        }
+        $this->deleteImage($post->image);
         $property_images = $post->images;
         foreach ($property_images as $image) {
             $this->deleteImage($image->path);
@@ -139,9 +136,11 @@ class PostController extends Controller
     }
 
     public function deleteImage($image_name){
-        if (file_exists(public_path("uploads/images/$image_name"))) {
-            unlink(public_path("uploads/images/$image_name"));
-        };
+        if ($image_name != 'call-to-action.jpg' && $image_name != 'themeqx-cover.jpeg') {
+            if (file_exists(public_path("uploads/images/$image_name"))) {
+                unlink(public_path("uploads/images/$image_name"));
+            };
+        }
     }
 
     public function conveniences(Post $post){

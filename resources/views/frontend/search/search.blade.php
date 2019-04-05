@@ -55,7 +55,6 @@
             var purpose = $(".purpose:checked").val();
             var q = $("#q").val();
             var url = "{{ route('postSearch') }}";
-            console.log(property_type);
             window.history.pushState({path:url},'',url);
             $.ajax({
                 headers: {

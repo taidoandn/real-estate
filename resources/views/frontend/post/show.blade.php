@@ -35,7 +35,7 @@
 
                 <div class="col-sm-5 col-xs-12">
                     <h2 class="ad-title">
-                        <a href="{{ route('detail',$post->slug) }}">{{$post->title }}</a>
+                        <a href="{{ $post->url }}">{{$post->title }}</a>
                     </h2>
                     <h2 class="modern-single-ad-price">{!! $post->priceFormat !!}</h2>
 
@@ -191,19 +191,24 @@
                         </div>
                         <div class="col-xs-9">
                             <h5>{{ $post->user->name }}</h5>
-                            <p class="text-muted"><i class="fas fa-map-marker-alt"></i> 817 Reppert Coal Road,
-                                United
-                                States</p>
+                            <p class="text-muted"><i class="fas fa-map-marker-alt"></i>{{ $post->user->address }}</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="sidebar-user-link">
                     <ul class="ad-action-list">
-                        <li><a href="javascript:;" id="save_as_favorite" data-slug="real-estate-excellent-home-15sft">
-                                <i class="fa fa-star-o"></i> Save ad as favorite </a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#reportAdModal"><i class="fa fa-ban"></i>
-                                Report this ad</a></li>
+                        <li>
+                            <a href="javascript:void(0)" data-slug="{{ $post->slug }}" id="save_as_favorite">
+                                <i class="{{ Auth::guest() ? 'fa fa-star-o' : ($post->is_favorited ? 'fa fa-star' : 'fa fa-star-o' ) }}"></i>
+                                {{ Auth::guest() ? 'Save as favorite' : ($post->is_favorited ? 'Remove as favorite' : 'Save as favorite') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#reportAdModal"><i class="fa fa-ban"></i>
+                                Report this post
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -350,4 +355,37 @@
 <script src="{{ asset('layout/frontend/js/myscript/map.js') }}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQuDQmtiHkS7CcriyEiYXWja3ODrG4vFI&callback=initMap"></script>
 <script src="{{ asset('layout/frontend/plugins/fotorama-4.6.4/fotorama.js') }}"></script>
+
+<script>
+$(document).ready(function () {
+    $("#save_as_favorite").click(function(){
+        var selector = $(this);
+        var slug = selector.data('slug');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "post",
+            url : "{{ route('posts.favorite') }}",
+            data : {
+                "slug" : slug
+            },
+            success: function (data) {
+                if (data == 1) {
+                    selector.html("<i class='fa fa-star'></i> Remove as favorite");
+                }else{
+                    selector.html("<i class='fa fa-star-o'></i> Save as favorite");
+                }
+            },
+            error:function(xhr){
+                var res = xhr.responseJSON;
+                if (res.error) {
+                    toastr.options.progressBar = true;
+                    toastr.warning(res.error);
+                }
+            }
+        });
+    });
+});
+</script>
 @endpush
