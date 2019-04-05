@@ -11,6 +11,7 @@ use App\Models\Convenience;
 
 class PostController extends Controller
 {
+    protected $paginate = 6;
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::with('user','district.city','detail','property_type','distances')->paginate(5), 200);
+        return response()->json(Post::with('user','district.city','detail','property_type','distances')->paginate($this->paginate), 200);
     }
 
     /**
