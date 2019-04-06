@@ -7,8 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostStoreRequest;
-use App\Http\Requests\PostUpdateRequest;
+use App\Http\Requests\PostRequest;
 
 
 class PostController extends Controller
@@ -40,7 +39,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostStoreRequest $request){
+    public function store(PostRequest $request){
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
         if ($request->hasFile('fImage')) {
@@ -105,9 +104,8 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostUpdateRequest $request, $id){
+    public function update(PostRequest $request, $id){
         $post = Post::findOrFail($id);
-
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
         if ($request->hasFile('fImage')) {

@@ -24,8 +24,8 @@ class PostUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'purpose'     => 'required',
             'title'       => 'required|max:255|unique:posts,title,'.$this->post,
+            'purpose'     => 'required',
             'price'       => 'required|numeric',
             'area'        => 'required|numeric',
             'description' => 'required|min:100',
@@ -36,6 +36,11 @@ class PostUpdateRequest extends FormRequest
             'longitude'   => 'required',
             'fImage'      => 'image|mimes:jpg,jpeg,bmp,png|max:2048',
             'type_id'     => 'required|exists:property_types,id',
+            'floor'       => 'required',
+            'bed_room'    => 'required',
+            'bath'        => 'required',
+            'balcony'     => 'required',
+            'toilet'      => 'required',
         ];
     }
 }

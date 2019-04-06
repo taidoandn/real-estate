@@ -25,10 +25,10 @@
                                 <div class="col-md-8">
                                     <input type="text" id="title" class="form-control" value="{{ old('title') }}" name="title"
                                         placeholder="Nhập tiêu đề">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('title') }}
+                                        </strong>
                                 </div>
-                                <strong class="help-block" role="alert">
-                                    {{ $errors->first('title') }}
-                                </strong>
                             </div>
                             <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                                 <label for="description" class="col-md-2 control-label">Thông tin mô tả</label>

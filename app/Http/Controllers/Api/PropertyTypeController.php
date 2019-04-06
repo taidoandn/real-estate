@@ -54,7 +54,6 @@ class PropertyTypeController extends Controller
      */
     public function update(Request $request, PropertyType $propertyType)
     {
-
         $propertyType->update($request->all());
         return response()->json($propertyType, 200);
     }

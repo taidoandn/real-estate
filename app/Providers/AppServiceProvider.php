@@ -20,8 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url)
     {
-        \Auth::guard('admin')->loginUsingId(1);
-        \Auth::guard('web')->loginUsingId(1);
+
         if(env('REDIRECT_HTTPS')) {
             $url->formatScheme('https');
         }
@@ -46,6 +45,8 @@ class AppServiceProvider extends ServiceProvider
                 'distances' =>$distances
                 ]);
         });
+        // \Auth::guard('admin')->loginUsingId(1);
+        // \Auth::guard('web')->loginUsingId(1);
     }
 
     /**

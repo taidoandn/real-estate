@@ -6,7 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\PostStoreRequest;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -41,7 +41,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostStoreRequest $request)
+    public function store(PostRequest $request)
     {
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
@@ -95,8 +95,9 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
+        $post = Post::findOrFail($id);
         $this->authorize('update', $post);
         $post->load('district.city','detail','property_type');
         return view('frontend.post.edit',compact('post'));
@@ -109,12 +110,13 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request,$id)
     {
+        $post = Post::findOrFail($id);
         $this->authorize('update', $post);
-
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
+        $data['user_id'] = auth()->id();
         if ($request->hasFile('fImage')) {
             $this->deleteImage($post->image);
             $image_name = $this->saveImage($request->file('fImage'));
@@ -148,8 +150,9 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
+        $post = Post::findOrFail($id);
         $this->authorize('delete', $post);
     }
 

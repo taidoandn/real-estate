@@ -22,23 +22,27 @@
                         @csrf
                         @method("PUT")
                         <legend>Thông tin bài viết</legend>
-                        <div class="form-group ">
-                            <label for="ad_title" class="col-sm-3 control-label">Tiêu đề</label>
+                        <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
+                            <label for="title" class="col-sm-3 control-label">Tiêu đề</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="ad_title"
-                                    value="{{ old('title',$post->title) }}" name="title" placeholder="Title">
+                                <input type="text" id="title" class="form-control" value="{{ old('title',$post->title) }}" name="title"
+                                    placeholder="Nhập tiêu đề">
                             </div>
+                            <strong class="help-block" role="alert">
+                                {{ $errors->first('title') }}
+                            </strong>
                         </div>
-
-
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                             <label for="description" class="col-sm-3 control-label">Mô tả</label>
                             <div class="col-sm-9">
                                 <textarea name="description" class="form-control ckeditor" rows="8">{!! old('description',$post->description_html) !!}</textarea>
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('description') }}
+                                </strong>
                             </div>
                         </div>
 
-                        <div class="form-group required ">
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">Loại bất động sản</label>
                             <div class="col-sm-9">
                                 <select name="type_id" id="type_id" class="form-control">
@@ -49,7 +53,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('purpose') ? 'has-error' : ''}}">
                             <label for="purpose" class="col-sm-3 control-label">Mục đích</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="purpose" id="purpose">
@@ -57,29 +61,37 @@
                                     <option {{ old('purpose',$post->purpose) == 'sale' ? 'selected' : '' }} value="sale">Bán</option>
                                     <option {{ old('purpose',$post->purpose) == 'rent' ? 'selected' : '' }} value="rent">Thuê</option>
                                 </select>
-
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('purpose') }}
+                                </strong>
                             </div>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('unit') ? 'has-error' : ''}}">
                             <label for="unit" class="col-sm-3 control-label">Đơn vị</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="unit" id="unit">
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('area') ? 'has-error' : ''}}">
                             <label for="area" class="col-sm-3 control-label">Diện tích</label>
                             <div class="col-sm-9">
                                 <input type="text" name="area" class="form-control" id="area" value="{{ $post->area }}">
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('area') }}
+                                </strong>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('price') ? 'has-error' : ''}}">
                             <label for="price" class="col-sm-3 control-label">Giá</label>
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">VND</span>
                                     <input type="text" placeholder="Ex: 10000000" class="form-control" name="price"
                                         id="price" value="{{ old('price',$post->price) }}">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('price') }}
+                                        </strong>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -93,42 +105,57 @@
 
 
                         <legend>Thông tin chi tiết</legend>
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('floor') ? 'has-error' : ''}}">
                             <label for="floor" class="col-sm-3 control-label">Tầng</label>
                             <div class="col-sm-9">
                                 <input type="number" class="form-control" id="floor" value="{{ old('floor',$post->detail->floor) }}" name="floor" placeholder="Tầng">
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('floor') }}
+                                </strong>
                             </div>
                         </div>
 
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('bed_room') ? 'has-error' : ''}}">
                             <label for="bed_room" class="col-sm-3 control-label">Phòng ngủ</label>
                             <div class="col-sm-9">
                                 <input type="number" class="form-control" id="bed_room" value="{{ old('bed_room',$post->detail->bed_room) }}" name="bed_room"
                                     placeholder="Phòng ngủ">
+                                    <strong class="help-block" role="alert">
+                                        {{ $errors->first('bed_room') }}
+                                    </strong>
                             </div>
                         </div>
 
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('bath') ? 'has-error' : ''}}">
                             <label for="attached_bath" class="col-sm-3 control-label">Phòng tắm</label>
                             <div class="col-sm-9">
                                 <input type="number" class="form-control" id="bath" value="{{ old('bath',$post->detail->bath) }}"
                                     name="bath" placeholder="Phòng tắm">
+                                    <strong class="help-block" role="alert">
+                                        {{ $errors->first('bath') }}
+                                    </strong>
                             </div>
                         </div>
 
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('balcony') ? 'has-error' : ''}}">
                             <label for="balcony" class="col-sm-3 control-label">Ban công</label>
                             <div class="col-sm-9">
                                 <input type="number" class="form-control" id="balcony" value="{{ old('balcony',$post->detail->balcony) }}" name="balcony"
                                     placeholder="Balcony(ies)">
+                                    <strong class="help-block" role="alert">
+                                        {{ $errors->first('balcony') }}
+                                    </strong>
                             </div>
                         </div>
 
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('toilet') ? 'has-error' : ''}}">
                             <label for="balcony" class="col-sm-3 control-label">Toilet</label>
                             <div class="col-sm-9">
                                 <input type="number" class="form-control" id="toilet" value="{{ old('toilet',$post->detail->toilet) }}" name="toilet"
                                     placeholder="Toilet">
+                                    <strong class="help-block" role="alert">
+                                        {{ $errors->first('toilet') }}
+                                    </strong>
                             </div>
                         </div>
 
@@ -150,7 +177,7 @@
                                     @if ($convenience->type == "exterior")
                                     <div class="checkbox col-sm-3">
                                         <label>
-                                            <input type="checkbox" value="{{ old('conveniences',$convenience->id) }}"
+                                            <input type="checkbox" value="{{ $convenience->id }}"
                                             @foreach ($post->conveniences as $post_convenience)
                                                 @if ($post_convenience->id == $convenience->id )
                                                     checked
@@ -168,7 +195,7 @@
                                     @if ($convenience->type == "interior")
                                     <div class="checkbox col-sm-3">
                                         <label>
-                                            <input type="checkbox" value="{{ old('conveniences',$convenience->id) }}"
+                                            <input type="checkbox" value="{{ $convenience->id }}"
                                             @foreach ($post->conveniences as $post_convenience)
                                                 @if ($post_convenience->id == $convenience->id )
                                                     checked
@@ -201,6 +228,14 @@
                         @endforeach
                         <hr>
                         <legend>Hình ảnh</legend>
+                        <div class="form-group m-l-20 {{ $errors->has('fImage') ? 'has-error' : ''}}">
+                            <input type="file" name="fImage" id="img" class="form-control hidden" onchange="changeImg(this)">
+                            <img id="avatar"  src="{{ asset('uploads/images/'.$post->image ?? 'layout/backend/img/new_seo-10-512.png') }}">
+                            <strong class="help-block" role="alert">
+                                {{ $errors->first('fImage') }}
+                            </strong>
+                        </div>
+                        <legend>Hình ảnh chi tiết</legend>
                         <div class="form-group ">
                             <div class="col-sm-12">
                                 <div id="uploaded-ads-image-wrap">
@@ -228,7 +263,7 @@
                             </div>
                         </div>
                         <legend>Thông tin địa điểm</legend>
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('city_id') ? 'has-error' : ''}}">
                             <label for="category_name" class="col-sm-3 control-label">Thành phố</label>
                             <div class="col-sm-9">
                                 <select class="form-control select2" id="city_id" name="city_id">
@@ -237,36 +272,50 @@
                                         <option {{ $city->id == $post->district->city->id ? 'selected' : ''}} value="{{ $city->id }}">{{ $city->name }}</option>
                                     @endforeach
                                 </select>
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('city_id') }}
+                                </strong>
                             </div>
                         </div>
 
-                        <div class="form-group  ">
+                        <div class="form-group {{ $errors->has('district_id') ? 'has-error' : ''}}">
                             <label for="category_name" class="col-sm-3 control-label">Quận/huyện</label>
                             <div class="col-sm-9">
                                 <select class="form-control select2" id="district_id" name="district_id">
                                         <option value="">Chọn Quận/huyện</option>
                                 </select>
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('district_id') }}
+                                </strong>
                             </div>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
                             <label for="address" class="col-sm-3 control-label">Địa chỉ</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control" id="address" value="{{ old('address',$post->address) }}" name="address"
-                                    placeholder="Địa chỉ">
+                            <input type="text" class="form-control" id="address" value="{{ old('address',$post->address) }}" name="address" placeholder="Địa chỉ">
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('address') }}
+                                </strong>
                             </div>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('latitude') ? 'has-error' : ''}}">
                             <label for="latitude" class="col-sm-3 control-label">Vĩ độ</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" readonly id="latitude" value="{{ old('latitude',$post->latitude) }}" name="latitude"
                                     placeholder="Latitude">
+                                    <strong class="help-block" role="alert">
+                                        {{ $errors->first('latitude') }}
+                                    </strong>
                             </div>
                         </div>
 
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('longitude') ? 'has-error' : ''}}">
                             <label for="longitude" class="col-sm-3 control-label">Kinh độ</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" readonly id="longitude" value="{{ old('longitude',$post->longitude) }}" name="longitude" placeholder="Longitude">
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('longitude') }}
+                                </strong>
                             </div>
                         </div>
 
@@ -295,6 +344,8 @@
 <link rel="stylesheet" href="{{ asset('layout\frontend\plugins\metisMenu\dist\metisMenu.min.css') }}">
 @endpush
 @push('js')
+<script src="{{ asset('layout/backend/js/myscript/custom.js')}}"></script>
+<script src="{{ asset('layout/backend/js/myscript/post-edit.js')}}"></script>
 <script src="{{ asset('layout/editor/ckeditor/ckeditor.js')}}"></script>
 <script src="{{ asset('layout/editor/ckfinder/ckfinder.js')}}"></script>
 <script src="{{ asset('layout\frontend\plugins\metisMenu\dist\metisMenu.min.js') }}"></script>

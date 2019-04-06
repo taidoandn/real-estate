@@ -6,8 +6,9 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Post as PostResource;
-use App\Http\Requests\PostStoreRequest;
+use App\Http\Requests\PostRequest;
 use App\Models\Convenience;
+use App\Models\PropertyDetail;
 
 class PostController extends Controller
 {
@@ -28,7 +29,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostStoreRequest $request)
+    public function store(PostRequest $request)
     {
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
@@ -82,7 +83,7 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
@@ -93,7 +94,6 @@ class PostController extends Controller
         }
 
         $post->update($data);
-
         $post->detail()->update([
             'floor'        => $request->floor,
             'bath'         => $request->bath,
@@ -104,13 +104,17 @@ class PostController extends Controller
             'living_room'  => $request->living_room ? true : false,
         ]);
 
-        $post->conveniences()->sync($request->conveniences);
-
-        foreach ($request->distances as $key => $distance) {
-            $post->distances()->updateExistingPivot($key,['meters'=> $distance]);
+        if ($request->conveniences) {
+            $post->conveniences()->sync($request->conveniences);
         }
 
-        return response()->json($post);
+        if ($request->distances) {
+            foreach ($request->distances as $key => $distance) {
+                $post->distances()->updateExistingPivot($key,['meters'=> $distance]);
+            }
+        }
+
+        return response()->json($post->load('user','district.city','detail','property_type','distances'));
     }
 
     /**
@@ -166,4 +170,5 @@ class PostController extends Controller
         $property_type = $post->property_type;
         return response()->json($property_type, 200);
     }
+
 }

@@ -23,12 +23,13 @@
                             <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
                                 <label for="title" class="col-md-2 control-label">Tiêu đề</label>
                                 <div class="col-md-8">
-                                    <input type="text" id="title" class="form-control" value="{{ $post->title ?? '' }}" name="title"
+                                    <input type="text" id="title" class="form-control" value="{{ old('title',$post->title) }}" name="title"
                                         placeholder="Nhập tiêu đề">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('title') }}
+                                        </strong>
                                 </div>
-                                <strong class="help-block" role="alert">
-                                    {{ $errors->first('title') }}
-                                </strong>
+
                             </div>
                             <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                                 <label for="description" class="col-md-2 control-label">Thông tin mô tả</label>
@@ -177,43 +178,57 @@
                         </div>
                         <div class="col-md-6  m-t-10">
                             <legend>Chi tiết</legend>
-                            <div class="form-group">
+                            <div class="form-group {{ $errors->has('floor') ? 'has-error' : ''}}">
                                 <label class="col-md-4 control-label">Số tầng</label>
                                 <div class="col-md-6">
-                                    <input type="number" min="0" value="{{ $post->detail->floor ?? null }}" placeholder="floor"
+                                    <input type="number" min="0" value="{{ old('floor',$post->detail->floor) }}" placeholder="floor"
                                         name="floor" class="form-control">
+                                    <strong class="help-block" role="alert">
+                                        {{ $errors->first('floor') }}
+                                    </strong>
                                 </div>
                                 <strong class="help-block">tầng</strong>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group  {{ $errors->has('bed_room') ? 'has-error' : ''}}">
                                 <label class="col-md-4 control-label">Số phòng ngủ</label>
                                 <div class="col-md-6">
-                                    <input type="number" min="0" value="{{ $post->detail->bed_room ?? null }}" placeholder="bed_room"
+                                    <input type="number" min="0" value="{{ old('bed_room',$post->detail->bed_room) }}" placeholder="bed_room"
                                         name="bed_room" class="form-control">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('bed_room') }}
+                                        </strong>
                                 </div>
                                 <strong class="help-block">phòng</strong>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group  {{ $errors->has('bath') ? 'has-error' : ''}}">
                                 <label class="col-md-4 control-label">Số phòng tắm</label>
                                 <div class="col-md-6">
-                                    <input type="number" min="0" value="{{ $post->detail->bath ?? null }}" placeholder="bath"
+                                    <input type="number" min="0" value="{{ old('bath',$post->detail->bath) }}" placeholder="bath"
                                         name="bath" class="form-control">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('bath') }}
+                                        </strong>
                                 </div>
                                 <strong class="help-block">phòng</strong>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group  {{ $errors->has('balcony') ? 'has-error' : ''}}">
                                 <label class="col-md-4 control-label">Ban công</label>
                                 <div class="col-md-6">
-                                    <input type="number" min="0" value="{{ $post->detail->balcony ?? null }}" placeholder="balcony"
+                                    <input type="number" min="0" value="{{ old('balcony',$post->detail->balcony) }}" placeholder="balcony"
                                         name="balcony" class="form-control">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('balcony') }}
+                                        </strong>
                                 </div>
                                 <strong class="help-block">chỗ</strong>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group  {{ $errors->has('toilet') ? 'has-error' : ''}}">
                                 <label class="col-md-4 control-label">Toilet</label>
                                 <div class="col-md-6">
-                                    <input type="number" value="{{ $post->detail->toilet ?? null }}" min="0" placeholder="toilet"
-                                        name="toilet" class="form-control">
+                                    <input type="number" value="{{ old('toilet',$post->detail->toilet) }}" min="0" placeholder="toilet" name="toilet" class="form-control">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('toilet') }}
+                                        </strong>
                                 </div>
                                 <strong class="help-block">cái</strong>
                             </div>
@@ -435,7 +450,7 @@
         });
         if($('select[name="city_id"]').val()) {
             var city_id = $('select[name="city_id"]').val();
-            var district_id = '{{ old("district_id",$post->district_id) ?? null }}'
+            var district_id = '{{ old("district_id",$post->district_id) }}'
             getDistrict(city_id,district_id);
         }
     });

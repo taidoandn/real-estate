@@ -15,11 +15,11 @@ class CreatePropertyDetailsTable extends Migration
     {
         Schema::create('property_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('floor')->nullable();
-            $table->integer('bath')->nullable();
-            $table->integer('balcony')->nullable();
-            $table->integer('toilet')->nullable();
-            $table->integer('bed_room')->nullable();
+            $table->integer('floor')->default(0);
+            $table->integer('bath')->default(0);
+            $table->integer('balcony')->default(0);
+            $table->integer('toilet')->default(0);
+            $table->integer('bed_room')->default(0);
             $table->boolean('dinning_room')->default(false);
             $table->boolean('living_room')->default(false);
             $table->integer('post_id')->unsigned();
