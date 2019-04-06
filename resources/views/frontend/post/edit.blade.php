@@ -17,20 +17,20 @@
             </div> <!-- /.row -->
             <div class="row">
                 <div class="col-md-10 col-xs-12">
-                    <form method="POST" action="{{ route('posts.update',$post->id) }}" accept-charset="UTF-8"
-                        id="adsPostForm" class="form-horizontal" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('posts.update',$post->id) }}" data-id="{{ $post->id }}"  accept-charset="UTF-8"
+                        id="form-data" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
-                        @method("PUT")
+                        @method("PATCH")
                         <legend>Thông tin bài viết</legend>
                         <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
                             <label for="title" class="col-sm-3 control-label">Tiêu đề</label>
                             <div class="col-sm-9">
                                 <input type="text" id="title" class="form-control" value="{{ old('title',$post->title) }}" name="title"
                                     placeholder="Nhập tiêu đề">
+                                    <strong class="help-block" role="alert">
+                                        {{ $errors->first('title') }}
+                                    </strong>
                             </div>
-                            <strong class="help-block" role="alert">
-                                {{ $errors->first('title') }}
-                            </strong>
                         </div>
                         <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                             <label for="description" class="col-sm-3 control-label">Mô tả</label>
@@ -89,10 +89,11 @@
                                     <span class="input-group-addon">VND</span>
                                     <input type="text" placeholder="Ex: 10000000" class="form-control" name="price"
                                         id="price" value="{{ old('price',$post->price) }}">
-                                        <strong class="help-block" role="alert">
-                                            {{ $errors->first('price') }}
-                                        </strong>
+
                                 </div>
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('price') }}
+                                </strong>
                             </div>
                             <div class="col-sm-4">
                                 <div class="checkbox">
@@ -236,30 +237,35 @@
                             </strong>
                         </div>
                         <legend>Hình ảnh chi tiết</legend>
-                        <div class="form-group ">
-                            <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="progress">
+                                <div id="progressBar" class="progress-bar progress-bar-striped active " role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                    0%
+                                </div>
+                            </div>
+                            <div id="image_preview">
                                 <div id="uploaded-ads-image-wrap">
                                 @forelse ($post->images as $image)
-                                <div class="creating-ads-img-wrap" id="image-{{ $image->id }}">
-                                @if (file_exists(public_path('uploads/images/').$image->path))
-                                    <img src="{{ asset('uploads/images/'.$image->path) }}" class="img-responsive">
-                                    <div class="img-action-wrap">
-                                        <a href="javascript:void(0)" id="{{ $image->id }}" class="imgDeleteBtn"><i class="fa fa-trash-o"></i> </a>
+                                    <div class="creating-ads-img-wrap" id="image-{{ $image->id }}">
+                                    @if (file_exists(public_path('uploads/images/').$image->path))
+                                        <img src="{{ asset('uploads/images/'.$image->path) }}" class="img-responsive">
+                                        <div class="img-action-wrap">
+                                            <a href="javascript:void(0)" id="{{ $image->id }}" class="imgDeleteBtn"><i class="fa fa-trash-o"></i> </a>
+                                        </div>
+                                    @endif
                                     </div>
-                                @endif
-                                </div>
-                                @empty
-                                @endforelse
+                                    @empty
+                                    @endforelse
                                 </div>
                                 <div class="file-upload-wrap">
                                     <label>
-                                        <input type="file" name="images" id="images" style="display: none;" />
-                                        <i class="fa fa-cloud-upload"></i>
-                                        <p>Upload image...</p>
-                                        <div class="progress" style="display: none;"></div>
+                                    <input type="file" name="fImages" class="m-l-10 hidden" id="fImages" >
+                                        <div class="inner-wrap">
+                                            <i class="fa fa-cloud-upload"></i>
+                                            <p>Upload image...</p>
+                                        </div>
                                     </label>
                                 </div>
-
                             </div>
                         </div>
                         <legend>Thông tin địa điểm</legend>
@@ -324,6 +330,7 @@
                                 save </p>
                         </div>
                         <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                        <a href="javascript:void(0)" class="btn btn-primary pull-right m-t-07" onclick="getGeolocation();">Get your current location</a>
 
                         <div id="map" style="width: 100%; height: 400px; margin: 20px 0;"></div>
                         <div class="form-group">

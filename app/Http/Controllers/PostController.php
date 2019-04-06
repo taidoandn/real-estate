@@ -50,8 +50,8 @@ class PostController extends Controller
             $image_name = $this->saveImage($request->file('fImage'));
             $data['image'] = $image_name;
         }
-        $post   = Auth::user()->posts->create($data);
 
+        $post   = Auth::user()->posts->create($data);
         $post->detail()->create([
             'floor'        => $request->floor,
             'bath'         => $request->bath,

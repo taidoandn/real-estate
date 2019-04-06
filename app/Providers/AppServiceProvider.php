@@ -45,8 +45,8 @@ class AppServiceProvider extends ServiceProvider
                 'distances' =>$distances
                 ]);
         });
-        // \Auth::guard('admin')->loginUsingId(1);
-        // \Auth::guard('web')->loginUsingId(1);
+        \Auth::guard('admin')->loginUsingId(1);
+        \Auth::guard('web')->loginUsingId(1);
     }
 
     /**

@@ -34,12 +34,12 @@
                                 <label for="description" class="col-md-2 control-label">Thông tin mô tả</label>
                                 <div class="col-md-8">
                                     <textarea id="description" class="ckeditor form-control" name="description">
-										{{ 'This is my textarea to be replaced with CKEditor CKEditor CKEditor.This is my textarea to be replaced with CKEditor CKEditor CKEditor.This is my textarea to be replaced with CKEditor CKEditor CKEditor.' ?? old('description') }}
+										{{ old('description') }}
 									</textarea>
+                                    <strong class="help-block" role="alert">
+                                        {{ $errors->first('description') }}
+                                    </strong>
                                 </div>
-                                <strong class="help-block" role="alert">
-                                    {{ $errors->first('description') }}
-                                </strong>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -127,6 +127,13 @@
                                 </div>
                         </div>
                         <div class="col-md-6 ">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Thỏa thuận</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" {{ old('negotiable') == 1 ? 'checked' : '' }} value="1" name="negotiable"> </label>
+                                </div>
+                            </div>
                             <div class="form-group {{ $errors->has('fImage') ? 'has-error' : '' }}">
                                 <label for="description" class="col-md-2 control-label">Hình ảnh</label>
                                 <input id="img" type="file" name="fImage" class="form-control hidden" onchange="changeImg(this)">
@@ -137,7 +144,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <legend>Image</legend>
+                            <legend>Ảnh chi tiết</legend>
                             <div class="form-group {{ $errors->has('fImageDetails.*') ? 'has-error' : '' }}">
                                 <input type="file" name="fImageDetails[]" class="m-l-10" id="fImageDetails" multiple>
                                 <strong class="help-block" role="alert">

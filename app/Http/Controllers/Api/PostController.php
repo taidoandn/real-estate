@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::with('user','district.city','detail','property_type','distances')->paginate($this->paginate), 200);
+        return response()->json(Post::with('user','district.city','detail','property_type','images','distances')->paginate($this->paginate), 200);
     }
 
     /**
@@ -72,7 +72,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $post->load(['user','district.city','detail','property_type','distances']);
+        $post->load(['user','district.city','detail','property_type','images','distances']);
         return response()->json($post, 200);
     }
 
@@ -114,7 +114,7 @@ class PostController extends Controller
             }
         }
 
-        return response()->json($post->load('user','district.city','detail','property_type','distances'));
+        return response()->json($post->load('user','district.city','detail','property_type','images','distances'));
     }
 
     /**

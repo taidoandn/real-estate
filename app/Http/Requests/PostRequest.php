@@ -23,7 +23,7 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
-        switch ($this->method()) {
+        switch (request()->method()) {
             case 'PATCH':
             case 'PUT':
                 $rules = [

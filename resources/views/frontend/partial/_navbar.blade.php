@@ -16,7 +16,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a href="{{ route('posts.create') }}"> <i class="fa fa-tag"></i>
-                    Post an ad</a>
+                    Create a post</a>
             </li>
             <li>
                 <a href="https://demo.themeqx.com/themeqxestate/blog"> <i class="fa fa-rss"></i> Blog</a>

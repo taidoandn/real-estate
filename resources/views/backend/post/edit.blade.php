@@ -35,12 +35,12 @@
                                 <label for="description" class="col-md-2 control-label">Thông tin mô tả</label>
                                 <div class="col-md-8">
                                     <textarea class="ckeditor form-control" id="editor" name="description">
-										{{ $post->description }}
+										{{ old('description',$post->description) }}
                                     </textarea>
+                                    <strong class="help-block" role="alert">
+                                        {{ $errors->first('description') }}
+                                    </strong>
                                 </div>
-                                <strong class="help-block" role="alert">
-                                    {{ $errors->first('description') }}
-                                </strong>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -371,7 +371,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <a href="javascript:void(0)" class="btn bg-blue pull-right m-r-10" onclick="initSeachBox();getGeolocation();">Get your current location</a>
+                                    <a href="javascript:void(0)" class="btn bg-blue pull-right m-r-10" onclick="getGeolocation();">Get your current location</a>
                                 </div>
                             </div>
                             <input id="pac-input" class="controls" type="text" placeholder="Search Box">

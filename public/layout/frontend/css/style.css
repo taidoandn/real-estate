@@ -15,22 +15,80 @@ a{
     color: #2c3e50;
 }
 
+/* Image upload */
+#avatar{
+    border: 1px solid #e5e5e5;
+    width: 300px;
+    height: 300px;
+}
+#image_preview{
+    width: 100%;
+    border: 1px solid #e5e5e5;
+    min-height: 180px;
+    padding: 10px;
+    display: block;
+    overflow: auto;
+}
+
+#image_preview img{
+    padding: 5px;
+    width: 138px;
+}
+
+.file-upload-wrap label{
+    border: 1px solid #dddddd;
+    float: left;
+    text-align: center;
+    height: 150px;
+    width: 150px;
+    /* padding: 30px 0; */
+    cursor: pointer;
+    margin: 5px;
+}
+
+.inner-wrap{
+    margin-top: 30px;
+}
+.file-upload-wrap i{
+    font-size: 50px;
+    cursor: pointer;
+}
+.creating-ads-img-wrap{
+    border: 1px solid #dddddd;
+    float: left;
+    height: 150px;
+    width: 150px;
+    padding: 5px;
+    margin: 5px;
+    position: relative;
+}
+.creating-ads-img-wrap img{
+    height: 120px;
+    width: auto;
+}
+.img-action-wrap {
+    bottom: 0;
+    position: absolute;
+}
+.img-action-wrap a{
+    font-size: 16px;
+    margin: 3px;
+}
+
+.img-action-wrap a.imgDeleteBtn{
+    color: #ff0000;
+}
+
 /* ==========================================================================
   color-dodger-blue.css
    ========================================================================== */
 .m-t-05 { margin-top: 0.5em !important; }
+.m-t-07 { margin-top: 0.7em !important; }
 .m-t-10 { margin-top: 1.0em !important; }
 .m-t-15 { margin-top: 1.5em !important; }
 .m-t-20 { margin-top: 2.0em !important; }
 .m-t-25 { margin-top: 2.5em !important; }
 .m-t-30 { margin-top: 3.0em !important; }
-
-.m-t--05 { margin-top: -0.5em !important; }
-.m-t--10 { margin-top: -1.0em !important; }
-.m-t--15 { margin-top: -1.5em !important; }
-.m-t--20 { margin-top: -2.0em !important; }
-.m-t--25 { margin-top: -2.5em !important; }
-.m-t--30 { margin-top: -3.0em !important; }
 
 .m-r-05 { margin-right: 0.5em !important; }
 .m-r-10 { margin-right: 1.0em !important; }

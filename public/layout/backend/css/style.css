@@ -19,28 +19,7 @@
 
 #image_preview img{
     padding: 5px;
-}
-
-
-/* Upload avatar or main image */
-
-#main-file-upload-wrap label{
-    border: 1px solid #dddddd;
-    float: left;
-    text-align: center;
-    height: 250px;
-    width: 250px;
-    cursor: pointer;
-    margin: 5px;
-}
-
-#main-file-upload-wrap i{
-    font-size: 70px;
-    cursor: pointer;
-}
-
-#main-file-upload-wrap .inner-wrap{
-    margin-top: 70px;
+    width: 138px;
 }
 
 
