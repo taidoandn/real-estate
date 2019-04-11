@@ -38,8 +38,13 @@ function editForm(id) {
             $("#phone").val(data.user.phone);
             $("#address").val(data.user.address);
         },
-        error: function (data) {
-            alert("Error!!!");
+        error: function (xhr) {
+            var res = xhr.responseJSON;
+            if (res.message) {
+                alert(res.message);
+            }else{
+                alert("Error!!")
+            }
         }
     });
 }
@@ -93,6 +98,13 @@ function deleteData(id) {
             success: function (data) {
                 toastr.success(data);
                 users_table.draw(false);
+            }, error: function (xhr) {
+                var res = xhr.responseJSON;
+                if (res.message) {
+                    alert(res.message);
+                }else{
+                    alert("Error!!")
+                }
             }
         });
     }else{

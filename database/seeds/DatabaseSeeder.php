@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             PropertyTypeTableSeeder::class,
+            PostTypeTableSeeder::class,
             CityTableSeeder::class,
             DistrictTableSeeder::class,
             PermissionTableSeeder::class,

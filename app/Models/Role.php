@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     protected $table = 'roles';
-    protected $fillable = ['name','created_at','updated_at'];
+    protected $fillable = ['name'];
     public function admins()
     {
         return $this->belongsToMany('App\Models\Admin', 'admin_roles', 'role_id', 'admin_id');
@@ -16,5 +16,9 @@ class Role extends Model
     public function permissions()
     {
         return $this->belongsToMany('App\Models\Permission', 'role_permissions', 'role_id', 'permission_id');
+    }
+
+    public function roleHasPermission($permission){
+        return !! optional($this->permissions)->contains($permission);
     }
 }

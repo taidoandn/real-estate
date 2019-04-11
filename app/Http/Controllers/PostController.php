@@ -47,7 +47,7 @@ class PostController extends Controller
         $data['negotiable'] = $request->negotiable ? true : false;
 
         if ($request->hasFile('fImage')) {
-            $image_name = $this->saveImage($request->file('fImage'));
+            $image_name = saveImage($request->file('fImage'));
             $data['image'] = $image_name;
         }
 
@@ -70,7 +70,7 @@ class PostController extends Controller
 
         if ($request->has('fImageDetails')) {
             foreach ($request->file('fImageDetails') as  $file) {
-                $file_name = $this->saveImage($file);
+                $file_name = saveImage($file);
                 $post->images()->create(['path'=>$file_name]);
             }
         }
@@ -118,8 +118,8 @@ class PostController extends Controller
         $data['negotiable'] = $request->negotiable ? true : false;
         $data['user_id'] = auth()->id();
         if ($request->hasFile('fImage')) {
-            $this->deleteImage($post->image);
-            $image_name = $this->saveImage($request->file('fImage'));
+            unlinkImage($post->image);
+            $image_name = saveImage($request->file('fImage'));
             $data['image'] = $image_name;
         }
 
@@ -154,20 +154,14 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $this->authorize('delete', $post);
-    }
 
-    public function saveImage($image){
-        $image_name = rand(1111,9999).time().".".$image->getClientOriginalExtension();
-        $image->move(public_path('uploads/images/'),$image_name);
-        return $image_name;
-    }
+        unlinkImage($post->image);
 
-    public function deleteImage($image_name){
-        if ($image_name != 'call-to-action.jpg' && $image_name != 'themeqx-cover.jpeg') {
-            if (file_exists(public_path("uploads/images/$image_name"))) {
-                unlink(public_path("uploads/images/$image_name"));
-            };
+        $property_images = $post->images;
+        foreach ($property_images as $image) {
+            unlinkImage($image->path);
         }
+        $post->delete();
     }
 
     public function getFavoritePosts(){

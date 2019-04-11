@@ -208,7 +208,7 @@
                         </div>
                         @endforeach
                         <legend>Hình ảnh</legend>
-                        <div class="form-group m-l-20 {{ $errors->has('fImage') ? 'has-error' : ''}}"
+                        <div class="form-group m-l-20 {{ $errors->has('fImage') ? 'has-error' : ''}}">
                             <input type="file" name="fImage" id="img" class="form-control hidden" onchange="changeImg(this)">
                             <img id="avatar"  src="{{ asset('layout/backend/img/new_seo-10-512.png') }}">
                             <strong class="help-block" role="alert">
@@ -307,11 +307,11 @@
 <link rel="stylesheet" href="{{ asset('layout\frontend\plugins\metisMenu\dist\metisMenu.min.css') }}">
 @endpush
 @push('js')
+<script src="{{ asset('layout/backend/js/myscript/custom.js')}}"></script>
 <script src="{{ asset('layout/editor/ckeditor/ckeditor.js')}}"></script>
 <script src="{{ asset('layout/editor/ckfinder/ckfinder.js')}}"></script>
 <script src="{{ asset('layout\frontend\plugins\metisMenu\dist\metisMenu.min.js') }}"></script>
 <script src="{{ asset('layout/backend/js/myscript/map.js')}}"></script>
-<script src="{{ asset('layout/backend/js/myscript/custom.js')}}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQuDQmtiHkS7CcriyEiYXWja3ODrG4vFI&callback=initMap&libraries=places"></script>
 <script>
     $(function () {

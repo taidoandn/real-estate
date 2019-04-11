@@ -33,4 +33,12 @@ class Admin extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Role', 'admin_roles', 'admin_id', 'role_id');
     }
+
+    public function userHasPermission($permission){
+        foreach ($this->roles as $role) {
+            if ($role->roleHasPermission($permission)) {
+                return true;
+            }
+        }
+    }
 }

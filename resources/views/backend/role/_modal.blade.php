@@ -32,9 +32,9 @@
                             @endif
                             @endforeach
 
-                            <label class="col-md-12 m-t-05">User:</label>
+                            <label class="col-md-12 m-t-05">Account:</label>
                             @foreach ($permissions as $permission)
-                            @if ($permission->type=="user")
+                            @if ($permission->type=="account")
                             <div class="checkbox col-md-6">
                                 <label for="{{ $permission->name }}"> <input type="checkbox" id="{{ $permission->name }}"
                                         value="{{$permission->id}}" name="permission[]">{{ $permission->name }}</label>

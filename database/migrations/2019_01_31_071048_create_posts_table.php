@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -29,12 +30,16 @@ class CreatePostsTable extends Migration
             $table->tinyInteger('negotiable')->default(0);
             $table->enum('status', ['pending', 'published','blocked'])->default('pending');
             $table->integer('views')->unsigned()->default(0);
-            $table->integer('type_id')->unsigned();
-            $table->foreign('type_id')->references('id')->on('property_types')->onDelete('cascade');
+            $table->integer('property_id')->unsigned();
+            $table->foreign('property_id')->references('id')->on('property_types')->onDelete('cascade');
             $table->integer('district_id')->unsigned();
             $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('post_types')->onDelete('cascade');
+            $table->date('start_date')->default(Carbon::now());
+            $table->date('end_date')->default(Carbon::now()->addDay(5));
             $table->timestamps();
         });
     }

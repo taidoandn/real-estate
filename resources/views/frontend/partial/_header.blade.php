@@ -13,7 +13,7 @@
                     <li>
                         <a href="/cdn-cgi/l/email-protection#0c65626a634c6f797f786361697e226f63612c">
                             <i class="fa fa-envelope"></i>
-                            <span class="__cf_email__" data-cfemail="771e1911183714020403181a12055914181a">ádasd</span>
+                            <span class="__cf_email__" data-cfemail="771e1911183714020403181a12055914181a">Email</span>
                         </a>
                     </li>
                 </ul>

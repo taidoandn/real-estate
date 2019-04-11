@@ -1,5 +1,6 @@
 <?php
-// use Faker\Generator as Faker;
+
+use Carbon\Carbon;
 
 $faker = Faker\Factory::create('vi_VN');
 $factory->define(App\Models\Post::class, function () use($faker){
@@ -11,6 +12,8 @@ $factory->define(App\Models\Post::class, function () use($faker){
         $rent = ['month' , 'year'];
         $unit = $rent[array_rand($rent)];
     }
+    $start = Carbon::now();
+    $end   = Carbon::now()->addDays(30);
     return [
         'title'       => rtrim($faker->sentence(rand(5,10)) ,"."),
         'image'       => $faker->randomElement(['call-to-action.jpg','themeqx-cover.jpeg']),
@@ -24,8 +27,11 @@ $factory->define(App\Models\Post::class, function () use($faker){
         'negotiable'  => $faker->numberBetween(0,1),
         'latitude'    => $faker->latitude(9.6,21),
         'longitude'   => $faker->longitude(105.6,108.2),
-        'type_id'     => App\Models\PropertyType::pluck('id')->random(),
+        'property_id' => App\Models\PropertyType::pluck('id')->random(),
         'district_id' => App\Models\District::pluck('id')->random(),
+        'type_id'     => App\Models\PostType::pluck('id')->random(),
+        'start_date'  => $start,
+        'end_date'    => $end,
         'created_at'  => now(),
         'updated_at'  => now()
     ];

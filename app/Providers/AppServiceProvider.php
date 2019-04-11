@@ -10,6 +10,7 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use App\Models\PostType;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,15 +39,19 @@ class AppServiceProvider extends ServiceProvider
             $conveniences = Convenience::get();
             $property_types = PropertyType::get();
             $distances = Distance::get();
+            $post_type = PostType::get();
             $view->with([
                 'cities'=>$cities,
                 'conveniences'=>$conveniences,
                 'property_types'=>$property_types,
-                'distances' =>$distances
+                'distances' =>$distances,
+                'post_type' =>$post_type,
                 ]);
         });
-        \Auth::guard('admin')->loginUsingId(1);
-        \Auth::guard('web')->loginUsingId(1);
+        if(! $this->app->runningInConsole()){
+            \Auth::guard('admin')->loginUsingId(1);
+            \Auth::guard('web')->loginUsingId(1);
+        }
     }
 
     /**

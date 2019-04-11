@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
 class AdminTableSeeder extends Seeder
@@ -22,6 +23,7 @@ class AdminTableSeeder extends Seeder
                 'updated_at' => now(),
             ]
         );
+        Admin::where('email','admin@demo.com')->first()->roles()->attach([1,2,3]);
         factory(App\Models\Admin::class, 20)->create()->each(function($user){
             $boolean = random_int(0,1);
             if ($boolean) {

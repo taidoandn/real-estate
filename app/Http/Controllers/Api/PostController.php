@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::with('user','district.city','detail','property_type','images','distances')->paginate($this->paginate), 200);
+        return response()->json(Post::with('user','district.city','detail','property_type','images','distances')->isPublished()->paginate($this->paginate), 200);
     }
 
     /**
@@ -34,7 +34,7 @@ class PostController extends Controller
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
         if ($request->hasFile('fImage')) {
-            $image_name = $this->saveImage($request->file('fImage'));
+            $image_name = saveImage($request->file('fImage'));
             $data['image'] = $image_name;
         }
         $post   = Post::create($data);
@@ -57,7 +57,7 @@ class PostController extends Controller
 
         if ($request->has('fImageDetails')) {
             foreach ($request->file('fImageDetails') as  $file) {
-                $file_name = $this->saveImage($file);
+                $file_name = saveImage($file);
                 $post->images()->create(['path'=>$file_name]);
             }
         }
@@ -72,7 +72,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $post->load(['user','district.city','detail','property_type','images','distances']);
+        $post->load(['user','district.city','detail','property_type','images','conveniences','distances']);
         return response()->json($post, 200);
     }
 
@@ -88,8 +88,8 @@ class PostController extends Controller
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
         if ($request->hasFile('fImage')) {
-            $this->deleteImage($post->image);
-            $image_name = $this->saveImage($request->file('fImage'));
+            unlinkImage($post->image);
+            $image_name = saveImage($request->file('fImage'));
             $data['image'] = $image_name;
         }
 
@@ -125,27 +125,13 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->deleteImage($post->image);
+        unlinkImage($post->image);
         $property_images = $post->images;
         foreach ($property_images as $image) {
-            $this->deleteImage($image->path);
+            unlinkImage($image->path);
         }
         $post->delete();
         return response()->json(['success'=>'deleted!']);
-    }
-
-    public function saveImage($image){
-        $image_name = rand(1111,9999).time().".".$image->getClientOriginalExtension();
-        $image->move(public_path('uploads/images/'),$image_name);
-        return $image_name;
-    }
-
-    public function deleteImage($image_name){
-        if ($image_name != 'call-to-action.jpg' && $image_name != 'themeqx-cover.jpeg') {
-            if (file_exists(public_path("uploads/images/$image_name"))) {
-                unlink(public_path("uploads/images/$image_name"));
-            };
-        }
     }
 
     public function conveniences(Post $post){

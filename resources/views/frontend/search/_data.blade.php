@@ -64,7 +64,7 @@
                         <table class="table table-responsive property-box-info">
                             <tr>
                                 <td>
-                                    <a class="location text-muted" href="#">
+                                    <a class="location text-muted" href="javascript:void(0)">
                                         <i class="fa fa-map-marker"></i>
                                         {{ str_limit($post->district->city->name ." / ".$post->district->name, 16) }}
                                     </a>

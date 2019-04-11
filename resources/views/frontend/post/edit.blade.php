@@ -47,7 +47,7 @@
                             <div class="col-sm-9">
                                 <select name="type_id" id="type_id" class="form-control">
                                     @foreach ($property_types as $type)
-                                    <option {{ old('type_id',$post->type_id == $type->id) ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
+                                    <option {{ old('type_id',$post->property_id == $type->id) ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

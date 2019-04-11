@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use DateTime;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     protected $table = 'posts';
     protected $fillable = [
-        'title','image','purpose','address','latitude','longitude','price','negotiable','view','status',
-        'district_id','user_id','detail_id','area','unit','type_id','description'
+        'title','image','purpose','address','latitude','longitude','price','negotiable','view','status','description','start_date','end_date',
+        'area','unit','district_id','user_id','detail_id','type_id','property_id'
     ];
 
     protected $currency = "VND";
@@ -19,12 +21,15 @@ class Post extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
+    public function type(){
+        return $this->belongsTo('App\Models\PostType', 'type_id', 'id');
+    }
 
     public function detail(){
         return $this->hasOne('App\Models\PropertyDetail', 'post_id', 'id');
     }
     public function property_type(){
-        return $this->belongsTo('App\Models\PropertyType', 'type_id', 'id');
+        return $this->belongsTo('App\Models\PropertyType', 'property_id', 'id');
     }
 
     public function district(){

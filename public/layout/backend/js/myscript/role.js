@@ -37,8 +37,13 @@ function editRoleForm(id) {
             $("#id").val(data.role.id);
             $("#name").val(data.role.name);
         },
-        error: function (data) {
-            console.log(data);
+        error: function (xhr) {
+            var res = xhr.responseJSON;
+            if (res.message) {
+                alert(res.message);
+            }else{
+                alert("Error!!")
+            }
         }
     });
 }
@@ -92,6 +97,14 @@ function deleteRoleData(id) {
             success: function (data) {
                 toastr.success(data);
                 roles_table.draw(false);
+            },
+            error: function (xhr) {
+                var res = xhr.responseJSON;
+                if (res.message) {
+                    alert(res.message);
+                }else{
+                    alert("Error!!")
+                }
             }
         });
     }else{

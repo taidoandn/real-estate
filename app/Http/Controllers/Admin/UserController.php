@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
-use App\Models\User;
 use App\Models\Admin;
-use App\Models\Permission;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Requests\UserRequest;
@@ -13,9 +11,6 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    public function __construct() {
-
-    }
     /**
      * Display a listing of the resource.
      *

@@ -31,24 +31,26 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <li class="{{ Request::is("admin/roles") ? "active" : "" }}">
-                <a href="{{ route('admin.roles.index') }}">
-                    <i class="fa fa-user-times"></i>
-                    <span>Role</span>
-                </a>
-            </li>
-            <li class="{{ Request::is("admin/users*") ? "active" : "" }}">
-                <a href="{{ route('admin.users.index') }}">
-                    <i class="fa fa-user-times"></i>
-                    <span>Admin</span>
-                </a>
-            </li>
             <li class="{{ Request::is("admin/accounts*") ? "active" : "" }}">
                 <a href="{{ route('admin.accounts.index') }}">
                     <i class="fa fa-user-circle-o"></i>
                     <span>Account</span>
                 </a>
             </li>
+            @can('isSuperAdmin', Model::class)
+                <li class="{{ Request::is("admin/users*") ? "active" : "" }}">
+                    <a href="{{ route('admin.users.index') }}">
+                        <i class="fa fa-user"></i>
+                        <span>User Admin</span>
+                    </a>
+                </li>
+                <li class="{{ Request::is("admin/roles") ? "active" : "" }}">
+                    <a href="{{ route('admin.roles.index') }}">
+                        <i class="fa fa-user-times"></i>
+                        <span>Role</span>
+                    </a>
+                </li>
+            @endcan
             <li class="treeview {{ Request::is("admin/posts*") ? "active" : "" }}">
                 <a href="#">
                     <i class="fa fa-edit"></i> <span>Bài viết</span>

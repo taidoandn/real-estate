@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
-
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -18,10 +18,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
+        $this->authorize("read-post");
         return view('backend.post.show');
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -29,6 +28,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
+        $this->authorize("create-post");
         $users = User::get();
         return view('backend.post.create',compact('users'));
     }
@@ -40,10 +40,11 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PostRequest $request){
+        $this->authorize("create-post");
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
         if ($request->hasFile('fImage')) {
-            $image_name = $this->saveImage($request->file('fImage'));
+            $image_name = saveImage($request->file('fImage'));
             $data['image'] = $image_name;
         }
         $post   = Post::create($data);
@@ -66,22 +67,11 @@ class PostController extends Controller
 
         if ($request->has('fImageDetails')) {
             foreach ($request->file('fImageDetails') as  $file) {
-                $file_name = $this->saveImage($file);
+                $file_name = saveImage($file);
                 $post->images()->create(['path'=>$file_name]);
             }
         }
         return redirect()->route('admin.posts.index')->with('success','Thêm bài viết thành công');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -92,8 +82,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize("update-post");
         $users = User::get();
-        $post  = Post::with('detail','district.city','property_type','conveniences')->findOrFail($id);
+        $post  = Post::with('detail','district.city','property_type','conveniences','type')->findOrFail($id);
         return view('backend.post.edit',compact('post','users'));
     }
 
@@ -105,12 +96,14 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(PostRequest $request, $id){
+        $this->authorize("update-post");
         $post = Post::findOrFail($id);
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
+
         if ($request->hasFile('fImage')) {
-            $this->deleteImage($post->image);
-            $image_name = $this->saveImage($request->file('fImage'));
+            unlinkImage($post->image);
+            $image_name = saveImage($request->file('fImage'));
             $data['image'] = $image_name;
         }
 
@@ -143,7 +136,16 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('delete-post');
+        $post = Post::findOrFail($id);
+
+        unlinkImage($post->image);
+
+        $property_images = $post->images;
+        foreach ($property_images as $image) {
+            unlinkImage($image->path);
+        }
+        $post->delete();
     }
 
     public function getPosts(Request $request){
@@ -172,29 +174,4 @@ class PostController extends Controller
         }
     }
 
-    /**
-     * Function upload image
-     *
-     * @param [string] $image
-     * @return string
-     */
-    public function saveImage($image){
-        $image_name = rand(1111,9999).time().".".$image->getClientOriginalExtension();
-        $image->move(public_path('uploads/images/'),$image_name);
-        return $image_name;
-    }
-
-    /**
-     * Function delete image
-     *
-     * @param [string] image_name
-     * @return void
-     */
-    public function deleteImage($image_name){
-        if ($image_name != 'call-to-action.jpg' && $image_name != 'themeqx-cover.jpeg') {
-            if (file_exists(public_path("uploads/images/$image_name"))) {
-                unlink(public_path("uploads/images/$image_name"));
-            };
-        }
-    }
 }

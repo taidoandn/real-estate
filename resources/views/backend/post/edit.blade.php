@@ -44,16 +44,16 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group {{ $errors->has('type_id') ? 'has-error' : ''}}">
-                                <label for="type_id" class="col-md-4 control-label">Loại bất động sản</label>
+                            <div class="form-group {{ $errors->has('property_id') ? 'has-error' : ''}}">
+                                <label for="property_id" class="col-md-4 control-label">Loại bất động sản</label>
                                 <div class="col-md-8">
-                                    <select class="form-control select2" id="type_id" name="type_id">
-                                        @foreach ($property_types as $type)
-                                        <option {{ $post->type_id == $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{$type->name}}</option>
+                                    <select class="form-control select2" id="property_id" name="property_id">
+                                        @foreach ($property_types as $property)
+                                        <option {{ $post->property_id == $property->id ? 'selected' : '' }} value="{{ $property->id }}">{{$property->name}}</option>
                                         @endforeach
                                     </select>
                                     <strong class="help-block" role="alert">
-                                        {{ $errors->first('type_id') }}
+                                        {{ $errors->first('property_id') }}
                                     </strong>
                                 </div>
                             </div>
@@ -380,6 +380,91 @@
                             </div>
                         </div>
                         <div class="col-md-12">
+                            <legend>Lịch đăng tin</legend>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Loại tin rao</label>
+                                    <div class="col-md-8">
+                                        <select name="type_id" class="form-control col-md-4">
+                                            @foreach ($post_type as $type)
+                                                <option {{ old('type_id',$post->type_id) === $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Ngày bắt đầu</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control datetimepicker" id="start_date" name="start_date" value="{{ old('start_date',$post->start_date) }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Ngày kết thúc</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control datetimepicker" id="end_date" name="end_date" value="{{ old('end_date',$post->end_date) }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="m-l-20 m-t-05">
+                                    <p>
+                                        <strong>
+                                            <i class="fa fa-pencil margin-r-5"></i>
+                                            <span id="type-name"></span>
+                                        </strong> :
+                                        <span id="type-description"></span>
+                                    </p>
+
+                                    <p>
+                                        <strong>
+                                            <i class="fa fa-money margin-r-5"></i> Đơn giá :
+                                        </strong>
+                                        <span class="text-red" id="type-price"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="m-l-20 m-t-05">
+                                    <p>
+                                        <strong>
+                                            <i class="fa fa-calendar margin-r-5"></i> Số ngày :
+                                        </strong>
+                                        <span id="day-between"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" class="diff-date" value="">
+                        <input type="hidden" class="price" value="" >
+                        <div class="col-md-12">
+                            <legend>Thành tiền</legend>
+                            <div class="col-md-offset-1">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Phí đăng tin</th>
+                                            <th>VAT (10%)</th>
+                                            <th></th>
+                                            <th>Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span id="pricePost"></span></td>
+                                            <td id="vat"></td>
+                                            <td></td>
+                                            <td id="totalPrice"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
                             <input type="submit" class="btn bg-blue" value="Cập nhật" name="btn-edit">
                         </div>
                     </div>
@@ -390,24 +475,80 @@
 </section>
 @endsection
 @push('css')
+<link rel="stylesheet" href="{{ asset('layout/backend/css/bootstrap-datetimepicker.min.css') }}">
 <link rel="stylesheet" href="{{ asset('layout/backend/bower_components/select2/dist/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('layout/backend/css/alt/AdminLTE-select2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('layout/backend/css/map.css')}}">
 @endpush
 @push('script')
 <script src="{{ asset('layout/backend/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
+<script src="{{ asset('layout/backend/js/moment.min.js') }}"></script>
+<script src="{{ asset('layout/backend/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('layout/editor/ckeditor/ckeditor.js')}}"></script>
 <script src="{{ asset('layout/editor/ckfinder/ckfinder.js')}}"></script>
 <script src="{{ asset('layout/backend/js/myscript/custom.js')}}"></script>
 <script src="{{ asset('layout/backend/js/myscript/post-edit.js')}}"></script>
 <script src="{{ asset('layout/backend/js/myscript/map.js')}}"></script>
+<script src="{{ asset('layout/backend/js/myscript/datetime-custom.js')}}"></script>
+<script src="{{ asset('layout/backend/js/jquery.number.min.js')}}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQuDQmtiHkS7CcriyEiYXWja3ODrG4vFI&callback=initMap&libraries=places"></script>
 <script type="text/javascript">
     CKEDITOR.replace('editor');
     $('.select2').select2();
 </script>
+
+<script>
+function loadPrice() {
+    if ($(".diff-date").val() && $(".price").val()) {
+
+        let price = $(".diff-date").val() * $(".price").val();
+        let price_format = $.number(price);
+        $("#pricePost").html(price_format + " đồng");
+
+        let vat = $(".diff-date").val() * $(".price").val() / 10;
+        let vat_format = $.number(vat);
+        $("#vat").html(vat_format + " đồng");
+
+        let total_price = vat + price;
+        let total_format = $.number(total_price);
+        $("#totalPrice").html(total_format + " đồng");
+    }else{
+        return false;
+    }
+}
+$(document).ready(function () {
+    $("[name='type_id']").on('change',function(){
+        loadPostType($(this).val());
+    });
+    if ($("[name='type_id']").val()) {
+        var type_id = $("[name='type_id']").val();
+        loadPostType(type_id);
+    }
+    function loadPostType(type) {
+        $.ajax({
+            type: "get",
+            url: "{{ route('ajax.post-type') }}",
+            data: {
+                "type" : type
+            },
+            dataType: "json",
+            success: function (data) {
+                $("#type-name").html(data.name);
+                $("#type-description").html(data.description);
+                $(".price").val(data.price);
+                let number_format = $.number(data.price);
+                $("#type-price").html(number_format + " đồng / Ngày");
+                loadPrice();
+            }
+        });
+    }
+
+});
+</script>
+
 <script>
     $(document).ready(function () {
+
         $("[name='purpose']").on('change', function () {
             if ($(this).val() == 'sale') {
                 loadUnit('sale');
@@ -424,8 +565,8 @@
         }
 
         function loadUnit(purpose) {
-            var old_purpose = "{{ $post->purpose }}";
-            var old_unit = "{{ $post->unit }}";
+            var old_purpose = "{{ old('purpose',$post->purpose) }}";
+            var old_unit = "{{ old('unit',$post->unit) }}";
             if (purpose == 'sale') {
                 var options = "<option value='total_area'>Tổng diện tích</option><option value='m2'>Mét vuông</option>";
                 $('select[name="unit"]').html(options);
@@ -478,12 +619,9 @@
         });
     }
 </script>
-{{--
-@if ($errors)
+    @if($errors)
     @foreach ($errors->all() as $error)
-        <script>
-            toastr.error("{{ $error }}");
-        </script>
+    <script> toastr.error('{{ $error }}')</script>
     @endforeach
-@endif --}}
+    @endif
 @endpush

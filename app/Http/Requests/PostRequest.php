@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PostRequest extends FormRequest
@@ -23,6 +24,9 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
+        $start = Carbon::parse(request()->start_date) ?? null;
+        $end   = Carbon::parse(request()->end_date) ?? null;;
+        $diff  = $start->diffInDays($end);
         switch (request()->method()) {
             case 'PATCH':
             case 'PUT':
@@ -38,12 +42,14 @@ class PostRequest extends FormRequest
                     'latitude'    => 'required',
                     'longitude'   => 'required',
                     'fImage'      => 'image|mimes:jpg,jpeg,bmp,png|max:2048',
-                    'type_id'     => 'required|exists:property_types,id',
+                    'property_id' => 'required|exists:property_types,id',
                     'floor'       => 'required',
                     'bed_room'    => 'required',
                     'bath'        => 'required',
                     'balcony'     => 'required',
                     'toilet'      => 'required',
+                    'start_date'  => 'required|date|date_format:Y-m-d|before:end_date',
+                    'end_date'    => 'required|date|date_format:Y-m-d|after:'.$start->addDays($diff - 1),
                 ];
                 break;
             default:
@@ -60,13 +66,15 @@ class PostRequest extends FormRequest
                     'longitude'       => 'required',
                     'fImage'          => 'required|mimes:jpg,jpeg,bmp,png|max:2048',
                     'fImageDetails.*' => 'mimes:jpg,jpeg,bmp,png|max:2048',
-                    'type_id'         => 'required|exists:property_types,id',
+                    'property_id'     => 'required|exists:property_types,id',
                     'user_id'         => 'required|exists:users,id',
                     'floor'           => 'required',
                     'bed_room'        => 'required',
                     'bath'            => 'required',
                     'balcony'         => 'required',
                     'toilet'          => 'required',
+                    'start_date'  => 'required|date|date_format:Y-m-d|before:end_date',
+                    'end_date'    => 'required|date|date_format:Y-m-d|after:'.$start->addDays($diff - 1),
                 ];
                 break;
         }

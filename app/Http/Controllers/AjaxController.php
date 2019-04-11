@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\PropertyImage;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
+use App\Models\PostType;
 
 class AjaxController extends Controller
 {
@@ -13,7 +14,7 @@ class AjaxController extends Controller
         $this->validate($request,[
             'file' => 'image|mimes:jpg,jpeg,bmp,png|max:2048'
         ]);
-        $image_name = $this->saveImage($request->file);
+        $image_name = saveImage($request->file);
         $image = PropertyImage::create(['path'=>$image_name,'post_id'=>$request->id]);
 
         return view('backend.post._image',compact('image'));
@@ -22,17 +23,9 @@ class AjaxController extends Controller
     public function deleteImage(Request $request){
         $image = PropertyImage::findOrFail($request->id);
         $path  = $image->path;
-        if (file_exists(public_path("uploads/images/$path"))) {
-            unlink(public_path("uploads/images/$path"));
-        };
+        unlinkImage($path);
         $image->delete();
         return "Xóa ảnh thành công";
-    }
-
-    public function saveImage($image){
-        $image_name = rand(1111,9999).time().".".$image->getClientOriginalExtension();
-        $image->move(public_path('uploads/images/'),$image_name);
-        return $image_name;
     }
 
     public function getDistricts(Request $request){
@@ -43,5 +36,10 @@ class AjaxController extends Controller
                             ->get();
             return $districts;
         }
+    }
+
+    public function getPostType(Request $request){
+        $type =  PostType::findOrFail($request->type);
+        return response()->json($type);
     }
 }

@@ -10,9 +10,6 @@ use App\Http\Controllers\Controller;
 
 class AccountController extends Controller
 {
-    public function __construct() {
-
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +17,7 @@ class AccountController extends Controller
      */
     public function index()
     {
+        $this->authorize('read-account');
         return view('backend.account.show');
     }
 
@@ -36,16 +34,6 @@ class AccountController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -53,21 +41,12 @@ class AccountController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $this->authorize('create-account');
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
         $user = User::create($data);
         $user->roles()->attach($request->role);
         return "Thêm tài khoản thành công!!";
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
     }
 
     /**
@@ -78,6 +57,7 @@ class AccountController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('update-account');
         $user = User::findOrFail($id);
         return response()->json($user, 200);;
     }
@@ -91,6 +71,7 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('update-account');
         $this->validate($request,
         [
             'name'     => 'required|min:4',
@@ -115,6 +96,7 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete-account');
         User::destroy($id);
         return "Xóa tài khoản thành công";
     }

@@ -32,25 +32,25 @@ class PermissionTableSeeder extends Seeder
         $delete_post->type = "post";
         $delete_post->save();
 
-        $create_user = new Permission();
-        $create_user->name = "create-user";
-        $create_user->type = "user";
-        $create_user->save();
+        $create_account = new Permission();
+        $create_account->name = "create-account";
+        $create_account->type = "account";
+        $create_account->save();
 
-        $read_user = new Permission();
-        $read_user->name = "read-user";
-        $read_user->type = "user";
-        $read_user->save();
+        $read_account = new Permission();
+        $read_account->name = "read-account";
+        $read_account->type = "account";
+        $read_account->save();
 
-        $update_user = new Permission();
-        $update_user->name = "update-user";
-        $update_user->type = "user";
-        $update_user->save();
+        $update_account = new Permission();
+        $update_account->name = "update-account";
+        $update_account->type = "account";
+        $update_account->save();
 
-        $delete_user = new Permission();
-        $delete_user->name = "delete-user";
-        $delete_user->type = "user";
-        $delete_user->save();
+        $delete_account = new Permission();
+        $delete_account->name = "delete-account";
+        $delete_account->type = "account";
+        $delete_account->save();
 
     }
 }
