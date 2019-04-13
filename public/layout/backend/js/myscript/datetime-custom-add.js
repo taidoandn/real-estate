@@ -7,6 +7,8 @@ $(document).ready(function () {
     var today = new Date();
     var start_date = formatDate($("[name='start_date']").val());
     var end_date = formatDate($("[name='end_date']").val());
+    dayBetween(start_date,end_date);
+    loadPrice();
     $('#start_date').datetimepicker({
         format:'YYYY-MM-DD',
         minDate: today,
@@ -26,7 +28,6 @@ $(document).ready(function () {
         if ((start_date >= end_date || dayBetween(start_date,end_date) < 7)) {
             $('#end_date').data("DateTimePicker").clear();
         }
-
         dif = dayBetween(start_date,end_date);
         $(".diff-date").val(dif);
         loadPrice();

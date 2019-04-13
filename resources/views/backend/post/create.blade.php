@@ -43,12 +43,12 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group {{ $errors->has('type_id') ? 'has-error' : ''}}">
-                                <label for="type_id" class="col-md-4 control-label">Loại bất động sản</label>
+                            <div class="form-group {{ $errors->has('property_id') ? 'has-error' : ''}}">
+                                <label for="property_id" class="col-md-4 control-label">Loại bất động sản</label>
                                 <div class="col-md-8">
-                                    <select class="form-control select2" id="type_id" name="type_id">
-                                        @foreach ($property_types as $type)
-                                        <option {{ old('type_id') == $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{$type->name}}</option>
+                                    <select class="form-control select2" id="property_id" name="property_id">
+                                        @foreach ($property_types as $property)
+                                        <option {{ old('property_id') == $property->id ? 'selected' : '' }} value="{{ $property->id }}">{{$property->name}}</option>
                                         @endforeach
                                     </select>
                                     <strong class="help-block" role="alert">
@@ -339,7 +339,7 @@
                                 <div class="col-md-8">
                                     <select name="type_id" class="form-control col-md-4">
                                         @foreach ($post_type as $type)
-                                            <option {{ old('type_id') === $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
+                                            <option {{ old('type_id') == $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -390,8 +390,8 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" class="diff-date" value="">
-                        <input type="hidden" class="price" value="" >
+                        <input type="hidden" class="diff-date" value="0">
+                        <input type="hidden" class="price" value="0" >
                         <div class="col-md-12">
                             <legend>Thành tiền</legend>
                             <div class="col-md-offset-1">
@@ -563,9 +563,9 @@ $(document).ready(function () {
         });
     }
 </script>
-    {{-- @if($errors)
+    @if($errors)
     @foreach ($errors->all() as $error)
     <script> toastr.error('{{ $error }}')</script>
     @endforeach
-    @endif --}}
+    @endif
 @endpush

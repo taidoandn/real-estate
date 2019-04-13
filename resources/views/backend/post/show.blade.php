@@ -64,6 +64,7 @@
 @push('script')
 <script src="{{  asset('layout/backend/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{  asset('layout/backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{  asset('layout/backend/js/myscript/delete-post.js') }}"></script>
 <script>
     var posts_table = $('#posts-table').DataTable({
         processing: true,

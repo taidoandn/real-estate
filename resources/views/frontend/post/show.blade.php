@@ -173,8 +173,10 @@
 
                 <legend>Map</legend>
                 <div id="map" style="width: 100%; height: 400px; margin: 20px 0;"></div>
+                <button onclick="getGeolocation()" class="btn btn-primary">Direction to your location</button>
                 <input type="hidden" id="longitude" value="{{ $post->longitude }}" name="longitude">
                 <input type="hidden" id="latitude" value="{{ $post->latitude }}" name="latitude">
+                <div id="panel" style="width:100%;height:auto;"></div>
             </div>
 
         </div>
@@ -309,45 +311,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="shareEmbedded" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Embedded preview</h4>
-            </div>
-
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="embedded_width" class="control-label">Embedded width:</label>
-                            <input type="number" class="form-control" id="embedded_width" name="embedded_width" value="300"
-                                placeholder="Embedded width">
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <label for="embedded_height" class="control-label">Embedded height:</label>
-                        <input type="number" class="form-control" id="embedded_height" name="embedded_height" value="460"
-                            placeholder="Embedded width">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="message-text" class="control-label">Embedded code:</label>
-                    <textarea class="form-control" readonly id="embedded_code">&lt;iframe src=&quot;https://demo.themeqx.com/themeqxestate/embedded/real-estate-excellent-home-15sft&quot; style=&quot;border:0;width:300px;height:460px;&quot;&gt;&lt;/iframe&gt;</textarea>
-                </div>
-
-                <div class="form-group">
-                    <iframe src="https://demo.themeqx.com/themeqxestate/embedded/real-estate-excellent-home-15sft"
-                        style="border:0;width:300px;height:460px;"></iframe>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
 @endsection
 
 @push('js')

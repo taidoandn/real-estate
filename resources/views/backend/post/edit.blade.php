@@ -3,7 +3,7 @@
 @section('content')
 <section class="content-header">
     <h1>
-        Thêm bài viết
+        Sửa bài viết
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -443,21 +443,21 @@
                         <div class="col-md-12">
                             <legend>Thành tiền</legend>
                             <div class="col-md-offset-1">
-                                <table class="table table-bordered table-hover">
+                                <table border="1" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Phí đăng tin</th>
-                                            <th>VAT (10%)</th>
+                                            <th style="text-align: center">Phí đăng tin</th>
+                                            <th style="text-align: center">VAT (10%)</th>
                                             <th></th>
-                                            <th>Thành tiền</th>
+                                            <th style="text-align: center">Thành tiền</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><span id="pricePost"></span></td>
-                                            <td id="vat"></td>
+                                            <td style="text-align: center" id="pricePost"></td>
+                                            <td style="text-align: center" id="vat"></td>
                                             <td></td>
-                                            <td id="totalPrice"></td>
+                                            <td style="text-align: center" id="totalPrice"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -500,7 +500,6 @@
 <script>
 function loadPrice() {
     if ($(".diff-date").val() && $(".price").val()) {
-
         let price = $(".diff-date").val() * $(".price").val();
         let price_format = $.number(price);
         $("#pricePost").html(price_format + " đồng");
@@ -508,7 +507,6 @@ function loadPrice() {
         let vat = $(".diff-date").val() * $(".price").val() / 10;
         let vat_format = $.number(vat);
         $("#vat").html(vat_format + " đồng");
-
         let total_price = vat + price;
         let total_format = $.number(total_price);
         $("#totalPrice").html(total_format + " đồng");
@@ -620,8 +618,8 @@ $(document).ready(function () {
     }
 </script>
     @if($errors)
-    @foreach ($errors->all() as $error)
-    <script> toastr.error('{{ $error }}')</script>
-    @endforeach
+        @foreach ($errors->all() as $error)
+            <script> toastr.error('{{ $error }}')</script>
+        @endforeach
     @endif
 @endpush

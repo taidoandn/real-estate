@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Post;
 use App\Models\User;
+use App\Mail\NewPostCreated;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
+use Mail;
 
 class PostController extends Controller
 {
@@ -71,6 +73,8 @@ class PostController extends Controller
                 $post->images()->create(['path'=>$file_name]);
             }
         }
+        $user = User::findOrFail($request->user_id)->email;
+        Mail::to($user)->send(new NewPostCreated($post));
         return redirect()->route('admin.posts.index')->with('success','Thêm bài viết thành công');
     }
 
@@ -146,6 +150,7 @@ class PostController extends Controller
             unlinkImage($image->path);
         }
         $post->delete();
+        return "Xóa thành công";
     }
 
     public function getPosts(Request $request){

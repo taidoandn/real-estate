@@ -7,6 +7,52 @@ function initMap() {
    createMarker(position);
 }
 
+function getGeolocation() {
+    initMap();
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(successCallback,errorCallback,{maximumAge:600, timeout:5000, enableHighAccuracy:true});
+    } else {
+        alert("'Error: Your browser doesn\'t support geolocation.'");
+    }
+}
+
+function successCallback(position) {
+    var latitude          = position.coords.latitude;                     //users current
+    var longitude         = position.coords.longitude;                    //location
+    var coords            = new google.maps.LatLng(latitude, longitude);  //Creates variable for map coordinates
+    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var mapOptions        =  {
+        zoom: 15,  //Sets zoom level (0-21)
+        center: coords, //zoom in on users location
+        mapTypeControl: true, //allows you to select map type eg. map or satellite
+        navigationControlOptions:
+        {
+            style: google.maps.NavigationControlStyle.SMALL //sets map controls size eg. zoom
+        },
+        mapTypeId: google.maps.MapTypeId.ROADMAP //sets type of map Options:ROADMAP, SATELLITE, HYBRID, TERRIAN
+    };
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('panel'));
+    var request = {
+        origin: coords,
+        destination: $("#latitude").val() + ", " + $("#longitude").val(),
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
+
+    directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
+}
+
+function errorCallback() {
+    console.log('The Geolocation service failed.');
+}
+
 function createMarker(pos){
     marker = new google.maps.Marker({
         position: pos,
