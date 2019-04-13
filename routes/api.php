@@ -34,6 +34,14 @@ Route::group(['as' => 'api.'], function () {
     Route::resource('/cities', 'CityController')->only('index','show');
     Route::get('cities/{city}/districts','CityController@districts')->name('cities.districts');
     Route::get('cities/{city}/districts/{district}','CityController@districtById')->name('cities.districts');
+
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('login', 'AuthController@login');
+        Route::post('register', 'AuthController@register');
+        Route::post('logout', 'AuthController@logout');
+        Route::post('refresh', 'AuthController@refresh');
+        Route::post('me', 'AuthController@me');
+    });
 });
 
 

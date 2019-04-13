@@ -49,7 +49,7 @@ class PostRequest extends FormRequest
                     'bath'        => 'required',
                     'balcony'     => 'required',
                     'toilet'      => 'required',
-                    'start_date'  => 'required|date|date_format:Y-m-d|after'.$today.'|before:end_date',
+                    'start_date'  => 'required|date|date_format:Y-m-d|after:'.$today.'|before:end_date',
                     'end_date'    => 'required|date|date_format:Y-m-d|after:'.$start->addDays($diff - 1),
                 ];
                 break;
@@ -74,7 +74,7 @@ class PostRequest extends FormRequest
                     'bath'            => 'required',
                     'balcony'         => 'required',
                     'toilet'          => 'required',
-                    'start_date'      => 'required|date|date_format:Y-m-d|after'.$today.'|before:end_date',
+                    'start_date'      => 'required|date|date_format:Y-m-d|after:'.$today.'|before:end_date',
                     'end_date'        => 'required|date|date_format:Y-m-d|after:'.$start->addDays($diff - 1),
                 ];
                 break;
