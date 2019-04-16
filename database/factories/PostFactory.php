@@ -12,7 +12,7 @@ $factory->define(App\Models\Post::class, function () use($faker){
         $rent = ['month' , 'year'];
         $unit = $rent[array_rand($rent)];
     }
-    $start = Carbon::now();
+    $start = Carbon::now()->addDays(1);
     $end   = Carbon::now()->addDays(30);
     return [
         'title'       => rtrim($faker->sentence(rand(5,10)) ,"."),

@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Post as PostResource;
 use App\Http\Requests\PostRequest;
-use App\Models\Convenience;
-use App\Models\PropertyDetail;
 
 class PostController extends Controller
 {
     protected $paginate = 6;
+
+    public function __construct(){
+        $this->middleware('jwt.verify', ['except' => ['show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +22,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::with('user','district.city','detail','property_type','images','distances')->isPublished()->paginate($this->paginate), 200);
+        return response()->json(Post::with('user','district.city','detail','property_type','images','distances')
+                        ->isPublished()
+                        ->paginate($this->paginate)
+                        , 200);
     }
 
     /**
@@ -132,29 +137,6 @@ class PostController extends Controller
         }
         $post->delete();
         return response()->json(['success'=>'deleted!']);
-    }
-
-    public function conveniences(Post $post){
-        $conveniences = $post->conveniences;
-        return response()->json($conveniences, 200);
-    }
-
-    public function convenienceById(Post $post,Convenience $convenience){
-        $convenience = $post->conveniences->find($convenience);
-        if (is_null($convenience)) {
-            return response()->json(null, 404);
-        }
-        return response()->json($convenience, 200);
-    }
-
-    public function detail(Post $post){
-        $detail = $post->detail;
-        return response()->json($detail, 200);
-    }
-
-    public function property_type(Post $post){
-        $property_type = $post->property_type;
-        return response()->json($property_type, 200);
     }
 
 }

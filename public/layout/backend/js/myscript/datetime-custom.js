@@ -7,7 +7,6 @@ $(document).ready(function () {
     var start_date = formatDate($("[name='start_date']").val()) ;
     var end_date = formatDate($("[name='end_date']").val());
     var today = new Date();
-    var dif;
     dayBetween(start_date,end_date);
     if (start_date <= today) {
         $("[name='start_date']").prop("readonly",true);
@@ -22,7 +21,6 @@ $(document).ready(function () {
         $("#end_date").on("dp.change", function (e) {
             end_date = new Date(e.date);
             dif = dayBetween(start_date,end_date);
-            $(".diff-date").val(dif);
             loadPrice();
         });
 
@@ -42,22 +40,18 @@ $(document).ready(function () {
         });
 
         $("#start_date").on("dp.change", function (e) {
-            start_date = formatDate($("[name='start_date']").val())
-            $('#end_date').data("DateTimePicker").minDate(new Date(e.date).addDays(7));
+            start_date = formatDate($("[name='start_date']").val());
+            $('#end_date').data("DateTimePicker").minDate(start_date.addDays(7));
             if ((start_date >= end_date) || dayBetween(start_date,end_date) < 7 ) {
                 $('#end_date').data("DateTimePicker").clear();
             }
-
-            dif = dayBetween(start_date,end_date);
-            $(".diff-date").val(dif);
+            dayBetween(start_date,end_date);
             loadPrice();
         });
 
         $("#end_date").on("dp.change", function (e) {
             start_date = formatDate($("[name='end_date']").val())
-
-            dif = dayBetween(start_date,end_date);
-            $(".diff-date").val(dif);
+            dayBetween(start_date,end_date);
             loadPrice();
         });
     }
@@ -65,11 +59,11 @@ $(document).ready(function () {
 
 function dayBetween(date1, date2){
     if (date1 <= date2) {
-        $("#day-between").html(Math.round((date2-date1) / (1000 * 60 * 60 * 24)));
+        $("#day-between").html(Math.round((date2-date1) / (1000 * 60 * 60 * 24)) + " ngày");
         $(".diff-date").val(Math.round((date2-date1) / (1000 * 60 * 60 * 24)));
         return Math.round((date2-date1)/(1000 * 60 * 60 * 24));
     }else{
-        $("#day-between").html('');
+        $("#day-between").html(0 + " ngày");
         return 0;
     }
 }

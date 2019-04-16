@@ -26,9 +26,45 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            <li >
-                <a href="#">
+            <li class="{{ Request::is("admin/dashboard") ? "active" : "" }}">
+                <a href="{{ route('admin.dashboard') }}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="treeview {{ Request::is("admin/cities*") || Request::is("admin/districts*") ? "active" : "" }}">
+                <a href="#">
+                    <i class="fa fa-edit"></i> <span>Location</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ Request::is("admin/cities*") ? "active" : "" }}"><a href="{{ route('admin.cities.index') }}"><i class="fa fa-circle-o"></i> City</a></li>
+                    <li class="{{ Request::is("admin/districts*") ? "active" : "" }}"><a href="{{ route('admin.districts.index') }}"><i class="fa fa-circle-o"></i> District</a></li>
+                </ul>
+            </li>
+            <li class="{{ Request::is("admin/property-types*") ? "active" : "" }}">
+                <a href="{{ route('admin.property-types.index') }}">
+                    <i class="fa fa-building"></i>
+                    <span>Property Type</span>
+                </a>
+            </li>
+            <li class="{{ Request::is("admin/post-types*") ? "active" : "" }}">
+                <a href="{{ route('admin.post-types.index') }}">
+                    <i class="fa fa-building"></i>
+                    <span>Post Type</span>
+                </a>
+            </li>
+            <li class="{{ Request::is("admin/conveniences*") ? "active" : "" }}">
+                <a href="{{ route('admin.conveniences.index') }}">
+                    <i class="fa fa-list"></i>
+                    <span>Convenience</span>
+                </a>
+            </li>
+            <li class="{{ Request::is("admin/distances*") ? "active" : "" }}">
+                <a href="{{ route('admin.distances.index') }}">
+                    <i class="fa fa-road"></i>
+                    <span>Distance</span>
                 </a>
             </li>
             <li class="{{ Request::is("admin/accounts*") ? "active" : "" }}">

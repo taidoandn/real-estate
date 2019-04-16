@@ -104,7 +104,7 @@
                                     <select name="status" class="form-control">
                                         <option {{ $post->status == 'pending' ? 'selected' : ''}} value="pending">Pending</option>
                                         <option {{ $post->status == 'published' ? 'selected' : ''}} value="published">Published</option>
-                                        <option {{ $post->status == 'blocked' ? 'selected' : ''}} value="blocked">Blocked</option>
+                                        <option {{ $post->status == 'expired' ? 'selected' : ''}} value="expired">Expired</option>
                                     </select>
                                     <strong class="help-block" role="alert">
                                         {{ $errors->first('status') }}

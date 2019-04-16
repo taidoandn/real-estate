@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Mail\NewPostCreated;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PostRequest;
+use Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -51,7 +53,7 @@ class PostController extends Controller
             $data['image'] = $image_name;
         }
 
-        $post   = Auth::user()->posts->create($data);
+        $post   = Auth::user()->posts()->create($data);
         $post->detail()->create([
             'floor'        => $request->floor,
             'bath'         => $request->bath,
@@ -74,7 +76,8 @@ class PostController extends Controller
                 $post->images()->create(['path'=>$file_name]);
             }
         }
-        return redirect()->route('posts.index')->with('success','Thêm bài viết thành công');
+        Mail::to(auth()->user())->send(new NewPostCreated($post));
+        return redirect()->route('posts.index')->with('success','Tạo bài viết thành công. Vui lòng check email để tiếp tục thực hiện!!');
     }
 
     /**
@@ -114,7 +117,8 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $this->authorize('update', $post);
-        $data = $request->all();
+        $data = $request->except(['start_date','end_date','type_id']);
+
         $data['negotiable'] = $request->negotiable ? true : false;
         $data['user_id'] = auth()->id();
         if ($request->hasFile('fImage')) {
@@ -126,11 +130,11 @@ class PostController extends Controller
         $post->update($data);
 
         $post->detail()->update([
-            'floor'        => $request->floor,
-            'bath'         => $request->bath,
-            'balcony'      => $request->balcony,
-            'toilet'       => $request->toilet,
-            'bed_room'     => $request->bed_room,
+            'floor'        => (int)$request->floor,
+            'bath'         => (int)$request->bath,
+            'balcony'      => (int)$request->balcony,
+            'toilet'       => (int)$request->toilet,
+            'bed_room'     => (int)$request->bed_room,
             'dinning_room' => $request->dinning_room ? true : false,
             'living_room'  => $request->living_room ? true : false,
         ]);
@@ -161,7 +165,8 @@ class PostController extends Controller
         foreach ($property_images as $image) {
             unlinkImage($image->path);
         }
-        $post->delete();
+		$post->delete();
+		return redirect()->back()->with('success','Xóa thành công');
     }
 
     public function getFavoritePosts(){

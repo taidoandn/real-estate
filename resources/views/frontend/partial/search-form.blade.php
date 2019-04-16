@@ -8,12 +8,12 @@
 
                         <form class="form-inline" action="{{ route('getSearch') }}" method="get">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="searchTerms" name="q" value="" placeholder="Search keywords" />
+                                <input type="text" class="form-control" id="searchTerms" name="q" value="" placeholder="Từ khóa" />
                             </div>
 
                             <div class="form-group">
                                 <select class="form-control select2" id="city" name="city_id">
-                                    <option value="">Select a country</option>
+                                    <option value="">Chọn thành phố</option>
                                     @foreach ($cities as $city)
                                     <option value="{{ $city->id }}">{{ $city->name }}</option>
                                     @endforeach
@@ -22,18 +22,18 @@
 
                             <div class="form-group">
                                 <select class="form-control select2" id="district" name="district_id">
-                                    <option value=""> Select District  </option>
+                                    <option value="">Chọn Quận/huyện</option>
                                 </select>
                             </div>
 
                             <button type="submit" class="btn theme-btn"> <i class="fa fa-search">
-                                </i> Search property</button>
+                                </i> Tìm kiếm</button>
                         </form>
 
-                        <div class="or-search"> OR </div>
+                        <div class="or-search"> hoặc </div>
 
                         <a href="{{ route('getSearch') }}" class="btn btn-info btn-lg"><i class="fa fa-search-plus"></i>
-                            Try Advance Search</a>
+                            Tim kiếm nâng cao</a>
                     </div>
                 </div>
             </div>

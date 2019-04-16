@@ -16,11 +16,14 @@
                     <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown"
                         class="dropdown-toggle" href="#">Short by <span class="caret"></span></a>
                     <ul class="dropdown-menu" id="sortList">
-                        <li class="{{ $sort == 'price_desc' ? 'active' : ''}}"><a href="javascript::void(0)" data-sort="price_desc">Price
+                        <li class="{{ $sort == 'price_desc' ? 'active' : ''}}"><a href="javascript::void(0)"
+                                data-sort="price_desc">Price
                                 high to low</a></li>
-                        <li class="{{ $sort == 'price_asc' ? 'active' : ''}}"><a href="javascript::void(0)" data-sort="price_asc">Price
+                        <li class="{{ $sort == 'price_asc' ? 'active' : ''}}"><a href="javascript::void(0)"
+                                data-sort="price_asc">Price
                                 low to high</a></li>
-                        <li class="{{ $sort == 'latest' ? 'active' : ''}}"><a href="javascript::void(0)" data-sort="latest">Latest</a>
+                        <li class="{{ $sort == 'latest' ? 'active' : ''}}"><a href="javascript::void(0)"
+                                data-sort="latest">Latest</a>
                         </li>
                     </ul>
                 </li>
@@ -40,7 +43,7 @@
         <div class="row">
             @foreach ($posts as $post)
             <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="ads-item-thumbnail ad-box-regular">
+                <div class="ads-item-thumbnail {{ $post->type->slug == "tin-vip" ? 'ad-box-premium' : 'ad-box-regular' }}">
                     <div class="ads-thumbnail">
                         <a href="{{ $post->url }}">
                             <img src="{{ asset('uploads/images/'.$post->image) }}" height="400px" class="img-bordered"
@@ -52,7 +55,7 @@
                     </div>
                     <div class="caption">
                         <h4>
-                            <a href="{{ $post->url }}" title="{{ $post->title }}">
+                            <a style="color : {{ $post->type->slug == 'tin-vip' ? 'red' : ($post->type->slug == 'tin-cao-cap' ? 'green' : '')}};" href="{{ $post->url }}" title="{{ $post->title }}">
                                 <span>{{ str_limit($post->title, 30) }} </span>
                             </a>
                         </h4>
@@ -87,62 +90,83 @@
 
                         </table>
 
+                        @if ($post->type->slug == "tin-cao-cap")
+                        <div class="ribbon-wrapper-green">
+                            <div class="ribbon-green">Premium</div>
+                        </div>
+                        @endif
+                        @if ($post->type->slug == "tin-vip")
+                        <div class="ribbon-wrapper-red">
+                            <div class="ribbon-red"><i class="fa fa-star"></i></div>
+                        </div>
+                        <div class="ribbon-wrapper-green">
+                            <div class="ribbon-green">VIP</div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
     </div>
+</div>
 
-    <div class="ad-box-list-view" style="display: {{ $grid === 'true' ? 'none' : 'block' }};">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-bordered table-responsive">
-                    @foreach ($posts as $post)
-                    <tr class="ad-regular">
-                        <td width="200px">
-                            <a href="{{ $post->url }}">
-                                <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-responsive"
-                                    alt="{{ $post->title }}">
-                                <span class="modern-sale-rent-indicator">
-                                    {{ ucfirst($post->purpose) }}
-                                </span>
-                            </a>
-                        </td>
-                        <td>
-                            <h4><a href="{{ $post->url }}">{{ $post->title }}</a> </h4>
-                            <p class="price">
-                                <h5 class="text-warning">{!! $post->priceFormat !!} </h5>
-                            </p>
-                            <p class="text-muted">
-                                <i class="fa fa-map-marker"></i> <a class="location text-muted">
-                                    {{ $post->district->city->name }} / {{ $post->district->name }}</a> ,
-                                <i class="fa fa-clock-o"></i> {{ $post->created_at->diffForHumans() }}
-                            </p>
-
-                            <p class="listViewItemFooter">
-                                <span> <i class="fa fa-building"></i> {{ $post->property_type->name }} </span>
-
-                                <span> <i class="fa fa-arrows-alt "></i> {{ $post->area }} m<sup>2</sup> </span>
-
-                                <span>
-                                    <i class="fa fa-bed"></i> {{ $post->detail->bed_room }} Bedroom(s) </span>
-                                <span>{{ $post->detail->floor }} Floor(s)</span>
-                            </p>
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
-            </div>
-        </div>
-    </div>
-    @else
+<div class="ad-box-list-view" style="display: {{ $grid === 'true' ? 'none' : 'block' }};">
     <div class="row">
-        <div class="col-md-12 col-sm-6 col-xs-12">
-            <h1>No data found</h1>
+        <div class="col-md-12">
+            <table class="table table-bordered table-responsive">
+                @foreach ($posts as $post)
+                <tr class="ad-{{ $post->type->slug == "tin-vip" ? 'premium' : 'regular' }}">
+                    <td width="200px">
+                        <a  href="{{ $post->url }}">
+                            <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-responsive"
+                                alt="{{ $post->title }}">
+                            <span class="modern-sale-rent-indicator">
+                                {{ ucfirst($post->purpose) }}
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        <h4><a style="color : {{ $post->type->slug == 'tin-vip' ? 'red' : ($post->type->slug == 'tin-cao-cap' ? 'green' : '')}};" href="{{ $post->url }}">{{ $post->title }}</a> </h4>
+                        <p class="price">
+                            <h5 class="text-warning">{!! $post->priceFormat !!} </h5>
+                        </p>
+                        <p class="text-muted">
+                            <i class="fa fa-map-marker"></i> <a class="location text-muted">
+                                {{ $post->district->city->name }} / {{ $post->district->name }}</a> ,
+                            <i class="fa fa-clock-o"></i> {{ $post->created_at->diffForHumans() }}
+                        </p>
+
+                        <p class="listViewItemFooter m-b-05">
+                            <span> <i class="fa fa-building"></i> {{ $post->property_type->name }} </span>
+
+                            <span> <i class="fa fa-arrows-alt "></i> {{ $post->area }} m<sup>2</sup> </span>
+
+                            <span>
+                                <i class="fa fa-bed"></i> {{ $post->detail->bed_room }} Bedroom(s) </span>
+                            <span>{{ $post->detail->floor }} Floor(s)</span>
+                        </p>
+                        @if ($post->type->slug == "tin-cao-cap")
+                            <div class="ribbon-green-bar">Premium</div>
+                        @endif
+                        @if ($post->type->slug == "tin-vip")
+                            <div class="ribbon-red-bar"><i class="fa fa-star"></i></div>
+                            <div class="ribbon-green-bar">VIP</div>
+                        @endif
+                    </td>
+                </tr>
+                @endforeach
+            </table>
         </div>
     </div>
-    @endif
+</div>
+@else
+<div class="row">
+    <div class="col-md-12 col-sm-6 col-xs-12">
+        <h1>No data found</h1>
+    </div>
+</div>
+@endif
 </div>
 <div class="text-center">
     {{ $posts->appends(request()->except(['page','district_id','city_id','q']))->links() }}

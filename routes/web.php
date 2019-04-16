@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/dashboard', function () {
-    return view('frontend.post.favorite');
-});
+// Route::get('/dashboard', function () {
+//     return view('frontend.post.favorite');
+// });
 
 Auth::routes();
 
@@ -50,30 +50,4 @@ Route::group(['prefix' => 'ajax','as'=>'ajax.'], function () {
     Route::get('/post-type','AjaxController@getPostType')->name('post-type');
 });
 
-Route::group(['prefix' => 'admin'], function () {
-    Route:: get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
-    Route:: post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
-    Route:: get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
-});
 
-
-Route::group(['namespace' => 'Admin','prefix'=>'admin','as' => 'admin.','middleware'=>'auth:admin'], function () {
-    Route:: get('/', 'AdminController@index')->name('dashboard');
-
-    //Route: user
-    Route::get('/list-users','UserController@getUsers')->name('api.users');
-    Route::resource('/users', 'UserController',['except'=>['create','show']]);
-
-    //Route: account
-    Route::get('/list-accounts','AccountController@getUsers')->name('api.accounts');
-    Route::resource('/accounts', 'AccountController',['except'=>['create','show']]);
-
-    //Route: role
-    Route::get('/list-roles','RoleController@getRoles')->name('api.roles');
-    Route::resource('/roles', 'RoleController',['except'=>['create','show']]);
-
-    //Route: post
-    Route::get('/list-posts','PostController@getPosts')->name('api.posts');
-    Route::resource('/posts', 'PostController',['except'=>['show']]);
-
-});

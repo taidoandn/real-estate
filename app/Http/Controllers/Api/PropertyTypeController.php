@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 
 class PropertyTypeController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('jwt.verify', ['except' => ['index','show','posts','postById']]);
+    }
     /**
      * Display a listing of the resource.
      *

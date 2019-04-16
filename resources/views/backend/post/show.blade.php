@@ -25,15 +25,24 @@
                 <div class="panel-body">
                     <div class="form-group clearfix">
                         <a href="{{ route('admin.posts.create') }}" class="btn bg-blue pull-right"><i class="fa fa-plus"></i> Thêm mới</a>
-                        <button type="button" class="btn bg-blue" data-toggle="collapse" data-target="#filter-user"><i class="fa fa-filter"></i> Filter</button>
+                        <button type="button" class="btn bg-blue" data-toggle="collapse" data-target="#filter"><i class="fa fa-filter"></i> Filter</button>
 
                         <button type="button" onclick="refresh()" class="btn bg-blue"><i class="fa fa-refresh"></i> Refresh</button>
 
-                        <div id="filter-user" class="collapse m-t-10">
-                            <form id="filter-user" class="col-md-4" action="">
+                        <div id="filter" class="collapse m-t-10">
+                            <form id="filter-form" class="col-md-4" action="">
                                 <div class="form-group">
-                                    <label for="email">Email address:</label>
-                                    <input type="email" class="form-control" id="email">
+                                    <label for="keyword">Keyword:</label>
+                                    <input type="text" name="keyword" class="form-control" id="keyword">
+                                </div>
+                                <div class="form-group">
+                                    <label for="status" class="control-label">Status</label>
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="">Chọn trạng thái</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="published">Published</option>
+                                        <option value="expired">Expired</option>
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-default pull-right">Submit</button>
                             </form>
@@ -46,7 +55,7 @@
                                 <th>Tiêu đề</th>
                                 <th>Hình ảnh</th>
                                 <th>Giá</th>
-                                <th>Người viết</th>
+                                <th>Người đăng</th>
                                 <th>Trạng thái</th>
                                 <th style="width: 15%">Action</th>
                             </tr>
@@ -64,12 +73,17 @@
 @push('script')
 <script src="{{  asset('layout/backend/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{  asset('layout/backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-<script src="{{  asset('layout/backend/js/myscript/delete-post.js') }}"></script>
 <script>
     var posts_table = $('#posts-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{!! route('admin.api.posts') !!}',
+        ajax: {
+            url: '{!! route('admin.api.posts') !!}',
+            data: function (d) {
+                d.keyword = $('input[name=keyword]').val();
+                d.status  = $('select[name=status]').val();
+            }
+        },
         columns: [
             {data: 'id',name: 'id'},
             {data: 'title',name: 'title'},
@@ -80,8 +94,41 @@
             {data: 'action', name: 'action', orderable: false, searchable: false}
         ]
     });
+    $('#filter-form').on('submit', function(e) {
+        e.preventDefault();
+        posts_table.draw();
+        $("#filter").collapse('hide');
+    });
     function refresh() {
-        posts_table.ajax.reload();
+        window.location.reload();
+    }
+
+    function deletePost(id) {
+        var csrf_token = $("meta[name='csrf-token']").attr('content');
+        if (confirm('Bạn có chắc là muốn xóa?')) {
+            $.ajax({
+                type: "post",
+                url: base_url + "/admin/posts/"+ id ,
+                data: {
+                    '_method' : "DELETE",
+                    '_token' : csrf_token
+                },
+                success: function (data) {
+                    toastr.success(data);
+                    posts_table.draw(false);
+                },
+                error: function (xhr) {
+                    var res = xhr.responseJSON;
+                    if (res.message) {
+                        alert(res.message);
+                    }else{
+                        alert("Error!!")
+                    }
+                }
+            });
+        }else{
+            return false;
+        }
     }
 </script>
 @endpush

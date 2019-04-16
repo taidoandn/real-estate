@@ -45,9 +45,9 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Loại bất động sản</label>
                             <div class="col-sm-9">
-                                <select name="type_id" id="type_id" class="form-control">
-                                    @foreach ($property_types as $type)
-                                    <option {{ old('type_id',$post->property_id == $type->id) ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
+                                <select name="property_id" id="property_id" class="form-control">
+                                    @foreach ($property_types as $property)
+                                    <option {{ old('property_id',$post->property_id) == $property->id ? 'selected' : '' }} value="{{ $property->id }}">{{ $property->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -246,16 +246,16 @@
                             <div id="image_preview">
                                 <div id="uploaded-ads-image-wrap">
                                 @forelse ($post->images as $image)
-                                    <div class="creating-ads-img-wrap" id="image-{{ $image->id }}">
-                                    @if (file_exists(public_path('uploads/images/').$image->path))
-                                        <img src="{{ asset('uploads/images/'.$image->path) }}" class="img-responsive">
-                                        <div class="img-action-wrap">
-                                            <a href="javascript:void(0)" id="{{ $image->id }}" class="imgDeleteBtn"><i class="fa fa-trash-o"></i> </a>
-                                        </div>
-                                    @endif
+                                <div class="creating-ads-img-wrap" id="image-{{ $image->id }}">
+                                @if (file_exists(public_path('uploads/images/').$image->path))
+                                    <img src="{{ asset('uploads/images/'.$image->path) }}" class="img-responsive">
+                                    <div class="img-action-wrap">
+                                        <a href="javascript:void(0)" id="{{ $image->id }}" class="imgDeleteBtn"><i class="fa fa-trash-o"></i> </a>
                                     </div>
-                                    @empty
-                                    @endforelse
+                                @endif
+                                </div>
+                                @empty
+                                @endforelse
                                 </div>
                                 <div class="file-upload-wrap">
                                     <label>
@@ -333,9 +333,77 @@
                         <a href="javascript:void(0)" class="btn btn-primary pull-right m-t-07" onclick="getGeolocation();">Get your current location</a>
 
                         <div id="map" style="width: 100%; height: 400px; margin: 20px 0;"></div>
+                        <legend>Lịch đăng tin</legend>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Loại tin rao</label>
+                            <div class="col-md-8">
+                                <select name="type_id" readonly class="form-control col-md-4">
+                                    @foreach ($post_type as $type)
+                                        <option {{ old('type_id',$post->type_id) == $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Ngày bắt đầu</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control datetimepicker" readonly id="start_date" name="start_date" value="{{ old('start_date',$post->start_date) }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Ngày kết thúc</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control datetimepicker" readonly id="end_date" name="end_date" value="{{ old('end_date',$post->end_date) }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">
+                                <i class="fa fa-pencil"></i>
+                                <strong id="type-name"></strong> :
+                            </label>
+                            <label class="control-label m-l-10" id="type-description"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">
+                                <i class="fa fa-money"></i>
+                                <strong> Đơn giá :</strong>
+                            </label>
+                            <label class="control-label m-l-10" id="type-price"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">
+                                <i class="fa fa-calendar"></i>
+                                <strong> Số ngày :</strong>
+                            </label>
+                            <label class="control-label m-l-10" id="day-between">0 ngày</label>
+                        </div>
+
+                        <input type="hidden" class="diff-date" value="0">
+                        <input type="hidden" class="price" value="0" >
+                        <legend>Thành tiền</legend>
+                        <div class="col-md-offset-1">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Phí đăng tin</th>
+                                        <th>VAT (10%)</th>
+                                        <th></th>
+                                        <th>Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td id="pricePost">0 đồng</td>
+                                        <td id="vat">0 đồng</td>
+                                        <td></td>
+                                        <td id="totalPrice">0 đồng</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="form-group">
                             <div class="col-sm-offset-5">
-                                <button type="submit" class="btn btn-primary">Update ad</button>
+                                <button type="submit" class="btn btn-primary">Cập nhật</button>
                             </div>
                         </div>
                     </form>
@@ -348,16 +416,68 @@
 @endsection
 @push('css')
 <link rel="stylesheet" href="{{ asset('layout\frontend\css\admin.css') }}">
+<link rel="stylesheet" href="{{ asset('layout/backend/css/bootstrap-datetimepicker.min.css') }}">
 <link rel="stylesheet" href="{{ asset('layout\frontend\plugins\metisMenu\dist\metisMenu.min.css') }}">
 @endpush
 @push('js')
+<script src="{{ asset('layout/backend/js/moment.min.js') }}"></script>
+<script src="{{ asset('layout/backend/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('layout/backend/js/myscript/custom.js')}}"></script>
 <script src="{{ asset('layout/backend/js/myscript/post-edit.js')}}"></script>
 <script src="{{ asset('layout/editor/ckeditor/ckeditor.js')}}"></script>
 <script src="{{ asset('layout/editor/ckfinder/ckfinder.js')}}"></script>
 <script src="{{ asset('layout\frontend\plugins\metisMenu\dist\metisMenu.min.js') }}"></script>
 <script src="{{ asset('layout/backend/js/myscript/map.js')}}"></script>
+<script src="{{ asset('layout/backend/js/jquery.number.min.js')}}"></script>
+<script src="{{ asset('layout/backend/js/myscript/datetime-custom.js')}}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQuDQmtiHkS7CcriyEiYXWja3ODrG4vFI&callback=initMap&libraries=places"></script>
+<script>
+    function loadPrice() {
+        if ($(".diff-date").val() && $(".price").val()) {
+
+            let price = $(".diff-date").val() * $(".price").val();
+            let price_format = $.number(price);
+            $("#pricePost").html(price_format + " đồng");
+
+            let vat = $(".diff-date").val() * $(".price").val() / 10;
+            let vat_format = $.number(vat);
+            $("#vat").html(vat_format + " đồng");
+
+            let total_price = vat + price;
+            let total_format = $.number(total_price);
+            $("#totalPrice").html(total_format + " đồng");
+        }else{
+            return false;
+        }
+    }
+    $(document).ready(function () {
+        $("[name='type_id']").on('change',function(){
+            loadPostType($(this).val());
+        });
+        if ($("[name='type_id']").val()) {
+            var type_id = $("[name='type_id']").val();
+            loadPostType(type_id);
+        }
+    function loadPostType(type) {
+        $.ajax({
+            type: "get",
+            url: "{{ route('ajax.post-type') }}",
+            data: {
+                "type" : type
+            },
+            dataType: "json",
+            success: function (data) {
+                $("#type-name").html(data.name);
+                $("#type-description").html(data.description);
+                $(".price").val(data.price);
+                let number_format = $.number(data.price);
+                $("#type-price").html(number_format + " đồng / Ngày");
+                loadPrice();
+            }
+        });
+    }
+});
+</script>
 <script>
     $(function () {
         $('#side-menu').metisMenu();
@@ -380,6 +500,8 @@
         }
 
         function loadUnit(purpose) {
+            var old_purpose = "{{ old('purpose',$post->purpose) }}";
+            var old_unit = "{{ old('unit',$post->unit) }}";
             if (purpose == 'sale') {
                 var options = "<option value='total_area'>Tổng diện tích</option><option value='m2'>Mét vuông</option>";
                 $('select[name="unit"]').html(options);
@@ -387,9 +509,6 @@
                 var options = "<option value='month'>Tháng</option><option value='year'>Năm</option>";
                 $('select[name="unit"]').html(options);
             }
-
-            var old_purpose = "{{ old('purpose',$post->purpose) }}";
-            var old_unit = "{{ old('unit',$post->unit) }}";
 
             if(old_purpose == purpose && old_unit) {
                 $('select[name="unit"]').val(old_unit);
@@ -399,39 +518,16 @@
 </script>
 <script>
 $(document).ready(function () {
-        $('select[name="city_id"]').change(function () {
-            $('select[name="district_id"]').select2('val',"");
-            var city_id = $(this).val();
-            getDistrict(city_id);
-        });
-        if($('select[name="city_id"]').val()) {
-            var city_id = $('select[name="city_id"]').val();
-            var district_id = '{{ old("district_id",$post->district_id) ?? null }}'
-            getDistrict(city_id,district_id);
-        }
+    $('select[name="city_id"]').change(function () {
+        $('select[name="district_id"]').select2('val',"");
+        var city_id = $(this).val();
+        getDistrict(city_id);
     });
-
-    function getDistrict(city_id,district_id = null){
-        $.ajax({
-            type : 'get',
-            url : '{{ route('ajax.districts') }}',
-            data : { city_id : city_id },
-            success : function (data) {
-                var options = '';
-                options += '<option value="" selected> Chọn Quận/huyện </option>';
-                if (data.length > 0) {
-                    $.each(data, function (key, value) {
-                        options += "<option value='" + value.id + "'>" + value.name + "</option>";
-                    });
-                    $('select[name="district_id"]').html(options);
-                    $('select[name="district_id"]').select2();
-                    $('select[name="district_id"]').val(district_id).change();
-                }else {
-                    $('select[name="district_id"]').html(options);
-                    $('select[name="district_id"]').select2();
-                }
-            }
-        });
+    if($('select[name="city_id"]').val()) {
+        var city_id = $('select[name="city_id"]').val();
+        var district_id = '{{ old("district_id",$post->district_id) ?? null }}'
+        getDistrict(city_id,district_id);
     }
+});
 </script>
 @endpush

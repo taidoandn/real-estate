@@ -103,7 +103,7 @@
                                     <select name="status" class="form-control">
                                         <option {{ old('status') == 'pending' ? 'selected' : ''}} value="pending">Pending</option>
                                         <option {{ old('status') == 'published' ? 'selected' : ''}} value="published">Published</option>
-                                        <option {{ old('status') == 'blocked' ? 'selected' : ''}} value="blocked">Blocked</option>
+                                        <option {{ old('status') == 'expired' ? 'selected' : ''}} value="expired">Expired</option>
                                     </select>
                                     <strong class="help-block" role="alert">
                                         {{ $errors->first('status') }}
@@ -157,43 +157,58 @@
 
                         <div class="col-md-6  m-t-10">
                             <legend>Chi tiết</legend>
-                            <div class="form-group">
+                            <div class="form-group {{ $errors->has('floor') ? 'has-error' : '' }}">
                                 <label class="col-md-4 control-label">Số tầng</label>
                                 <div class="col-md-6">
                                     <input type="number" min="0" value="{{ old('floor') ?? null }}" placeholder="floor"
                                         name="floor" class="form-control">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('floor') }}
+                                        </strong>
                                 </div>
                                 <strong class="help-block">tầng</strong>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group  {{ $errors->has('bed_room') ? 'has-error' : '' }}">
                                 <label class="col-md-4 control-label">Số phòng ngủ</label>
                                 <div class="col-md-6">
                                     <input type="number" min="0" value="{{ old('bed_room') ?? null }}" placeholder="bed_room"
                                         name="bed_room" class="form-control">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('bed_room') }}
+                                        </strong>
                                 </div>
                                 <strong class="help-block">phòng</strong>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group {{ $errors->has('bath') ? 'has-error' : '' }}">
                                 <label class="col-md-4 control-label">Số phòng tắm</label>
                                 <div class="col-md-6">
                                     <input type="number" min="0" value="{{ old('bath') ?? null }}" placeholder="bath"
                                         name="bath" class="form-control">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('bath') }}
+                                        </strong>
                                 </div>
                                 <strong class="help-block">phòng</strong>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group {{ $errors->has('balcony') ? 'has-error' : '' }}">
                                 <label class="col-md-4 control-label">Ban công</label>
                                 <div class="col-md-6">
                                     <input type="number" min="0" value="{{ old('balcony') ?? null }}" placeholder="balcony"
                                         name="balcony" class="form-control">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('balcony') }}
+                                        </strong>
                                 </div>
                                 <strong class="help-block">chỗ</strong>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group {{ $errors->has('toilet') ? 'has-error' : '' }}">
                                 <label class="col-md-4 control-label">Toilet</label>
                                 <div class="col-md-6">
                                     <input type="number" value="{{ old('toilet') ?? null }}" min="0" placeholder="toilet"
                                         name="toilet" class="form-control">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('toilet') }}
+                                        </strong>
                                 </div>
                                 <strong class="help-block">cái</strong>
                             </div>
@@ -219,7 +234,7 @@
                                 <label class="col-md-4 control-label">{{ $distance->name }}</label>
                                 <div class="col-md-6">
                                     <input type="number" min="0" placeholder="{{ $distance->name }}" name="distances[{{ $distance->id }}]"
-                                        class="form-control" value="{{ old('distances.'.$distance->id) ?? null }}">
+                                        class="form-control" value="{{ old('distances.'.$distance->id) }}">
                                 </div>
                                 <strong class="help-block">meters</strong>
                             </div>
@@ -361,35 +376,30 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="col-md-5">
-                                <div class="m-l-20 m-t-05">
-                                    <p>
-                                        <strong>
-                                            <i class="fa fa-pencil margin-r-5"></i>
-                                            <span id="type-name"></span>
-                                        </strong> :
-                                        <span id="type-description"></span>
-                                    </p>
-
-                                    <p>
-                                        <strong>
-                                            <i class="fa fa-money margin-r-5"></i> Đơn giá :
-                                        </strong>
-                                        <span class="text-red" id="type-price"></span>
-                                    </p>
-                                </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">
+                                    <i class="fa fa-pencil"></i>
+                                    <strong id="type-name"></strong> :
+                                </label>
+                                <label class="control-label m-l-10" id="type-description"></label>
                             </div>
-                            <div class="col-md-5">
-                                <div class="m-l-20 m-t-05">
-                                    <p>
-                                        <strong>
-                                            <i class="fa fa-calendar margin-r-5"></i> Số ngày :
-                                        </strong>
-                                        <span id="day-between"></span>
-                                    </p>
-                                </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">
+                                    <i class="fa fa-money"></i>
+                                    <strong> Đơn giá :</strong>
+                                </label>
+                                <label class="control-label m-l-10" id="type-price"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">
+                                    <i class="fa fa-calendar"></i>
+                                    <strong> Số ngày :</strong>
+                                </label>
+                                <label class="control-label m-l-10" id="day-between">0 ngày</label>
                             </div>
                         </div>
+                    </div>
                         <input type="hidden" class="diff-date" value="0">
                         <input type="hidden" class="price" value="0" >
                         <div class="col-md-12">

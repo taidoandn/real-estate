@@ -12,4 +12,9 @@ class Distance extends Model
     {
         return $this->belongsToMany('App\Models\Post', 'post_distances', 'distance_id', 'post_id')->withPivot('meters');
     }
+
+    public function setNameAttribute($value){
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = str_slug($value);
+    }
 }

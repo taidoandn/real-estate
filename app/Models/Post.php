@@ -120,5 +120,4 @@ class Post extends Model
         return $this->favorites()->where('user_id',auth()->id())->count() > 0;
     }
 
-
 }

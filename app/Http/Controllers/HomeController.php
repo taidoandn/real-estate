@@ -8,11 +8,6 @@ use App\Models\Post;
 class HomeController extends Controller
 {
     private $limit = 6;
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
 
     /**
      * Show the application dashboard.
@@ -21,7 +16,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $latest_posts = Post::with('detail','district.city')->isPublished()->latest()->take($this->limit)->get();
+        $latest_posts = Post::with('detail','district.city','type')->isPublished()->latest()->take($this->limit)->get();
         return view('frontend.page.home',compact('latest_posts'));
     }
 

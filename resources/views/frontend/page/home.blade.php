@@ -17,7 +17,7 @@
             <div class="themeqx_new_regular_ads_wrap themeqx-carousel-ads">
                 @foreach ($latest_posts as $post)
                 <div>
-                    <div class="ads-item-thumbnail ad-box-regular">
+                    <div class="ads-item-thumbnail {{ $post->type->slug == "tin-vip" ? 'ad-box-premium' : 'ad-box-regular' }}">
                         <div class="ads-thumbnail">
                             <a href="{{ $post->url }}">
                                 <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-responsive" alt="">
@@ -29,7 +29,7 @@
                         </div>
                         <div class="caption">
                             <h4>
-                                <a href="{{ $post->url }}" title=""><span>{{ str_limit($post->title, 30) }}</span></a>
+                            <a style="color : {{ $post->type->slug == 'tin-vip' ? 'red' : ($post->type->slug == 'tin-cao-cap' ? 'green' : '')}};" href="{{ $post->url }}" title=""><span >{{ str_limit($post->title, 30) }}</span></a>
                             </h4>
 
                             <p class="price">
@@ -61,6 +61,19 @@
                                     <td> {{ $post->detail->floor }} Floor(s) </td>
                                 </tr>
                             </table>
+                            @if ($post->type->slug == "tin-cao-cap")
+                                <div class="ribbon-wrapper-green">
+                                    <div class="ribbon-green">Premium</div>
+                                </div>
+                            @endif
+                            @if ($post->type->slug == "tin-vip")
+                            <div class="ribbon-wrapper-red">
+                                <div class="ribbon-red"><i class="fa fa-star"></i></div>
+                            </div>
+                            <div class="ribbon-wrapper-green">
+                                <div class="ribbon-green">VIP</div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -163,50 +176,19 @@
             ]
         });
     });
-
 </script>
 <script>
+    var district_id = '{{ request()->district_id ?? null }}';
     $(document).ready(function () {
-        var old_district_id = '{{ request()->district_id ?? null }}';
         $('select[name="city_id"]').change(function () {
             $('select[name="district_id"]').select2('val',"");
             var city_id = $(this).val();
-            $.ajax({
-                type : 'get',
-                url : '{{ route('ajax.districts') }}',
-                data : { city_id : city_id },
-                success : function (data) {
-                    getDistrict(data);
-                }
-            });
+            getDistrict(city_id);
         });
         if($('select[name="city_id"]').val()) {
             var city_id = $('select[name="city_id"]').val();
-            $.ajax({
-                type : 'get',
-                url : '{{ route('ajax.districts') }}',
-                data : { city_id : city_id },
-                success : function (data) {
-                    getDistrict(data,old_district_id);
-                }
-            });
+            getDistrict(city_id,district_id);
         }
     });
-
-    function getDistrict(data,district_id = null){
-        var options = '';
-        options += '<option value="" selected> Chọn Quận/huyện </option>';
-        if (data.length > 0) {
-            $.each(data, function (key, value) {
-                options += "<option value='" + value.id + "'>" + value.name + "</option>";
-            });
-            $('select[name="district_id"]').html(options);
-            $('select[name="district_id"]').select2();
-            $('select[name="district_id"]').val(district_id).change();
-        }else {
-            $('select[name="district_id"]').html(options);
-            $('select[name="district_id"]').select2();
-        }
-    }
 </script>
 @endpush

@@ -14,6 +14,7 @@ use Mail;
 
 class PostController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -44,6 +45,7 @@ class PostController extends Controller
     public function store(PostRequest $request){
         $this->authorize("create-post");
         $data = $request->all();
+        $data['user_id'] = $request->user_id;
         $data['negotiable'] = $request->negotiable ? true : false;
         if ($request->hasFile('fImage')) {
             $image_name = saveImage($request->file('fImage'));
@@ -64,7 +66,7 @@ class PostController extends Controller
         $post->conveniences()->attach($request->conveniences);
 
         foreach ($request->distances as $key => $distance) {
-            $post->distances()->attach($key,['meters'=> $distance]);
+            $post->distances()->attach($key,['meters'=> (int)$distance]);
         }
 
         if ($request->has('fImageDetails')) {
@@ -73,6 +75,7 @@ class PostController extends Controller
                 $post->images()->create(['path'=>$file_name]);
             }
         }
+
         $user = User::findOrFail($request->user_id)->email;
         Mail::to($user)->send(new NewPostCreated($post));
         return redirect()->route('admin.posts.index')->with('success','Thêm bài viết thành công');
@@ -114,11 +117,11 @@ class PostController extends Controller
         $post->update($data);
 
         $post->detail()->update([
-            'floor'        => $request->floor,
-            'bath'         => $request->bath,
-            'balcony'      => $request->balcony,
-            'toilet'       => $request->toilet,
-            'bed_room'     => $request->bed_room,
+            'floor'        => (int)$request->floor,
+            'bath'         => (int)$request->bath,
+            'balcony'      => (int)$request->balcony,
+            'toilet'       => (int)$request->toilet,
+            'bed_room'     => (int)$request->bed_room,
             'dinning_room' => $request->dinning_room ? true : false,
             'living_room'  => $request->living_room ? true : false,
         ]);
@@ -156,13 +159,22 @@ class PostController extends Controller
     public function getPosts(Request $request){
         if ($request->ajax()) {
             $posts = Post::query();
-            return DataTables::of($posts)
+            $datatables =  Datatables::of($posts);
+
+            if ($request->get('status')) {
+                $posts->where('status',$request->get('status'));
+            }
+            if ($request->get('keyword')) {
+                $posts->where('title','LIKE',"%".$request->get('keyword')."%");
+            }
+
+            return  $datatables
                     ->addColumn('action',function ($post){
                         return view('backend.post._action',compact('post'));
                     })
                     ->editColumn('title', '{!! str_limit($title, 30) !!}')
                     ->addColumn('owner',function ($post){
-                        return $post->user->name;
+                        return $post->user->email;
                     })
                     ->editColumn('image',function ($post){
                         $url= asset('uploads/images/'.$post->image);
