@@ -13,7 +13,7 @@ class PostController extends Controller
     protected $paginate = 6;
 
     public function __construct(){
-        $this->middleware('jwt.verify', ['except' => ['show']]);
+        $this->middleware('jwt.verify', ['except' => ['index','show']]);
     }
     /**
      * Display a listing of the resource.
