@@ -58,7 +58,8 @@ class Post extends Model
     }
 
     public function scopeIsPublished($query){
-        return $query->where('status','published');
+        $now = date('Y-m-d');
+        return $query->where('status','published')->where('start_date',"<=",$now)->where('end_date','>=',$now);
     }
 
     public function getUrlAttribute(){
@@ -69,17 +70,25 @@ class Post extends Model
         $unit = $this->attributes['unit'];
         switch ($unit) {
             case 'total_area':
-                return number_format($this->attributes['price'],0,',','.')." $this->currency / Total Area";
+                return number_format($this->attributes['price'],0,',','.')." $this->currency / Tổng m<sup>2</sup>";
                 break;
             case 'm2':
                 return number_format($this->attributes['price'],0,',','.')." $this->currency / m<sup>2</sup>";
                 break;
             case 'month':
-                return number_format($this->attributes['price'],0,',','.')." $this->currency / Month";
+                return number_format($this->attributes['price'],0,',','.')." $this->currency / Tháng";
                 break;
             default:
-                return number_format($this->attributes['price'],0,',','.')." $this->currency / Year";
+                return number_format($this->attributes['price'],0,',','.')." $this->currency / Năm";
                 break;
+        }
+    }
+
+    public function getPurposeFormatAttribute(){
+        if ($this->purpose == 'sale') {
+            return "Bán";
+        }else{
+            return "Cho thuê";
         }
     }
 

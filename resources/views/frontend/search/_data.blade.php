@@ -84,8 +84,8 @@
                             </tr>
 
                             <tr>
-                                <td><i class="fa fa-bed"></i> {{ $post->detail->bed_room }} Bedroom(s)</td>
-                                <td> {{ $post->detail->floor }} Floor(s) </td>
+                                <td><i class="fa fa-bed"></i> {{ $post->detail->bed_room }} Phòng ngủ</td>
+                                <td> {{ $post->detail->floor }} Tầng </td>
                             </tr>
 
                         </table>
@@ -122,7 +122,7 @@
                             <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-responsive"
                                 alt="{{ $post->title }}">
                             <span class="modern-sale-rent-indicator">
-                                {{ ucfirst($post->purpose) }}
+                                {{ $post->purpose_format }}
                             </span>
                         </a>
                     </td>
@@ -143,8 +143,8 @@
                             <span> <i class="fa fa-arrows-alt "></i> {{ $post->area }} m<sup>2</sup> </span>
 
                             <span>
-                                <i class="fa fa-bed"></i> {{ $post->detail->bed_room }} Bedroom(s) </span>
-                            <span>{{ $post->detail->floor }} Floor(s)</span>
+                                <i class="fa fa-bed"></i> {{ $post->detail->bed_room }} Phòng ngủ </span>
+                            <span>{{ $post->detail->floor }} Tầng</span>
                         </p>
                         @if ($post->type->slug == "tin-cao-cap")
                             <div class="ribbon-green-bar">Premium</div>

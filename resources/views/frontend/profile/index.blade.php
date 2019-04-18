@@ -7,7 +7,7 @@
         <div class="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"> Profile </h1>
+                    <h1 class="page-header"> Thông tin cá nhân </h1>
                 </div> <!-- /.col-lg-12 -->
             </div> <!-- /.row -->
             <div class="row">
@@ -20,7 +20,7 @@
                     <table class="table table-bordered table-striped">
                         <tbody>
                             <tr>
-                                <th>Name</th>
+                                <th>Họ tên</th>
                                 <td>{{ Auth::user()->name }}</td>
                             </tr>
                             <tr>
@@ -28,24 +28,20 @@
                                 <td>{{ Auth::user()->email }}</td>
                             </tr>
                             <tr>
-                                <th>Gender</th>
-                                <td>Male</td>
-                            </tr>
-                            <tr>
-                                <th>Phone</th>
+                                <th>Số điện thoại</th>
                                 <td>{{ Auth::user()->phone }}</td>
                             </tr>
                             <tr>
-                                <th>Address</th>
+                                <th>Địa chỉ</th>
                                 <td>{{ Auth::user()->address }}</td>
                             </tr>
                             <tr>
-                                <th>Created At</th>
+                                <th>Thời gian tạo</th>
                                 <td>{{ Auth::user()->created_at }}</td>
                             </tr>
                         </tbody>
                     </table>
-                    <a href="{{ route('profile.edit') }}"><i class="fa fa-pencil-square-o"></i> Edit </a>
+                    <a href="{{ route('profile.edit') }}"><i class="fa fa-pencil-square-o"></i> Chỉnh sửa </a>
                 </div>
             </div>
         </div> <!-- /#page-wrapper -->

@@ -2,14 +2,14 @@
 @section('title','Home')
 @section('content')
 <div class="modern-top-intoduce-section">
-    @include('frontend.partial.search-form')
+    @include('frontend.partial._search-form')
 </div>
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
             <div class="carousel-header">
                 <h4><a href="{{ route('getSearch') }}">
-                        New Posts [More <i class="fa fa-link"></i>]
+                        Bài viết mới [More <i class="fa fa-link"></i>]
                     </a>
                 </h4>
             </div>
@@ -23,7 +23,7 @@
                                 <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-responsive" alt="">
 
                                 <span class="modern-sale-rent-indicator">
-                                    {{ ucfirst($post->purpose) }}
+                                    {{ $post->purpose_format }}
                                 </span>
                             </a>
                         </div>
@@ -35,7 +35,7 @@
                             <p class="price">
                                 <span>{!! $post->priceFormat !!}
                                     @if ($post->negotiable == 1)
-                                    (Negotiable)
+                                    (Thỏa thuận)
                                     @endif
                                 </span>
                             </p>
@@ -57,8 +57,8 @@
                                 </tr>
 
                                 <tr>
-                                    <td><i class="fa fa-bed"></i> {{ $post->detail->bed_room }} Bedroom(s)</td>
-                                    <td> {{ $post->detail->floor }} Floor(s) </td>
+                                    <td><i class="fa fa-bed"></i> {{ $post->detail->bed_room }} Phòng ngủ</td>
+                                    <td><i class="fa fa-arrows-alt "></i> {{ $post->detail->floor }} Tầng </td>
                                 </tr>
                             </table>
                             @if ($post->type->slug == "tin-cao-cap")

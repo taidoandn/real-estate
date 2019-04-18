@@ -32,17 +32,17 @@
                     <li>
                         <a href="{{ route('user.logout') }}">
                             <i class="fa fa-sign-out"></i>
-                            Log-Out </a>
+                            Đăng xuất </a>
                     </li>
                 </ul>
                 @else
                 <ul class="nav nav-pills navbar-right">
                     <li>
-                        <a href="{{ route('login') }}"> <i class="fa fa-lock"></i> Login </a>
+                        <a href="{{ route('login') }}"> <i class="fa fa-lock"></i> Đăng nhập </a>
                     </li>
                     <li>
                         <a href="{{ route('register') }}"> <i class="fa fa-save"></i>
-                            Register</a>
+                            Đăng ký</a>
                     </li>
                 </ul>
                 @endif

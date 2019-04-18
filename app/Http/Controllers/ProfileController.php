@@ -38,7 +38,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         Auth::user()->update($request->only('name','phone','address'));
-        return redirect()->route('profile.edit')->with('success','Your profile has been updated!');
+        return redirect()->route('profile.index')->with('success','Your profile has been updated!');
     }
 
 

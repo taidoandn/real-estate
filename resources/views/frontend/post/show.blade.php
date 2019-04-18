@@ -39,17 +39,19 @@
                     </h2>
                     <h2 class="modern-single-ad-price">{!! $post->priceFormat !!}</h2>
 
-                    <h3>General Info</h3>
+                    <h3>Thông tin cơ bản:</h3>
                     <p>
-                        <strong><i class="far fa-money-bill-alt"></i> Price : {!! $post->priceFormat !!}</strong>
+                        <strong><i class="far fa-money-bill-alt"></i> Giá : {!! $post->priceFormat !!} @if ($post->negotiable == 1)
+                            (Có thể thỏa thuận)
+                            @endif</strong>
                     </p>
                     <p>
-                        <strong><i class="fas fa-map-marker-alt"></i> Location :</strong> {{ $post->address }}
+                        <strong><i class="fas fa-map-marker-alt"></i> Địa điểm :</strong> {{ $post->address }}
                     </p>
-                    <p><strong><i class="fa fa-check-circle-o"></i> Condition</strong> </p>
+                    <p><strong><i class="fa fa-check-circle-o"></i> Điều kiện</strong> </p>
 
                     <div class="modern-social-share-btn-group">
-                        <h4>Share this ad</h4>
+                        <h4>Chia sẻ</h4>
                         <a href="javascript:;" class="btn btn-default shareEmbedded" data-toggle="modal" data-target="#shareEmbedded"><i
                                 class="fa fa-code"></i> </a>
                         <a href="#" class="btn btn-default share s_facebook"><i class="fa fa-facebook"></i> </a>
@@ -72,39 +74,38 @@
         <div class="col-sm-8 col-xs-12">
             <div class="ads-detail bg-white">
                 <div class="single-at-a-glance">
-
                     <ul class="list-group ">
                         <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-building-o"></i>
                             {{ $post->property_type->name }}
                         </li>
                         <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-arrows-alt "></i>
-                            {{ $post->area }} m<sup>2</sup>
+                            Diện tích  {{ $post->area }} m<sup>2</sup>
                         </li>
                         <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-bed"></i>
-                            {{ $post->detail->bed_room . " ". str_plural('Bedroom',$post->detail->bed_room) }}
+                            {{ $post->detail->bed_room}} Phòng ngủ
                         </li>
 
                         <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-bath"></i>
-                            {{ $post->detail->bath . " ". str_plural('Bath',$post->detail->bath) }}
+                            {{ $post->detail->bath }} Bồn tắm
                         </li>
 
                         <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-shower"></i>
-                             {{ $post->detail->toilet . " ". str_plural('Toilet',$post->detail->toilet) }}
+                             {{ $post->detail->toilet }} Toilet
                         </li>
 
-                        <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-building-o"></i> {{ $post->detail->floor  . " ". str_plural('Floor',$post->detail->floor)}}
+                        <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-building-o"></i> {{ $post->detail->floor }} Tầng
                         </li>
 
-                        <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-briefcase"></i> {{ ucfirst($post->purpose) }} </li>
+                        <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-briefcase"></i> Mục đích : {{ $post->purpose_format }} </li>
 
-                        <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-window-maximize"></i> {{ $post->detail->balcony . " ". str_plural('Balcony',$post->detail->balcony) }}
+                        <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-window-maximize"></i> {{ $post->detail->balcony }} Ban công
                         </li>
                         @if ($post->detail->dinning_room)
-                        <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-cutlery"></i> Dining space
+                        <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-cutlery"></i> Phòng ăn
                         </li>
                         @endif
                         @if ($post->detail->living_room)
-                        <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-folder-o"></i> Living room
+                        <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-folder-o"></i> Phòng khách
                         </li>
                         @endif
                         <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-money"></i>
@@ -114,12 +115,12 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <h4 class="ads-detail-title">Description</h4>
+                <h4 class="ads-detail-title">Mô tả</h4>
                     <p>{!! $post->description_html !!}</p>
             </div>
             <div class="ads-detail bg-white">
 
-                <legend>Indoor amenities</legend>
+                <legend>Nội thất</legend>
 
                 <div class="single-at-a-glance">
                     <ul class="list-group ">
@@ -134,7 +135,7 @@
                     <div class="clearfix"></div>
                 </div>
 
-                <legend>Outdoor amenities</legend>
+                <legend>Ngoại thất</legend>
                 <div class="single-at-a-glance">
                     <ul class="list-group ">
                         @foreach ($post->conveniences as $convenience)
@@ -152,7 +153,7 @@
 
             <div class="ads-detail bg-white">
 
-                <legend>Distances</legend>
+                <legend>Khoảng cách</legend>
 
                 <div class="single-at-a-glance">
                     <ul class="list-group ">
@@ -170,8 +171,7 @@
 
 
             <div class="ads-detail bg-white">
-
-                <legend>Map</legend>
+                <legend>Bản đồ</legend>
                 <div id="map" style="width: 100%; height: 400px; margin: 20px 0;"></div>
                 <button onclick="getGeolocation()" class="btn btn-primary">Direction to your location</button>
                 <input type="hidden" id="longitude" value="{{ $post->longitude }}" name="longitude">
@@ -184,7 +184,7 @@
         <div class="col-sm-4 col-xs-12">
             <div class="sidebar-widget">
 
-                <h3>Agent Info</h3>
+                <h3>Thông tin chủ BĐS</h3>
                 <div class="sidebar-user-info">
                     <div class="row">
                         <div class="col-xs-3">
@@ -202,12 +202,12 @@
                         <li>
                             <a href="javascript:void(0)" data-slug="{{ $post->slug }}" id="save_as_favorite">
                                 <i class="{{ Auth::guest() ? 'fa fa-star-o' : ($post->is_favorited ? 'fa fa-star' : 'fa fa-star-o' ) }}"></i>
-                                {{ Auth::guest() ? 'Save as favorite' : ($post->is_favorited ? 'Remove as favorite' : 'Save as favorite') }}
+                                {{ Auth::guest() ? 'Thêm vào yêu thích' : ($post->is_favorited ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích') }}
                             </a>
                         </li>
                         <li>
                             <a href="#" data-toggle="modal" data-target="#reportAdModal"><i class="fa fa-ban"></i>
-                                Report this post
+                                Báo cáo bài viết
                             </a>
                         </li>
                     </ul>
@@ -334,9 +334,9 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data == 1) {
-                    selector.html("<i class='fa fa-star'></i> Remove as favorite");
+                    selector.html("<i class='fa fa-star'></i> Xóa khỏi yêu thích");
                 }else{
-                    selector.html("<i class='fa fa-star-o'></i> Save as favorite");
+                    selector.html("<i class='fa fa-star-o'></i> Thêm vào yêu thích");
                 }
             },
             error:function(xhr){

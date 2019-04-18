@@ -6,7 +6,7 @@
         <div class="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"> Profile edit </h1>
+                    <h1 class="page-header"> Chỉnh sửa thông tin </h1>
                 </div> <!-- /.col-lg-12 -->
             </div> <!-- /.row -->
             <div class="row">
@@ -15,7 +15,7 @@
                         class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group ">
-                            <label for="name" class="col-sm-2 control-label">Name</label>
+                            <label for="name" class="col-sm-2 control-label">Họ tên</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="name" value="{{ Auth::user()->name }}"
                                     name="name" placeholder="Name">
@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="form-group ">
-                            <label for="phone" class="col-sm-2 control-label">Phone</label>
+                            <label for="phone" class="col-sm-2 control-label">Số điện thoại</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="phone" value="{{ Auth::user()->phone }}"
                                     name="phone" placeholder="Phone">
@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="form-group ">
-                            <label for="address" class="col-sm-2 control-label">Address</label>
+                            <label for="address" class="col-sm-2 control-label">Địa chỉ</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="address" value="{{ Auth::user()->address }}"
                                     name="address" placeholder="Address">
@@ -47,7 +47,7 @@
                         <hr>
                         <div class="form-group">
                             <div class="col-sm-offset-8">
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="btn btn-primary">Cập nhật</button>
                             </div>
                         </div>
 

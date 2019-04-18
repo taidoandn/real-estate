@@ -6,7 +6,7 @@
         <div class="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"> My posts </h1>
+                    <h1 class="page-header"> Bài viết của tôi </h1>
                 </div> <!-- /.col-lg-12 -->
             </div> <!-- /.row -->
             <div class="row">
@@ -36,7 +36,7 @@
                                     class="btn btn-primary"><i class="fa fa-edit"></i> </a>
                                 <a href="javascript:;" class="btn btn-danger"
                                     onclick="event.preventDefault();
-                                    if(confirm('Are you sure to delete this?'))
+                                    if(confirm('Bạn có chắc muốn xóa?'))
                                         document.getElementById('delete-post-{{ $post->id }}').submit();">
                                         <i class="fa fa-trash"></i>
                                 </a>

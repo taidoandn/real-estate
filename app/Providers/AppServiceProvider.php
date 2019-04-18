@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         $views = [
             'frontend.search._sidebar',
-            'frontend.partial.search-form',
+            'frontend.partial._search-form',
             'frontend.post.edit',
             'frontend.post.create',
             'backend.post.create',

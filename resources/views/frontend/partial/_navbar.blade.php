@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="{{ route('home') }}">
-            Home
+            Trang chủ
         </a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -16,14 +16,14 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a href="{{ route('posts.create') }}"> <i class="fa fa-tag"></i>
-                    Create a post</a>
+                    Thêm bài viết</a>
             </li>
             <li>
                 <a href="https://demo.themeqx.com/themeqxestate/blog"> <i class="fa fa-rss"></i> Blog</a>
             </li>
             <li>
-                <a href="https://demo.themeqx.com/themeqxestate/contact-us"> <i class="fa fa-mail-forward"></i>Contact
-                    Us</a>
+                <a href="https://demo.themeqx.com/themeqxestate/contact-us"> <i class="fa fa-mail-forward"></i>Liên hệ
+                </a>
             </li>
 
         </ul>
