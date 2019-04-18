@@ -33,11 +33,7 @@ class AuthController extends Controller
             'email'    => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-
-
-        $token = auth('api')->login($user);
-
-        return $this->respondWithToken($token);
+        return response()->json($user, 200);
     }
 
     /**
