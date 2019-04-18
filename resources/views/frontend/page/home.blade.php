@@ -34,10 +34,10 @@
 
                             <p class="price">
                                 <span>{!! $post->priceFormat !!}
-                                    @if ($post->negotiable == 1)
-                                    (Thỏa thuận)
-                                    @endif
                                 </span>
+                                @if ($post->negotiable == 1)
+                                <span class="badge badge-primary">Thỏa thuận</span>
+                                @endif
                             </p>
 
                             <table class="table table-responsive property-box-info">

@@ -4,7 +4,7 @@
             id="listingFilterForm">
             <div class="row">
                 <div class="col-xs-12">
-                    <p class="listingSidebarLeftHeader">Advance Search <span id="loaderListingIcon" class="pull-right"
+                    <p class="listingSidebarLeftHeader">Tìm kiếm nâng cao <span id="loaderListingIcon" class="pull-right"
                             style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
                             <span id="loaderListingIcon" class="pull-right" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
                     </p>
@@ -17,16 +17,16 @@
             <hr />
 
             <div class="form-group">
-                <label>Select a Convenience</label>
+                <label>Nội thất</label>
                 <select class="form-control select2 selector" name="convenience" data-placeholder="Select a Convenience"  multiple="multiple" id="convenience">
                     <optgroup label="Interior">
                     @foreach ($conveniences as $convenience)
-                        @if ($convenience->type == "interior")
+                        @if ($convenience->type == "Nội thất")
                             <option value="{{ $convenience->id }}">{{ $convenience->name }}</option>
                         @endif
                     @endforeach
                     </optgroup>
-                    <optgroup label="Exterior">
+                    <optgroup label="Ngoại thất">
                     @foreach ($conveniences as $convenience)
                         @if ($convenience->type == "exterior")
                             <option value="{{ $convenience->id }}">{{ $convenience->name }}</option>
@@ -37,10 +37,10 @@
             </div>
 
             <hr />
-            <label>Select a Location</label>
+            <label>Địa điểm</label>
             <div class="form-group">
                 <select class="form-control select2 selector" id="city" name="city_id">
-                    <option value=""> Select City </option>
+                    <option value=""> Chọn thành phố </option>
                     @foreach ($cities as $city)
                         <option {{ request()->get('city_id')  == $city->id ? 'selected' : '' }} value="{{ $city->id }}">{{ $city->name }}</option>
                     @endforeach
@@ -49,7 +49,7 @@
 
             <div class="form-group">
                 <select class="form-control select2 selector" id="district" name="district_id">
-                    <option value=""> Select a District </option>
+                    <option value=""> Chọn Quận/huyện </option>
                 </select>
             </div>
 
@@ -67,22 +67,22 @@
                 </div>
             </div> --}}
             <hr />
-            <label>Choose a Purpose</label>
+            <label>Mục đích</label>
             <div class="form-group">
                 <div class="radio">
                     <label class="radio-inline">
                         <input type="radio" value="sale" class="purpose selector" name="purpose">
-                        For Sale
+                        Bán
                     </label>
                     <label class="radio-inline">
                         <input type="radio" value="rent" class="purpose selector" name="purpose">
-                        For Rent
+                        Cho thuê
                     </label>
                 </div>
             </div>
 
             <hr />
-            <label>Property Type</label>
+            <label>Loại bất động sản</label>
             <div class="form-group">
                 @foreach ($property_types as $type)
                 <div class="radio">

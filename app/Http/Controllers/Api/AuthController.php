@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -104,4 +103,9 @@ class AuthController extends Controller
             'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);
     }
+
+    // public function postByAuth(Request $request){
+    //     $posts = User::findOrFail(auth('admin')->id())->posts()->isPublished()->get();
+    //     return response()->json($posts, 200);
+    // }
 }

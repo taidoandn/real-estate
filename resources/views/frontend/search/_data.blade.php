@@ -3,10 +3,10 @@
         <div class="listingTopFilterBar">
             <span class="totalFoundListingTop">
                 @if ($keyword)
-                Found <strong>{{ $posts->total() }}</strong> results with keyword <span class="badge badge-info">
+                Tìm thấy <strong>{{ $posts->total() }}</strong> kết quả với từ khóa <span class="badge badge-info">
                     {{ $keyword }}</span>
                 @else
-                Total <strong>{{ $posts->total() }}</strong> posts found
+                Tổng <strong>{{ $posts->total() }}</strong> bài viết được tìm thấy
                 @endif
 
             </span>
@@ -37,7 +37,7 @@
     </div>
 </div>
 <div class="ad-box-wrap">
-    <h3>Listing results</h3>
+    <h3>Danh sách kết quả</h3>
     @if (count($posts)>0)
     <div class="ad-box-grid-view" style="display: {{ $grid === 'true' ? 'block' : 'none' }}; ">
         <div class="row">
@@ -49,7 +49,7 @@
                             <img src="{{ asset('uploads/images/'.$post->image) }}" height="400px" class="img-bordered"
                                 alt="{{ $post->title }}">
                             <span class="modern-sale-rent-indicator">
-                                {{ ucfirst($post->purpose) }}
+                                {{ $post->purpose_format }}
                             </span>
                         </a>
                     </div>
@@ -61,7 +61,10 @@
                         </h4>
 
                         <p class="price">
-                            <h5 class="text-warning">{!! $post->priceFormat !!} </h5>
+                            <span class="text-warning">{!! $post->priceFormat !!} </span>
+                            @if ($post->negotiable == 1)
+                            <span class="badge badge-primary">Thỏa thuận</span>
+                            @endif
                         </p>
 
                         <table class="table table-responsive property-box-info">
@@ -129,7 +132,10 @@
                     <td>
                         <h4><a style="color : {{ $post->type->slug == 'tin-vip' ? 'red' : ($post->type->slug == 'tin-cao-cap' ? 'green' : '')}};" href="{{ $post->url }}">{{ $post->title }}</a> </h4>
                         <p class="price">
-                            <h5 class="text-warning">{!! $post->priceFormat !!} </h5>
+                            <span class="text-warning">{!! $post->priceFormat !!} </span>
+                            @if ($post->negotiable == 1)
+                                 <span class="badge badge-primary">Thỏa thuận</span>
+                            @endif
                         </p>
                         <p class="text-muted">
                             <i class="fa fa-map-marker"></i> <a class="location text-muted">
