@@ -30,11 +30,13 @@ class AuthController extends Controller
             'address'  => 'required|string',
         ]);
 
-        $data = $request->only('email', 'name', 'password');
+        $data = $request->only('email', 'name', 'password','phone','address');
 
         $user = User::create([
             'name'     => $data['name'],
             'email'    => $data['email'],
+            'phone'    => $data['phone'],
+            'address'  => $data['address'],
             'password' => Hash::make($data['password']),
         ]);
         return response()->json($user, 200);
