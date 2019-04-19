@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Post;
+use App\Mail\NewPostCreated;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Post as PostResource;
 use App\Http\Requests\PostRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Resources\Post as PostResource;
 
 class PostController extends Controller
 {
@@ -24,8 +26,7 @@ class PostController extends Controller
     {
         return response()->json(Post::with('user','district.city','detail','property_type','images','distances')
                         ->isPublished()
-                        ->paginate($this->paginate)
-                        , 200);
+                        ->paginate($this->paginate), 200);
     }
 
     /**
@@ -66,6 +67,7 @@ class PostController extends Controller
                 $post->images()->create(['path'=>$file_name]);
             }
         }
+        Mail::to(auth('api')->user())->send(new NewPostCreated($post));
         return response()->json($post,201);
     }
 

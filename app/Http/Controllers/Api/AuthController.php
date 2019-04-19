@@ -25,7 +25,9 @@ class AuthController extends Controller
         $request->validate([
             'name'     => 'required|string',
             'email'    => 'required|email|unique:users',
-            'password' => 'required|string|min:6|max:10',
+            'password' => 'required|string|min:6',
+            'phone'    => 'required',
+            'address'  => 'required|string',
         ]);
         $data = $request->only('email', 'name', 'password');
         $user = User::create([
@@ -100,8 +102,8 @@ class AuthController extends Controller
         ]);
     }
 
-    // public function postByAuth(Request $request){
-    //     $posts = User::findOrFail(auth('admin')->id())->posts()->isPublished()->get();
-    //     return response()->json($posts, 200);
-    // }
+    public function postByAuth(Request $request){
+        $posts = User::findOrFail(auth('api')->id())->posts()->isPublished()->get();
+        return response()->json($posts, 200);
+    }
 }

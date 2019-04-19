@@ -22,9 +22,7 @@ Route::group(['as' => 'api.'], function () {
     Route::apiResource('posts', 'PostController')->except('edit','create');
 
     //Property Type controller
-    Route::apiResource('property-types', 'PropertyTypeController')->except('edit','create');
-    Route::get('property-types/{property_type}/posts','PropertyTypeController@posts')->name('property-types.posts');
-    Route::get('property-types/{property_type}/posts/{post}','PropertyTypeController@postById')->name('property-types.post');
+    Route::apiResource('property-types', 'PropertyTypeController')->only('index','show');
 
     //City Controller
     Route::resource('/cities', 'CityController')->only('index','show');
