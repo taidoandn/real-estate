@@ -29,7 +29,9 @@ class AuthController extends Controller
             'phone'    => 'required',
             'address'  => 'required|string',
         ]);
+
         $data = $request->only('email', 'name', 'password');
+
         $user = User::create([
             'name'     => $data['name'],
             'email'    => $data['email'],
