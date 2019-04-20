@@ -20,6 +20,7 @@ Vui lòng thanh toán vào TK 0041000250743 ngần hàng Vietcombank, tên 
 | {{ number_format($price,0,',','.') }} đồng | {{ number_format($vat,0,',','.') }} đồng | {{  number_format($total_price,0,',','.') }} đồng |
 @endcomponent
 
+Cảm ơn bạn đã sử dụng ứng dụng của chúng tôi. <br>
 Nếu có vấn đề gì vui lòng liên hệ admin@demo.com
 @component('mail::button', ['url' => route('home')])
 Trang chủ

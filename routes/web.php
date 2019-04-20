@@ -48,6 +48,7 @@ Route::group(['prefix' => 'ajax','as'=>'ajax.'], function () {
     Route::get('/delete-image','AjaxController@deleteImage')->name('delete-image');
     Route::get('/districts','AjaxController@getDistricts')->name('districts');
     Route::get('/post-type','AjaxController@getPostType')->name('post-type');
+    Route::get('/load-notifications', 'AjaxController@getNotification')->name('notifications');
 });
 
 

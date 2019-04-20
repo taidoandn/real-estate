@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Admin;
 use App\Mail\NewPostCreated;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
-use Auth;
 use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
@@ -76,6 +77,7 @@ class PostController extends Controller
                 $post->images()->create(['path'=>$file_name]);
             }
         }
+        //Send Mail
         Mail::to(auth()->user())->send(new NewPostCreated($post));
         return redirect()->route('posts.index')->with('success','Tạo bài viết thành công. Vui lòng check email để tiếp tục thực hiện!!');
     }

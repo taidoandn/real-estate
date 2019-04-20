@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class AuthController extends Controller
 {
@@ -107,7 +108,7 @@ class AuthController extends Controller
     }
 
     public function postByAuth(Request $request){
-        $posts = User::findOrFail(auth('api')->id())->posts()->isPublished()->get();
+        $posts = auth('api')->user()->posts()->with('district.city')->orderBy('created_at')->get();
         return response()->json($posts, 200);
     }
 }

@@ -4,6 +4,8 @@ Route:: get('/login', 'AdminLoginController@showLoginForm')->name('admin.login')
 Route:: post('/login', 'AdminLoginController@login')->name('admin.login.submit');
 Route:: get('/logout', 'AdminLoginController@logout')->name('admin.logout');
 
+Route:: get('/mark-as-read', 'NotificationController@markAsRead')->name('admin.mark-as-read');
+
 Route::group(['as' => 'admin.','middleware'=>'auth:admin'], function () {
     Route:: get('/', 'AdminController@index')->name('dashboard');
 

@@ -34,7 +34,7 @@ Route::group(['as' => 'api.'], function () {
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
-    // Route::get('my-posts', 'AuthController@postByAuth');
+    Route::get('my-posts', 'AuthController@postByAuth');
 });
 
 

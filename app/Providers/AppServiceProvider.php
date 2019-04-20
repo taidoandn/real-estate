@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
         });
         if(! $this->app->runningInConsole() ){
             \Auth::guard('admin')->loginUsingId(1);
-            \Auth::guard('web')->loginUsingId(1);
+            // \Auth::guard('web')->loginUsingId(1);
         }
     }
 

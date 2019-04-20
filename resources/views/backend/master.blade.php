@@ -55,11 +55,33 @@
         toastr.success("{{ Session::get('success') }}","Success Alert");
     </script>
     @endif
-    @if(Session::has('error'))
     <script>
-        toastr.success("{{ Session::get('error') }}","Error Alert");
+        loadNotifications();
+        setInterval(loadNotifications, 10000);
+        function loadNotifications() {
+            $.ajax({
+                type: "get",
+                url: "{{ route('ajax.notifications') }}",
+                success: function (response) {
+                    $(".notifications-menu").html(response);
+                }
+            });
+        }
+        function markAsRead(id) {
+            $.ajax({
+                type: "get",
+                url: "{{ route('admin.mark-as-read') }}",
+                data: {
+                    "id" : id
+                },
+                success: function (response) {
+                    if (response == 1) {
+                        loadNotifications();
+                    }
+                }
+            });
+        }
     </script>
-    @endif
     @stack('script')
 </body>
 

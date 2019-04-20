@@ -42,4 +42,10 @@ class AjaxController extends Controller
         $type =  PostType::findOrFail($request->type);
         return response()->json($type);
     }
+
+    public function getNotification(){
+        $notifications       = auth('admin')->user()->notifications;
+        $unreadNotifications = auth('admin')->user()->unreadNotifications;
+        return view('backend.partial._notification',compact('notifications', 'unreadNotifications'))->render();
+    }
 }

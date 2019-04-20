@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use DateTime;
-use Carbon\Carbon;
+use App\Models\Admin;
 use Illuminate\Database\Eloquent\Model;
+use App\Notifications\NewPostNotification;
 
 class Post extends Model
 {
@@ -21,6 +21,18 @@ class Post extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
+    public static function boot(){
+        parent::boot();
+        static::created(function($post){
+            $post->load('user');
+            foreach (Admin::all() as $admin) {
+                if ($admin->userHasRole('Admin')) {
+                    $admin->notify(new NewPostNotification($post));
+                }
+            }
+        });
+
+    }
     public function type(){
         return $this->belongsTo('App\Models\PostType', 'type_id', 'id');
     }

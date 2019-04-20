@@ -19,6 +19,16 @@ class Role extends Model
     }
 
     public function roleHasPermission($permission){
-        return !! optional($this->permissions)->contains($permission);
+        return !! optional($this->permissions)->contains('name',$permission);
     }
+
+    //Same with
+    // public function roleHasPermission($permission){
+    //     foreach ($this->permissions() as $per) {
+    //         if ($permission === $per->name) {
+    //             return true;
+    //         }
+    //         return false;
+    //     }
+    // }
 }
