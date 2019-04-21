@@ -56,7 +56,6 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $data = $request->all();
-        $data['password'] = bcrypt($request->password);
         $user = Admin::create($data);
         $user->roles()->attach($request->role);
         return "Thêm tài khoản thành công!!";
@@ -106,7 +105,7 @@ class UserController extends Controller
         ]);
         $data = $request->all();
         if ($request->has('password')) {
-            $data['password'] = bcrypt($request->password);
+            $data['password'] = $request->password;
         }
         $user = Admin::findOrFail($id);
         $user->update($data);

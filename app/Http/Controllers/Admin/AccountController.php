@@ -43,7 +43,6 @@ class AccountController extends Controller
     {
         $this->authorize('create-account');
         $data = $request->all();
-        $data['password'] = bcrypt($request->password);
         $user = User::create($data);
         $user->roles()->attach($request->role);
         return "Thêm tài khoản thành công!!";
@@ -81,7 +80,7 @@ class AccountController extends Controller
         ]);
         $data = $request->all();
         if ($request->has('password')) {
-            $data['password'] = bcrypt($request->password);
+            $data['password'] = $request->password;
         }
         $user = User::findOrFail($id);
         $user->update($data);

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Resources\Post as PostResource;
+use App\Http\Resources\PostResource;
 
 class PostController extends Controller
 {
@@ -139,6 +139,12 @@ class PostController extends Controller
         }
         $post->delete();
         return response()->json(['success'=>'deleted!']);
+    }
+
+    public function postByAuth(Request $request)
+    {
+        $posts = auth('api')->user()->posts()->with('district.city')->orderBy('created_at')->paginate($this->paginate);
+        return response()->json($posts, 200);
     }
 
 }

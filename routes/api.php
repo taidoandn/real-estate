@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['as' => 'api.'], function () {
     //Post Controller
     Route::apiResource('posts', 'PostController')->except('edit','create');
+    Route::get('my-posts', 'PostController@postByAuth');
 
     //Property Type controller
     Route::apiResource('property-types', 'PropertyTypeController')->only('index','show');
@@ -34,7 +35,6 @@ Route::group(['as' => 'api.'], function () {
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
-    Route::get('my-posts', 'AuthController@postByAuth');
 });
 
 

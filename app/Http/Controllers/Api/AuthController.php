@@ -33,13 +33,7 @@ class AuthController extends Controller
 
         $data = $request->only('email', 'name', 'password','phone','address');
 
-        $user = User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'phone'    => $data['phone'],
-            'address'  => $data['address'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = User::create($data);
         return response()->json($user, 200);
     }
 
@@ -107,8 +101,4 @@ class AuthController extends Controller
         ]);
     }
 
-    public function postByAuth(Request $request){
-        $posts = auth('api')->user()->posts()->with('district.city')->orderBy('created_at')->get();
-        return response()->json($posts, 200);
-    }
 }
