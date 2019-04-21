@@ -39,7 +39,8 @@ class ConvenienceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:conveniences,name'
+            'name' => 'required|unique:conveniences,name',
+            'type' => 'required'
         ]);
         Convenience::create($request->all());
         return "Thêm thành công";
@@ -67,7 +68,8 @@ class ConvenienceController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'name' => 'required|unique:conveniences,name,'.$id,'id'
+            'name' => 'required|unique:conveniences,name,'.$id,'id',
+            'type' => 'required'
         ]);
         $convenience = Convenience::findOrFail($id);
         $convenience->update($request->all());

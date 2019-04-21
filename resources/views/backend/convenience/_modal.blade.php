@@ -19,6 +19,17 @@
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="name" class="col-md-3 control-label">Type</label>
+                        <div class="col-md-6">
+                            <select name="type" id="type" class="form-control">
+                                <option value="">Chọn loại tiện ích</option>
+                                <option value="interior">Nội thất</option>
+                                <option value="exterior">Ngoại thất</option>
+                            </select>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer">

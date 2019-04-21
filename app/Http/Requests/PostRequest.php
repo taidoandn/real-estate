@@ -26,7 +26,7 @@ class PostRequest extends FormRequest
     {
         $today = Carbon::now();
         $start = Carbon::parse(request()->start_date) ?? null;
-        $end   = Carbon::parse(request()->end_date) ?? null;;
+        $end   = Carbon::parse(request()->end_date) ?? null;
         $diff  = $start->diffInDays($end);
         switch (request()->method()) {
             case 'PATCH':

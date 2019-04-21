@@ -25,9 +25,11 @@ function editConvenienceForm(id) {
         data: $("#modal-form #form-convenience").serialize(),
         dataType: "json",
         success: function (data) {
+            console.log(data);
             $('#modal-form').modal('show');
             $("#id").val(data.id);
             $("#name").val(data.name);
+            $("#type").val(data.type);
             $('.modal-title').text('Chỉnh sửa');
         },
         error: function (xhr) {
@@ -53,6 +55,7 @@ $(document).ready(function () {
         }else{
             url = base_url + "/admin/conveniences/" + id;
         }
+        console.log($(this).serialize());
 
         $.ajax({
             type: "post",
