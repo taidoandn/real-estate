@@ -13,7 +13,7 @@ if (!function_exists('unlinkImage')) {
     function unlinkImage($image_name){
         if ($image_name != 'call-to-action.jpg' && $image_name != 'themeqx-cover.jpeg') {
             if (file_exists(public_path("uploads/images/$image_name"))) {
-                unlink(public_path("uploads/images/$image_name"));
+                @unlink(public_path("uploads/images/$image_name"));
             };
         }
     }

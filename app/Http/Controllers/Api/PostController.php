@@ -24,7 +24,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::with('user','district.city','detail','property_type','images','distances')
+        return response()->json(Post::with('user','district.city','detail','property_type','images','distances','type')
                         ->isPublished()
                         ->paginate($this->paginate), 200);
     }
@@ -39,6 +39,7 @@ class PostController extends Controller
     {
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
+        $data['user_id'] =  auth('api')->id();
         if ($request->hasFile('fImage')) {
             $image_name = saveImage($request->file('fImage'));
             $data['image'] = $image_name;
@@ -79,7 +80,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $post->load(['user','district.city','detail','property_type','images','conveniences','distances']);
+        $post->load(['user','district.city','detail','property_type','images','conveniences','distances','type']);
         return response()->json($post, 200);
     }
 

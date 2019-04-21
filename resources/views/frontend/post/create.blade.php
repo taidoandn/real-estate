@@ -41,9 +41,9 @@
                         <div class="form-group ">
                             <label class="col-sm-3 control-label">Loại bất động sản</label>
                             <div class="col-sm-9">
-                                <select name="property_id" id="property_id" class="form-control">
+                                <select name="property_type_id" id="property_type_id" class="form-control">
                                     @foreach ($property_types as $property)
-                                    <option {{ old('property_id') == $property->id ? 'selected' : '' }} value="{{ $property->id }}">{{ $property->name }}</option>
+                                    <option {{ old('property_type_id') == $property->id ? 'selected' : '' }} value="{{ $property->id }}">{{ $property->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

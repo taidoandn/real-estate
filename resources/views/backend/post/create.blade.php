@@ -43,10 +43,10 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group {{ $errors->has('property_id') ? 'has-error' : ''}}">
-                                <label for="property_id" class="col-md-4 control-label">Loại bất động sản</label>
+                            <div class="form-group {{ $errors->has('property_type_id') ? 'has-error' : ''}}">
+                                <label for="property_type_id" class="col-md-4 control-label">Loại bất động sản</label>
                                 <div class="col-md-8">
-                                    <select class="form-control select2" id="property_id" name="property_id">
+                                    <select class="form-control select2" id="property_type_id" name="property_type_id">
                                         @foreach ($property_types as $property)
                                         <option {{ old('property_id') == $property->id ? 'selected' : '' }} value="{{ $property->id }}">{{$property->name}}</option>
                                         @endforeach
@@ -378,21 +378,21 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="col-md-1 control-label">
+                                <label class="col-md-2 control-label">
                                     <i class="fa fa-pencil"></i>
                                     <strong id="type-name"></strong> :
                                 </label>
                                 <label class="control-label m-l-10" id="type-description"></label>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-1 control-label">
+                                <label class="col-md-2 control-label">
                                     <i class="fa fa-money"></i>
                                     <strong> Đơn giá :</strong>
                                 </label>
                                 <label class="control-label m-l-10" id="type-price"></label>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-1 control-label">
+                                <label class="col-md-2 control-label">
                                     <i class="fa fa-calendar"></i>
                                     <strong> Số ngày :</strong>
                                 </label>
@@ -573,9 +573,4 @@ $(document).ready(function () {
         });
     }
 </script>
-    @if($errors)
-    @foreach ($errors->all() as $error)
-    <script> toastr.error('{{ $error }}')</script>
-    @endforeach
-    @endif
 @endpush

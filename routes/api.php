@@ -25,6 +25,15 @@ Route::group(['as' => 'api.'], function () {
     //Property Type controller
     Route::apiResource('property-types', 'PropertyTypeController')->only('index','show');
 
+    //Distance controller
+    Route::apiResource('distances', 'DistanceController')->only('index','show');
+
+    //Convenience controller
+    Route::apiResource('conveniences', 'ConvenienceController')->only('index','show');
+
+    //PostType controller
+    Route::apiResource('post-types', 'PostTypeController')->only('index','show');
+
     //City Controller
     Route::resource('/cities', 'CityController')->only('index','show');
     Route::get('cities/{city}/districts','CityController@districts')->name('cities.districts');

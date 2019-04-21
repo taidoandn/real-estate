@@ -30,8 +30,8 @@ class CreatePostsTable extends Migration
             $table->tinyInteger('negotiable')->default(0);
             $table->enum('status', ['pending', 'published','exprired'])->default('pending');
             $table->integer('views')->unsigned()->default(0);
-            $table->integer('property_id')->unsigned();
-            $table->foreign('property_id')->references('id')->on('property_types')->onDelete('cascade');
+            $table->integer('property_type_id')->unsigned();
+            $table->foreign('property_type_id')->references('id')->on('property_types')->onDelete('cascade');
             $table->integer('district_id')->unsigned();
             $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
             $table->integer('user_id')->unsigned();

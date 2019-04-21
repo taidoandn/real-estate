@@ -17,11 +17,11 @@
             <hr />
 
             <div class="form-group">
-                <label>Nội thất</label>
+                <label>Tiện ích</label>
                 <select class="form-control select2 selector" name="convenience" data-placeholder="Select a Convenience"  multiple="multiple" id="convenience">
-                    <optgroup label="Interior">
+                    <optgroup label="Nội thất">
                     @foreach ($conveniences as $convenience)
-                        @if ($convenience->type == "Nội thất")
+                        @if ($convenience->type == "interior")
                             <option value="{{ $convenience->id }}">{{ $convenience->name }}</option>
                         @endif
                     @endforeach

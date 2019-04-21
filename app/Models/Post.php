@@ -11,7 +11,7 @@ class Post extends Model
     protected $table = 'posts';
     protected $fillable = [
         'title','image','purpose','address','latitude','longitude','price','negotiable','view','status','description','start_date','end_date',
-        'area','unit','district_id','user_id','detail_id','type_id','property_id'
+        'area','unit','district_id','user_id','detail_id','type_id', 'property_type_id'
     ];
 
     protected $currency = "VND";
@@ -41,7 +41,7 @@ class Post extends Model
         return $this->hasOne('App\Models\PropertyDetail', 'post_id', 'id');
     }
     public function property_type(){
-        return $this->belongsTo('App\Models\PropertyType', 'property_id', 'id');
+        return $this->belongsTo('App\Models\PropertyType', 'property_type_id', 'id');
     }
 
     public function district(){
