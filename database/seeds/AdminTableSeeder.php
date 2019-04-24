@@ -14,13 +14,13 @@ class AdminTableSeeder extends Seeder
     {
         DB::table('admins')->insert(
             [
-                'name' => 'King',
-                'email' => 'admin@demo.com',
-                'password' => bcrypt(123456),
-                'phone' => '0987654321',
+                'name'           => 'King',
+                'email'          => 'admin@demo.com',
+                'password'       => 123456,
+                'phone'          => '0987654321',
                 'remember_token' => str_random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at'     => now(),
+                'updated_at'     => now(),
             ]
         );
         Admin::where('email','admin@demo.com')->first()->roles()->attach([1,2,3]);
