@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PropertyTypeTableSeeder::class,
             PostTypeTableSeeder::class,
-            CityTableSeeder::class,
-            DistrictTableSeeder::class,
+            // CityTableSeeder::class,
+            // DistrictTableSeeder::class,
             PermissionTableSeeder::class,
             RoleTableSeeder::class,
             AdminTableSeeder::class,
