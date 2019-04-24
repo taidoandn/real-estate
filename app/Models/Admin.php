@@ -34,13 +34,13 @@ class Admin extends Authenticatable
         return $this->belongsToMany('App\Models\Role', 'admin_roles', 'admin_id', 'role_id');
     }
 
-    public function userHasRole($role){
-        return !! optional($this->roles)->contains('name',$role); // !! : return boolean
-    }
+    // public function userHasRole($role){
+    //     return !! optional($this->roles)->contains('name',$role); // !! : return boolean
+    // }
 
-    public function userHasPermission($permission){
+    public function hasPermission($permission){
         foreach ($this->roles as $role) {
-            if ($role->roleHasPermission($permission)) {
+            if ($role->hasPermission($permission)) {
                 return true;
             }
         }

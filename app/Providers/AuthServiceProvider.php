@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         if(! $this->app->runningInConsole()){
             foreach (Permission::all() as $permission) {
                 Gate::define($permission->name,function($user) use($permission){ // $user here is a admin
-                    return $user->userHasPermission($permission);
+                    return $user->hasPermission($permission);
                 });
             }
         }
