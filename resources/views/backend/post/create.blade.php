@@ -545,7 +545,7 @@ $(document).ready(function () {
         });
         if($('select[name="city_id"]').val()) {
             var city_id = $('select[name="city_id"]').val();
-            var district_id = '{{ old("district_id",$post->district_id) }}'
+            var district_id = '{{ old("district_id") }}'
             getDistrict(city_id,district_id);
         }
     });
@@ -556,7 +556,7 @@ $(document).ready(function () {
             data : { city_id : city_id },
             success : function (data) {
                 var options = '';
-                options += '<option value="" selected> Chọn Quận/huyện </option>';
+                options += '<option value="" selected> Chọn quận/huyện </option>';
                 if (data.length > 0) {
                     $.each(data, function (key, value) {
                         options += "<option value='" + value.id + "'>" + value.name + "</option>";
