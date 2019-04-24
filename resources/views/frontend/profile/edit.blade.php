@@ -14,11 +14,14 @@
                     <form method="POST" action="{{ route('profile.update') }}" accept-charset="UTF-8"
                         class="form-horizontal" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                             <label for="name" class="col-sm-2 control-label">Họ tên</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="name" value="{{ Auth::user()->name }}"
                                     name="name" placeholder="Name">
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('name') }}
+                                </strong>
                             </div>
                         </div>
                         <div class="form-group ">
@@ -29,19 +32,25 @@
                             </div>
                         </div>
 
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
                             <label for="phone" class="col-sm-2 control-label">Số điện thoại</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="phone" value="{{ Auth::user()->phone }}"
                                     name="phone" placeholder="Phone">
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('phone') }}
+                                </strong>
                             </div>
                         </div>
 
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
                             <label for="address" class="col-sm-2 control-label">Địa chỉ</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="address" value="{{ Auth::user()->address }}"
                                     name="address" placeholder="Address">
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('address') }}
+                                </strong>
                             </div>
                         </div>
                         <hr>

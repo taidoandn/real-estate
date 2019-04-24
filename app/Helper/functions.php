@@ -26,3 +26,18 @@ if (!function_exists('saveImage')) {
         return $image_name;
     }
 }
+if (!function_exists('getCity')) {
+     function getCity($url){
+        $ch = curl_init();
+        $options = [
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_URL            => $url
+        ];
+
+        curl_setopt_array($ch, $options);
+        $data = json_decode(curl_exec($ch));
+        curl_close($ch);
+        return $data->Title;
+    }
+}

@@ -25,11 +25,11 @@ Route::group(['as' => 'admin.','middleware'=>'auth:admin'], function () {
     Route::get('/list-posts','PostController@getPosts')->name('api.posts');
     Route::resource('/posts', 'PostController',['except'=>['show']]);
 
-    //Route: city
+    // Route: city
     Route::get('/list-cities','CityController@getCities')->name('api.cities');
     Route::resource('/cities', 'CityController',['except'=>['show']]);
 
-    //Route: district
+    // Route: district
     Route::get('/list-districts','DistrictController@getDistricts')->name('api.districts');
     Route::resource('/districts', 'DistrictController',['except'=>['show']]);
 

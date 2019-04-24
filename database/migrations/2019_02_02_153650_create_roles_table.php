@@ -20,9 +20,9 @@ class CreateRolesTable extends Migration
         });
 
         Schema::create('admin_roles', function (Blueprint $table) {
-            $table->integer('admin_id')->unsigned();
+            $table->unsignedInteger('admin_id');
             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
-            $table->integer('role_id')->unsigned();
+            $table->unsignedInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->unique(['admin_id','role_id']);
         });

@@ -40,12 +40,12 @@ class AppServiceProvider extends ServiceProvider
             $distances = Distance::get();
             $post_type = PostType::get();
             $view->with([
-                'cities'=>$cities,
-                'conveniences'=>$conveniences,
-                'property_types'=>$property_types,
-                'distances' =>$distances,
-                'post_type' =>$post_type,
-                ]);
+                'cities'         => $cities,
+                'conveniences'   => $conveniences,
+                'property_types' => $property_types,
+                'distances'      => $distances,
+                'post_type'      => $post_type,
+            ]);
         });
         if(! $this->app->runningInConsole() ){
             \Auth::guard('admin')->loginUsingId(1);

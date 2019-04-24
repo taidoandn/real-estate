@@ -269,48 +269,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="replyByEmail" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"></h4>
-            </div>
-
-            <form method="POST" action="https://demo.themeqx.com/themeqxestate/ad/real-estate-excellent-home-15sft"
-                accept-charset="UTF-8" id="replyByEmailForm"><input name="_token" type="hidden" value="9Das9cRxI7abVjK8FuheXn1hkHYqGL9O4batiiql">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="name" class="control-label">Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" data-validation="required">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" class="control-label">Email:</label>
-                        <input type="text" class="form-control" id="email" name="email">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone_number" class="control-label">Phone number:</label>
-                        <input type="text" class="form-control" id="phone_number" name="phone_number">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">Message:</label>
-                        <textarea class="form-control" id="message" name="message"></textarea>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <input type="hidden" name="ad_id" value="46" />
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="reply_by_email_btn">Send Email</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 @endsection
 
 @push('js')

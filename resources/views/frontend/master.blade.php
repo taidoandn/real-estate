@@ -55,7 +55,7 @@
                 <div class="col-sm-12">
                     <h1>Want to sell your property quickly?</h1>
                     <p>Post your ad quickly, your personal data secured with us</p>
-                    <a href="#" class="btn btn-info btn-lg">Post an ad</a>
+                    <a href="{{ route('posts.create') }}" class="btn btn-info btn-lg">Post an ad</a>
                 </div>
             </div>
         </div>
@@ -113,11 +113,14 @@
 
     <!-- Conditional page load script -->
     <script src="{{ asset('layout/frontend/js/main.js') }}"></script>
-    <script>
-        @if(Session::has('success'))
-            toastr.success("{{ Session::get('success') }}","Success");
-        @endif
-    </script>
+    @if(Session::has('success'))
+        <script>
+            toastr.success("{{ Session::get('success') }}");
+        </script>
+    @endif
+    @if (Session::has('error'))
+        <script> toastr.error("{{ Session::get('error') }}")</script>
+    @endif
 </body>
 
 </html>

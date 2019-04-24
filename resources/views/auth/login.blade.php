@@ -32,7 +32,6 @@
                                 <strong>{{ $errors->first('password') }}</strong>
                             </span>
                             @endif
-                            <span class="help-block"></span>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
                         </form>
                     </div>

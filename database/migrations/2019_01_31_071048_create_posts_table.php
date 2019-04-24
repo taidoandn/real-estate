@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title')->unique();
+            $table->string('title',100)->unique();
             $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->enum('purpose', ['sale', 'rent'])->default('sale');
@@ -24,22 +24,22 @@ class CreatePostsTable extends Migration
             $table->double('latitude', 9, 6);
             $table->double('longitude', 9, 6);
             $table->text('description')->nullable();
-            $table->integer('area');
+            $table->unsignedInteger('area');
             $table->bigInteger('price');
             $table->enum('unit',['total_area','m2','month','year']);
             $table->tinyInteger('negotiable')->default(0);
             $table->enum('status', ['pending', 'published','exprired'])->default('pending');
-            $table->integer('views')->unsigned()->default(0);
-            $table->integer('property_type_id')->unsigned();
+            $table->unsignedInteger('views')->default(0);
+            $table->unsignedInteger('property_type_id');
             $table->foreign('property_type_id')->references('id')->on('property_types')->onDelete('cascade');
-            $table->integer('district_id')->unsigned();
+            $table->unsignedInteger('district_id');
             $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
-            $table->integer('user_id')->unsigned();
+            $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('type_id')->unsigned();
+            $table->unsignedInteger('type_id');
             $table->foreign('type_id')->references('id')->on('post_types')->onDelete('cascade');
-            $table->date('start_date')->default(Carbon::now());
-            $table->date('end_date')->default(Carbon::now()->addDay(5));
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }

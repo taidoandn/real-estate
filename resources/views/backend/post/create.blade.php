@@ -300,7 +300,7 @@
                                     <label class="col-md-4 control-label">Quận Huyện</label>
                                     <div class="col-md-8">
                                         <select name="district_id" id="district_id" class="form-control select2">
-                                            <option value="">Chọn quận/huyện</option>
+                                            <option value="0">Chọn quận/huyện</option>
                                         </select>
                                         <strong class="help-block" role="alert">
                                             {{ $errors->first('district_id') }}
@@ -537,7 +537,7 @@ $(document).ready(function () {
 
 </script>
 <script>
-    $(document).ready(function () {
+      $(document).ready(function () {
         $('select[name="city_id"]').change(function () {
             $('select[name="district_id"]').select2('val',"");
             var city_id = $(this).val();
@@ -545,11 +545,10 @@ $(document).ready(function () {
         });
         if($('select[name="city_id"]').val()) {
             var city_id = $('select[name="city_id"]').val();
-            var district_id = '{{ old("district_id") ?? null }}'
+            var district_id = '{{ old("district_id",$post->district_id) }}'
             getDistrict(city_id,district_id);
         }
     });
-
     function getDistrict(city_id,district_id = null){
         $.ajax({
             type : 'get',
@@ -572,5 +571,61 @@ $(document).ready(function () {
             }
         });
     }
+    // var old_city_id = '{{ old("city_id") ?? "" }}';
+    // getCity();
+    // $(document).ready(function () {
+    //     $('select[name="city_id"]').on('change',function () {
+    //         var city_id = parseInt($(this).val());
+    //         getDistrict(city_id);
+    //     });
+    //     if(old_city_id) {
+    //         var district_id = '{{ old("district_id") ?? null }}';
+    //         getDistrict(old_city_id,district_id);
+    //     }
+    // });
+    // function getCity(){
+    //     $.ajax({
+    //         type : 'get',
+    //         dataType : 'json',
+    //         url : '{{ route("ajax.cities") }}',
+    //         success : function (data) {
+    //             let options = '';
+    //             options += '<option value="" selected> Chọn Thành phố </option>';
+    //             if (data.LtsItem.length > 0) {
+    //                 $.each(data.LtsItem, function (key, value) {
+    //                     options += "<option value='" + value.ID + "' >" + value.Title + "</option>";
+    //                 });
+    //                 $('select[name="city_id"]').html(options);
+    //                 $('select[name="city_id"]').val(old_city_id);
+    //                 console.log(old_city_id);
+    //             }else{
+    //                 $('select[name="city_id"]').html(options);
+    //             }
+    //         }
+    //     });
+    // }
+    // function getDistrict(city_id,district_id = null){
+    //     $.ajax({
+    //         type : 'get',
+    //         dataType : 'json',
+    //         url : '{{ route("ajax.districts") }}',
+    //         data : {
+    //             "id" : city_id
+    //         },
+    //         success : function (data) {
+    //             let options = '';
+    //             options += '<option value="" selected> Chọn quận/huyện </option>';
+    //             if (data.length > 0) {
+    //                 $.each(data, function (key, value) {
+    //                     options += "<option value='" + value.ID + "'>" + value.Title + "</option>";
+    //                 });
+    //                 $('select[name="district_id"]').html(options);
+    //                 $('select[name="district_id"]').val(district_id);
+    //             }else {
+    //                 $('select[name="district_id"]').html(options);
+    //             }
+    //         }
+    //     });
+    // }
 </script>
 @endpush

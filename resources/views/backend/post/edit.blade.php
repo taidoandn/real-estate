@@ -588,7 +588,6 @@ $(document).ready(function () {
             getDistrict(city_id,district_id);
         }
     });
-
     function getDistrict(city_id,district_id = null){
         $.ajax({
             type : 'get',

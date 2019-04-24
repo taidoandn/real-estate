@@ -20,9 +20,9 @@ class CreateDistancesTable extends Migration
             $table->timestamps();
         });
         Schema::create('post_distances', function (Blueprint $table) {
-            $table->integer('post_id')->unsigned();
+            $table->unsignedInteger('post_id');
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
-            $table->integer('distance_id')->unsigned();
+            $table->unsignedInteger('distance_id');
             $table->foreign('distance_id')->references('id')->on('distances')->onDelete('cascade');
             $table->integer('meters')->unsigned()->nullable();
         });

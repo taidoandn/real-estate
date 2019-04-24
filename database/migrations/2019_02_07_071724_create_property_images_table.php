@@ -16,7 +16,7 @@ class CreatePropertyImagesTable extends Migration
         Schema::create('property_images', function (Blueprint $table) {
             $table->increments('id');
             $table->string('path');
-            $table->integer('post_id')->unsigned();
+            $table->unsignedInteger('post_id');
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });

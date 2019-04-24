@@ -21,7 +21,6 @@
                         <div class="ads-thumbnail">
                             <a href="{{ $post->url }}">
                                 <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-responsive" alt="">
-
                                 <span class="modern-sale-rent-indicator">
                                     {{ $post->purpose_format }}
                                 </span>
@@ -43,11 +42,12 @@
                             <table class="table table-responsive property-box-info">
                                 <tr>
                                     <td>
-                                        <a class="location text-muted">
-                                            <i class="fa fa-map-marker"></i> {{ str_limit($post->district->city->name ." / ".$post->district->name, 16) }} </a>
+                                        <a class="location text-muted" title="{{ $post->district->city->name ." / ".$post->district->name }}">
+                                            <i class="fa fa-map-marker"></i> {{ str_limit($post->district->city->name ." / ".$post->district->name, 16) }}
+                                        </a>
                                     </td>
                                     <td>
-                                        <p class="date-posted text-muted"> <i class="far fa-clock"></i> {{ $post->created_date }}</p>
+                                        <p class="date-posted text-muted"> <i class="fa fa-clock-o"></i> {{ $post->created_date }}</p>
                                     </td>
                                 </tr>
 

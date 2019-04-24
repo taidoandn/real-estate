@@ -32,7 +32,7 @@ class PostRequest extends FormRequest
             case 'PATCH':
             case 'PUT':
                 $rules = [
-                    'title'            => 'required|max:255|unique:posts,title,'.$this->post,
+                    'title'            => 'required|max:100|unique:posts,title,'.$this->post,
                     'purpose'          => 'required',
                     'price'            => 'required|numeric',
                     'area'             => 'required|numeric',
@@ -56,7 +56,7 @@ class PostRequest extends FormRequest
                 break;
             default:
                 $rules = [
-                    'title'            => 'required|max:255|unique:posts,title',
+                    'title'            => 'required|max:100|unique:posts,title',
                     'purpose'          => 'required',
                     'price'            => 'required|numeric',
                     'area'             => 'required|numeric',
