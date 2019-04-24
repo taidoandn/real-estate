@@ -42,7 +42,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PostRequest $request){
-        dd($request->all());
+        // dd($request->all());
         $this->authorize("create-post");
         $data = $request->all();
         $data['user_id'] = $request->user_id;
