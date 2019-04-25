@@ -15,5 +15,5 @@
             @endforelse
         </ul>
     </li>
-    <li class="footer" onclick="markAsRead('all')"><a href="javascript:void(0)">Mark as read all</a></li>
+    <li class="footer" onclick="markAsRead('all');loadNotifications()"><a href="javascript:void(0)">Mark as read all</a></li>
 </ul>

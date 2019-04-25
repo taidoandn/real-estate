@@ -61,7 +61,6 @@ $(document).ready(function () {
         }else{
             url = base_url+ "/admin/users/" + id;
         }
-
         $.ajax({
             type: "post",
             url: url,

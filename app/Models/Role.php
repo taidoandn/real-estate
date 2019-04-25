@@ -17,18 +17,4 @@ class Role extends Model
     {
         return $this->belongsToMany('App\Models\Permission', 'role_permissions', 'role_id', 'permission_id');
     }
-
-    public function hasPermission($permission){
-        return !! optional($this->permissions)->contains('name',$permission);
-    }
-
-    //Same with
-    // public function hasPermission($permission){
-    //     foreach ($this->permissions() as $per) {
-    //         if ($permission === $per->name) {
-    //             return true;
-    //         }
-    //         return false;
-    //     }
-    // }
 }

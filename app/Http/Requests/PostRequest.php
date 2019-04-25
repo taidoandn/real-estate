@@ -25,8 +25,8 @@ class PostRequest extends FormRequest
     public function rules()
     {
         $today = Carbon::now();
-        $start = Carbon::parse(request()->start_date) ?? null;
-        $end   = Carbon::parse(request()->end_date) ?? null;
+        $start = Carbon::parse(request()->start_date);
+        $end   = Carbon::parse(request()->end_date);
         $diff  = $start->diffInDays($end);
         switch (request()->method()) {
             case 'PATCH':
@@ -38,6 +38,7 @@ class PostRequest extends FormRequest
                     'area'             => 'required|numeric',
                     'description'      => 'required|min:100',
                     'district_id'      => 'required',
+                    'unit'             => 'required',
                     'city_id'          => 'required|exists:cities,id',
                     'type_id'          => 'exists:post_types,id',
                     'address'          => 'required',
@@ -67,6 +68,7 @@ class PostRequest extends FormRequest
                     'address'          => 'required',
                     'latitude'         => 'required',
                     'longitude'        => 'required',
+                    'unit'             => 'required',
                     // 'fImage'           => 'required|mimes:jpg,jpeg,bmp,png|max:2048',
                     'fImageDetails.*'  => 'mimes:jpg,jpeg,bmp,png|max:2048',
                     'property_type_id' => 'required|exists:property_types,id',

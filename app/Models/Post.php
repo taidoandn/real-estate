@@ -27,7 +27,7 @@ class Post extends Model
         static::created(function($post){
             $post->load('user');
             foreach (Admin::all() as $admin) {
-                if ($admin->userHasRole('Admin')) {
+                if ($admin->hasRole('Admin')) {
                     $admin->notify(new NewPostNotification($post));
                 }
             }

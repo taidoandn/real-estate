@@ -300,7 +300,7 @@
                                     <label class="col-md-4 control-label">Quận Huyện</label>
                                     <div class="col-md-8">
                                         <select name="district_id" id="district_id" class="form-control select2">
-                                            <option value="0">Chọn quận/huyện</option>
+                                            <option value="">Chọn quận/huyện</option>
                                         </select>
                                         <strong class="help-block" role="alert">
                                             {{ $errors->first('district_id') }}
@@ -376,30 +376,30 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">
-                                    <i class="fa fa-pencil"></i>
-                                    <strong id="type-name"></strong> :
-                                </label>
-                                <label class="control-label m-l-10" id="type-description"></label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">
-                                    <i class="fa fa-money"></i>
-                                    <strong> Đơn giá :</strong>
-                                </label>
-                                <label class="control-label m-l-10" id="type-price"></label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">
-                                    <i class="fa fa-calendar"></i>
-                                    <strong> Số ngày :</strong>
-                                </label>
-                                <label class="control-label m-l-10" id="day-between">0 ngày</label>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">
+                                        <i class="fa fa-pencil"></i>
+                                        <strong id="type-name"></strong> :
+                                    </label>
+                                    <label class="control-label m-l-10" id="type-description"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">
+                                        <i class="fa fa-money"></i>
+                                        <strong> Đơn giá :</strong>
+                                    </label>
+                                    <label class="control-label m-l-10" id="type-price"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">
+                                        <i class="fa fa-calendar"></i>
+                                        <strong> Số ngày :</strong>
+                                    </label>
+                                    <label class="control-label m-l-10" id="day-between">0 ngày</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <input type="hidden" class="diff-date" value="0">
                         <input type="hidden" class="price" value="0" >
                         <div class="col-md-12">
@@ -571,61 +571,5 @@ $(document).ready(function () {
             }
         });
     }
-    // var old_city_id = '{{ old("city_id") ?? "" }}';
-    // getCity();
-    // $(document).ready(function () {
-    //     $('select[name="city_id"]').on('change',function () {
-    //         var city_id = parseInt($(this).val());
-    //         getDistrict(city_id);
-    //     });
-    //     if(old_city_id) {
-    //         var district_id = '{{ old("district_id") ?? null }}';
-    //         getDistrict(old_city_id,district_id);
-    //     }
-    // });
-    // function getCity(){
-    //     $.ajax({
-    //         type : 'get',
-    //         dataType : 'json',
-    //         url : '{{ route("ajax.cities") }}',
-    //         success : function (data) {
-    //             let options = '';
-    //             options += '<option value="" selected> Chọn Thành phố </option>';
-    //             if (data.LtsItem.length > 0) {
-    //                 $.each(data.LtsItem, function (key, value) {
-    //                     options += "<option value='" + value.ID + "' >" + value.Title + "</option>";
-    //                 });
-    //                 $('select[name="city_id"]').html(options);
-    //                 $('select[name="city_id"]').val(old_city_id);
-    //                 console.log(old_city_id);
-    //             }else{
-    //                 $('select[name="city_id"]').html(options);
-    //             }
-    //         }
-    //     });
-    // }
-    // function getDistrict(city_id,district_id = null){
-    //     $.ajax({
-    //         type : 'get',
-    //         dataType : 'json',
-    //         url : '{{ route("ajax.districts") }}',
-    //         data : {
-    //             "id" : city_id
-    //         },
-    //         success : function (data) {
-    //             let options = '';
-    //             options += '<option value="" selected> Chọn quận/huyện </option>';
-    //             if (data.length > 0) {
-    //                 $.each(data, function (key, value) {
-    //                     options += "<option value='" + value.ID + "'>" + value.Title + "</option>";
-    //                 });
-    //                 $('select[name="district_id"]').html(options);
-    //                 $('select[name="district_id"]').val(district_id);
-    //             }else {
-    //                 $('select[name="district_id"]').html(options);
-    //             }
-    //         }
-    //     });
-    // }
 </script>
 @endpush

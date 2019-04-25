@@ -38,16 +38,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -59,16 +49,6 @@ class UserController extends Controller
         $user = Admin::create($data);
         $user->roles()->attach($request->role);
         return "Thêm tài khoản thành công!!";
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
     }
 
     /**
@@ -108,7 +88,6 @@ class UserController extends Controller
             $data['password'] = $request->password;
         }
         $user = Admin::findOrFail($id);
-        $user->update($data);
         $user->roles()->sync($request->role);
         return 'Cập nhật thành công';
     }

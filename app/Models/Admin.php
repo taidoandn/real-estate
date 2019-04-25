@@ -17,7 +17,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password','phone','address'
     ];
 
     /**
@@ -34,15 +34,13 @@ class Admin extends Authenticatable
         return $this->belongsToMany('App\Models\Role', 'admin_roles', 'admin_id', 'role_id');
     }
 
-    // public function userHasRole($role){
-    //     return !! optional($this->roles)->contains('name',$role); // !! : return boolean
-    // }
+    public function hasRole($role){
+        return optional($this->roles)->contains('name',$role); // !! : return boolean
+    }
 
-    public function hasPermission($permission){
+    public function hasPermission(string $permission){
         foreach ($this->roles as $role) {
-            if ($role->hasPermission($permission)) {
-                return true;
-            }
+            return !! optional($role->permissions)->contains('name', $permission);
         }
     }
 }
