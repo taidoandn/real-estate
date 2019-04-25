@@ -71,6 +71,9 @@
                             <div class="col-sm-9">
                                 <select class="form-control" name="unit" id="unit">
                                 </select>
+                                   <strong class="help-block" role="alert">
+                                        {{ $errors->first('unit') }}
+                                    </strong>
                             </div>
                         </div>
                         <div class="form-group {{ $errors->has('area') ? 'has-error' : ''}}">
