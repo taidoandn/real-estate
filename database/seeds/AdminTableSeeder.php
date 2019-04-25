@@ -12,11 +12,12 @@ class AdminTableSeeder extends Seeder
      */
     public function run()
     {
+        \DB::table('admins')->delete();
         DB::table('admins')->insert(
             [
                 'name'           => 'King',
                 'email'          => 'admin@demo.com',
-                'password'       => 123456,
+                'password'       => bcrypt(123456),
                 'phone'          => '0987654321',
                 'remember_token' => str_random(10),
                 'created_at'     => now(),

@@ -29,6 +29,10 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] =  bcrypt($value);
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role', 'admin_roles', 'admin_id', 'role_id');
