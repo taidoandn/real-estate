@@ -27,12 +27,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Gate::before(function ($user, $ability) {
-            if ($user->id === 1) {
+            if ($user->email === 'admin@demo.com') {
                 return true;
             }
         });
         Gate::define('isSuperAdmin',function($user){
-            return $user->id === 1;
+            return $user->email === 'admin@demo.com';
         });
         if(! $this->app->runningInConsole()){
             foreach (Permission::all() as $permission) {
