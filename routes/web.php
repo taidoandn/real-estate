@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('blog', function () {
+    return view('backend.blog.create');
+});
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');

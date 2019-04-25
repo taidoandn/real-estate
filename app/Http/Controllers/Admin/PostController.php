@@ -62,11 +62,16 @@ class PostController extends Controller
             'living_room'  => $request->living_room ? true : false,
         ]);
 
-        $post->conveniences()->attach($request->conveniences);
-
-        foreach ($request->distances as $key => $distance) {
-            $post->distances()->attach($key,['meters'=> (int)$distance]);
+        if ($request->conveniences) {
+            $post->conveniences()->attach($request->conveniences);
         }
+
+        if ($request->distances) {
+            foreach ($request->distances as $key => $distance) {
+                $post->distances()->attach($key, ['meters' => (int)$distance]);
+            }
+        }
+
 
         if ($request->has('fImageDetails')) {
             foreach ($request->file('fImageDetails') as  $file) {
@@ -91,7 +96,6 @@ class PostController extends Controller
         $this->authorize("update-post");
         $users = User::get();
         $post  = Post::with('detail','district.city','property_type','conveniences','type','distances')->findOrFail($id);
-        dd($post->distances);
         return view('backend.post.edit',compact('post','users'));
     }
 

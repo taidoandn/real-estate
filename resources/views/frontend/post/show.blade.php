@@ -50,7 +50,7 @@
                     </p>
                     <p><strong><i class="fa fa-check-circle-o"></i> Điều kiện</strong> </p>
 
-                    <div class="modern-social-share-btn-group">
+                    {{-- <div class="modern-social-share-btn-group">
                         <h4>Chia sẻ</h4>
                         <a href="javascript:;" class="btn btn-default shareEmbedded" data-toggle="modal" data-target="#shareEmbedded"><i
                                 class="fa fa-code"></i> </a>
@@ -58,7 +58,7 @@
                         <a href="#" class="btn btn-default share s_plus"><i class="fa fa-google-plus"></i> </a>
                         <a href="#" class="btn btn-default share s_twitter"><i class="fa fa-twitter"></i> </a>
                         <a href="#" class="btn btn-default share s_linkedin"><i class="fa fa-linkedin"></i> </a>
-                    </div>
+                    </div> --}}
 
 
                 </div>

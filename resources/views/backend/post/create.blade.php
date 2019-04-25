@@ -114,11 +114,10 @@
                                 </div>
                             </div>
 
-                            <div class="form-group {{ $errors->has('user_id') ? 'has-error' : ''}}">
+                            <div class="form-group">
                                     <label for="area" class="col-md-4 control-label">Người đăng</label>
                                     <div class="col-md-8">
                                         <select name="user_id" class="form-control">
-                                            <option value="">Chọn người đăng</option>
                                             @foreach ($users as $user)
                                                 <option {{ old('user_id') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
