@@ -56,11 +56,15 @@ class PostController extends Controller
             'living_room'  => $request->living_room ? true : false,
         ]);
 
-        $post->conveniences()->attach($request->conveniences);
-
-        foreach ($request->distances as $key => $distance) {
-            $post->distances()->attach($key,['meters'=> $distance]);
+        if ($request->conveniences) {
+            $post->conveniences()->attach($request->conveniences);
         }
+        if ($request->distances) {
+            foreach ($request->distances as $key => $distance) {
+                $post->distances()->attach($key, ['meters' => $distance]);
+            }
+        }
+
 
         if ($request->has('fImageDetails')) {
             foreach ($request->file('fImageDetails') as  $file) {
