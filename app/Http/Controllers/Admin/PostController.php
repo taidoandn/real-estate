@@ -90,7 +90,8 @@ class PostController extends Controller
     {
         $this->authorize("update-post");
         $users = User::get();
-        $post  = Post::with('detail','district.city','property_type','conveniences','type')->findOrFail($id);
+        $post  = Post::with('detail','district.city','property_type','conveniences','type','distances')->findOrFail($id);
+        dd($post->distances);
         return view('backend.post.edit',compact('post','users'));
     }
 

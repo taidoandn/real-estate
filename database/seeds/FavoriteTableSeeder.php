@@ -13,7 +13,6 @@ class FavoriteTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('favorites')->delete();
 
         $users = User::pluck('id')->all();
         $numberOfUsers = count($users);

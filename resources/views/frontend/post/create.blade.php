@@ -62,11 +62,14 @@
                                 </strong>
                             </div>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group {{ $errors->has('unit') ? 'has-error' : ''}}">
                             <label for="unit" class="col-sm-3 control-label">Đơn vị</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="unit" id="unit">
                                 </select>
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('unit') }}
+                                </strong>
                             </div>
                         </div>
                         <div class="form-group  {{ $errors->has('area') ? 'has-error' : '' }}">

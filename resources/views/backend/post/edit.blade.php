@@ -255,7 +255,7 @@
                                         class="form-control"
                                         @foreach ($post->distances as $post_distance)
                                             @if ($post_distance->id == $distance->id)
-                                                value="{{ old('distances.'.$distance->id,$post_distance->pivot->meters) }}"
+                                            value="{{ old('distances.'.$distance->id,$post_distance->pivot->meters) }}"
                                             @endif
                                         @endforeach
                                     />
