@@ -4,12 +4,13 @@ namespace App\Providers;
 
 use App\Models\City;
 use App\Models\Distance;
+use App\Models\PostType;
 use App\Models\Convenience;
 use App\Models\PropertyType;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use App\Models\PostType;
 
 class AppServiceProvider extends ServiceProvider
 {
