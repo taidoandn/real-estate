@@ -6,7 +6,6 @@ use App\Models\City;
 use App\Models\Distance;
 use App\Models\Convenience;
 use App\Models\PropertyType;
-use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -19,11 +18,8 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(UrlGenerator $url)
+    public function boot()
     {
-        if(env('REDIRECT_HTTPS',true)) {
-            $url->formatScheme('https');
-        }
         Schema::defaultStringLength(191);
         $views = [
             'frontend.search._sidebar',
@@ -48,8 +44,8 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
         if(! $this->app->runningInConsole() ){
-            // \Auth::guard('admin')->loginUsingId(3);
-            // \Auth::guard('web')->loginUsingId(1);
+            \Auth::guard('admin')->loginUsingId(1);
+            \Auth::guard('web')->loginUsingId(1);
         }
     }
 
@@ -60,8 +56,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if(env('REDIRECT_HTTPS')) {
-            $this->app['request']->server->set('HTTPS', true);
-        }
     }
 }

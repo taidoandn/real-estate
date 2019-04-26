@@ -12,7 +12,7 @@
             </div>
 
             <div class="form-group">
-                <input type="text" id="q" class="form-control selector" autofocus name="q" value="{{ request()->get('q') ?? '' }}" placeholder="Search keywords" />
+                <input type="text" id="q" class="form-control input-selector" autofocus name="q" value="{{ request()->get('q') ?? '' }}" placeholder="Search keywords" />
             </div>
             <hr />
 
@@ -53,19 +53,18 @@
                 </select>
             </div>
 
-            {{-- <hr />
+            <hr />
             <div class="form-group">
                 <label>Price (Min-Max)</label>
-
                 <div class="row">
                     <div class="col-xs-6">
-                        <input type="number" class="form-control" name="min_price" value="" placeholder="Min price" />
+                        <input type="number" class="form-control input-selector" min="0" name="min_price" value="" id="min" placeholder="Min price" />
                     </div>
                     <div class="col-xs-6">
-                        <input type="number" class="form-control" name="max_price" value="" placeholder="Max price" />
+                        <input type="number" class="form-control input-selector" min="0" name="max_price" value="" id="max" placeholder="Max price" />
                     </div>
                 </div>
-            </div> --}}
+            </div>
             <hr />
             <label>Mục đích</label>
             <div class="form-group">

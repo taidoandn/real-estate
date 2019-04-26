@@ -94,12 +94,11 @@ function successCallback(position) {
         $("#latitude").val(latlng.lat);
         $("#longitude").val(latlng.lng);
         $("#address").val(location.results[0].formatted_address);
-        console.log(location.results[0]);
     })
 }
 
 function errorCallback() {
-    console.log('The Geolocation service failed.');
+    alert('The Geolocation service failed.');
 }
 
 function createMarker(pos){

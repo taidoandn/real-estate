@@ -13,7 +13,6 @@ class FavoriteTableSeeder extends Seeder
      */
     public function run()
     {
-
         $users = User::pluck('id')->all();
         $numberOfUsers = count($users);
 

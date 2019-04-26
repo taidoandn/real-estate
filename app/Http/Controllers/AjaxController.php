@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Report;
+use App\Models\PostType;
 use Illuminate\Http\Request;
 use App\Models\PropertyImage;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ReportRequest;
 use Intervention\Image\Facades\Image;
-use App\Models\PostType;
 
 class AjaxController extends Controller
 {
@@ -28,15 +30,15 @@ class AjaxController extends Controller
         return "Xóa ảnh thành công";
     }
 
-    // public function getDistricts(Request $request){
-    //     if ($request->ajax()) {
-    //         $districts =  DB::table('districts')
-    //                         ->where('city_id',$request->city_id)
-    //                         ->select('id','name','city_id')
-    //                         ->get();
-    //         return $districts;
-    //     }
-    // }
+    public function getDistricts(Request $request){
+        if ($request->ajax()) {
+            $districts =  DB::table('districts')
+                            ->where('city_id',$request->city_id)
+                            ->select('id','name','city_id')
+                            ->get();
+            return $districts;
+        }
+    }
 
     public function getPostType(Request $request){
         $type =  PostType::findOrFail($request->type);
@@ -48,41 +50,10 @@ class AjaxController extends Controller
         $unreadNotifications = auth('admin')->user()->unreadNotifications;
         return view('backend.partial._notification',compact('notifications', 'unreadNotifications'))->render();
     }
-    public function getCities()
-    {
-        $url = 'https://thongtindoanhnghiep.co/api/city';
-        $ch = curl_init();
-        $options = [
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_URL            => $url
-        ];
-        curl_setopt_array($ch, $options);
-        $data = json_decode(curl_exec($ch));
-        curl_close($ch);
-        return $data;
-    }
 
-    public function getDistricts(Request $request)
-    {
-        // $url = 'https://thongtindoanhnghiep.co/api/city/'.(int)$request->id."/district";
-        // $ch = curl_init();
-        // $options = [
-        //     CURLOPT_SSL_VERIFYPEER => false,
-        //     CURLOPT_RETURNTRANSFER => true,
-        //     CURLOPT_URL            => $url
-        // ];
-
-        // curl_setopt_array($ch, $options);
-        // $data = json_decode(curl_exec($ch));
-        // curl_close($ch);
-        // return $data;
+    public function reportPost(ReportRequest $request){
         if ($request->ajax()) {
-            $districts =  DB::table('districts')
-                ->where('city_id', $request->city_id)
-                ->select('id', 'name', 'city_id')
-                ->get();
-            return $districts;
+            Report::create($request->all());
         }
     }
 }

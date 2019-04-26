@@ -15,7 +15,7 @@ $factory->define(App\Models\Post::class, function () use($faker){
     $start = Carbon::now();
     $end   = Carbon::now()->addDays(30);
     return [
-        'title'            => rtrim($faker->sentence(rand(5,10)) ,"."),
+        'title'            => rtrim($faker->sentence(rand(3,5)) ,"."),
         'image'            => $faker->randomElement(['call-to-action.jpg','themeqx-cover.jpeg']),
         'area'             => $faker->randomNumber(2),
         'description'      => $faker->paragraphs(rand(3,7),true),

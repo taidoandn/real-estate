@@ -59,8 +59,6 @@
                         <a href="#" class="btn btn-default share s_twitter"><i class="fa fa-twitter"></i> </a>
                         <a href="#" class="btn btn-default share s_linkedin"><i class="fa fa-linkedin"></i> </a>
                     </div> --}}
-
-
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -226,56 +224,43 @@
                 <h4 class="modal-title">Is there something wrong with this ad?</h4>
             </div>
             <div class="modal-body">
-
                 <p>We're constantly working hard to assure that our ads meet high standards and we are very
                     grateful for any kind of feedback from our users.</p>
-
-                <form>
-
+                <form id="form-report" method="post" action="{{ route('ajax.report-post') }}" >
+                    @csrf
                     <div class="form-group">
+                        <input type="hidden" value="{{ $post->id }}" name="post_id">
                         <label class="control-label">Reason:</label>
-                        <select class="form-control" name="reason">
-                            <option value="">Select a reason</option>
-                            <option value="unavailable">Item sold/unavailable</option>
-                            <option value="fraud">Fraud</option>
-                            <option value="duplicate">Duplicate</option>
+                        <select class="form-control" name="reason" id="reason">
+                            <option value="">Chọn nguyên nhân</option>
+                            <option value="unavailable">Đã bán / Không có</option>
+                            <option value="duplicate">Trùng bài viết</option>
                             <option value="spam">Spam</option>
-                            <option value="wrong_category">Wrong Amenities</option>
-                            <option value="offensive">Offensive</option>
-                            <option value="other">Other</option>
+                            <option value="others">Khác</option>
                         </select>
-
-                        <div id="reason_info"></div>
                     </div>
-
                     <div class="form-group">
                         <label for="email" class="control-label">Email:</label>
-                        <input type="text" class="form-control" name="email">
-                        <div id="email_info"></div>
-
+                        <input type="text" class="form-control" name="email" id="email" autofocus>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="control-label">Message:</label>
-                        <textarea class="form-control" name="message"></textarea>
-                        <div id="message_info"></div>
+                        <textarea class="form-control" name="message" id="message"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="report_ad">Report Ad</button>
+                <button type="submit" class="btn btn-primary" id="report_button">Report Ad</button>
             </div>
         </div>
     </div>
 </div>
-
 @endsection
-
 @push('js')
 <script src="{{ asset('layout/frontend/js/myscript/map.js') }}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQuDQmtiHkS7CcriyEiYXWja3ODrG4vFI&callback=initMap"></script>
 <script src="{{ asset('layout/frontend/plugins/fotorama-4.6.4/fotorama.js') }}"></script>
-
 <script>
 $(document).ready(function () {
     $("#save_as_favorite").click(function(){
@@ -304,6 +289,41 @@ $(document).ready(function () {
                     toastr.warning(res.error);
                 }
             }
+        });
+    });
+});
+</script>
+<script>
+$(document).ready(function () {
+    $("#report_button").click(function (e) {
+        e.preventDefault();
+        var form = $("#form-report");
+        var url = form.attr("action");
+        form.find('.help-block').remove();
+        form.find('.form-group').removeClass('has-error');
+        $.ajax({
+            type: "post",
+            url: url,
+            data: form.serialize(),
+            success: function (response) {
+                $("#reportAdModal").modal("hide");
+                toastr.success("Gửi báo cáo thành công!","Success");
+                form[0].reset();
+                form.find('.help-block').remove();
+                form.find('.form-group').removeClass('has-error');
+            },
+            error: function (xhr) {
+                var res = xhr.responseJSON;
+                if ($.isEmptyObject(res) == false) {
+                    $.each(res.errors,function (key,value) {
+                        $("#"+key).closest(".form-group")
+                                    .addClass("has-error")
+                                    .append('<strong class="help-block with-errors">'+value+'</strong>');
+                    })
+                }else{
+                    alert("Error!!")
+                }
+            },
         });
     });
 });

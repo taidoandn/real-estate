@@ -16,7 +16,6 @@
                         <label for="name" class="col-md-3 control-label">Name</label>
                         <div class="col-md-6">
                             <input type="text" id="name" name="name" class="form-control" autofocus>
-                            <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -27,7 +26,6 @@
                                 <option value="interior">Nội thất</option>
                                 <option value="exterior">Ngoại thất</option>
                             </select>
-                            <span class="help-block with-errors"></span>
                         </div>
                     </div>
                 </div>

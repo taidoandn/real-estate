@@ -67,8 +67,10 @@ class PostController extends Controller
 
         $post->conveniences()->attach($request->conveniences);
 
-        foreach ($request->distances as $key => $distance) {
-            $post->distances()->attach($key,['meters'=> $distance]);
+        if ($request->distances) {
+            foreach ($request->distances as $key => $distance) {
+                $post->distances()->attach($key,['meters'=> $distance]);
+            }
         }
 
         if ($request->has('fImageDetails')) {
@@ -77,6 +79,7 @@ class PostController extends Controller
                 $post->images()->create(['path'=>$file_name]);
             }
         }
+
         //Send Mail
         Mail::to(auth()->user())->send(new NewPostCreated($post));
         return redirect()->route('posts.index')->with('success','Tạo bài viết thành công. Vui lòng check email để tiếp tục thực hiện!!');

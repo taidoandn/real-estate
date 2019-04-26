@@ -2,13 +2,18 @@
     <div class="col-sm-12">
         <div class="listingTopFilterBar">
             <span class="totalFoundListingTop">
-                @if ($keyword)
+                @if (isset($keyword))
                 Tìm thấy <strong>{{ $posts->total() }}</strong> kết quả với từ khóa <span class="badge badge-info">
                     {{ $keyword }}</span>
                 @else
                 Tổng <strong>{{ $posts->total() }}</strong> bài viết được tìm thấy
                 @endif
-
+                @if (isset($min))
+                    <span class="badge badge-info">Min : {{ number_format($min,0,',','.') }}</span>
+                @endif
+                @if ($max > $min)
+                    <span class="badge badge-info">Max : {{ number_format($max,0,',','.') }}</span>
+                @endif
             </span>
 
             <ul class="listingViewIcon pull-right">

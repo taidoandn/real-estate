@@ -47,7 +47,7 @@
         $(".selector").change(function () {
             filter_data();
         });
-        $("#q").keyup(function(){
+        $(".input-selector").keyup(function(){
             filter_data();
         });
         $('#reset-button').click(function() {
@@ -62,13 +62,15 @@
         });
 
         function filter_data(page = 1,sort = null) {
-            var convenience = $("#convenience" ).val();
-            var city = $("#city" ).select2("val");
-            var district = $("#district" ).select2("val");
+            var convenience   = $("#convenience" ).val();
+            var city          = $("#city" ).select2("val");
+            var district      = $("#district" ).select2("val");
             var property_type = $("input[name=property_type]:checked").val();
-            var purpose = $(".purpose:checked").val();
-            var q = $("#q").val();
-            var url = "{{ route('postSearch') }}";
+            var purpose       = $(".purpose:checked").val();
+            var q             = $("#q").val();
+            var min           = $("#min").val();
+            var max           = $("#max").val();
+            var url           = "{{ route('postSearch') }}";
             window.history.pushState({path:url},'',url);
             $.ajax({
                 headers: {
@@ -82,6 +84,8 @@
                     'gridView' : gridView,
                     'page' : page,
                     'q': q,
+                    'min': min,
+                    'max': max,
                     'convenience': convenience,
                     'property_type': property_type,
                     'district_id': district,

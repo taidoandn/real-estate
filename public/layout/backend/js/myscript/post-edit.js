@@ -34,6 +34,7 @@ $(document).ready(function () {
             },
             error: function (xhr) {
                 var res = xhr.responseJSON;
+                console.log(res);
                 if ($.isEmptyObject(res) == false) {
                     $.each(res.errors,function (key,value) {
                         toastr.error("Error : " + value);

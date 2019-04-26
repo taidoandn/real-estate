@@ -12,8 +12,7 @@ class AdminTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('admins')->delete();
-        DB::table('admins')->insert(
+        \DB::table('admins')->insert(
             [
                 'name'           => 'King',
                 'email'          => 'admin@demo.com',

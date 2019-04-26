@@ -20,11 +20,9 @@ class DatabaseSeeder extends Seeder
             RoleTableSeeder::class,
             AdminTableSeeder::class,
             UserTableSeeder::class,
-            DistanceTableSeeder::class,
             ConvenienceTableSeeder::class,
+            DistanceTableSeeder::class,
             FavoriteTableSeeder::class,
         ]);
-
-
     }
 }

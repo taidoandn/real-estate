@@ -14,6 +14,7 @@ class SearchController extends Controller
     }
 
     public function postSearch(Request $request){
+        // dd($request->all());
         $query = Post::query()->with('detail','district.city','conveniences','property_type','type')->isPublished();
         $query->when(request()->city_id, function ($q){
             $q->whereHas('district.city',function ($q){
@@ -35,8 +36,14 @@ class SearchController extends Controller
                 $q->where('slug',request()->property_type);
             });
         });
-        $query->when(request()->q , function ($q){
+        $query->when(isset(request()->q) , function ($q){
             $q->where('title','LIKE',"%".request()->q."%");
+        });
+        $query->when(request()->min , function ($q){
+            $q->where('price','>=',(int)request()->min);
+        });
+        $query->when(isset(request()->max) && request()->max > request()->min, function ($q){
+            $q->where('price','<=',(int)request()->max);
         });
         $query->when(request()->purpose , function ($q){
             $q->where('purpose',request()->purpose);
@@ -45,9 +52,11 @@ class SearchController extends Controller
             $q->sort(request()->sort);
         });
         $sort    = $request->sort;
+        $min     = $request->min;
+        $max     = $request->max;
         $grid    = $request->gridView === 'false' ? 'false' : 'true';
         $keyword = $request->q;
         $posts   = $query->paginate($this->paginate);
-        return view('frontend.search._data',compact('posts','keyword','grid','sort'))->render();
+        return view('frontend.search._data',compact('posts','keyword','grid','sort','min','max'))->render();
     }
 }

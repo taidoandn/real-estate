@@ -50,7 +50,7 @@ function successCallback(position) {
 }
 
 function errorCallback() {
-    console.log('The Geolocation service failed.');
+    alert('The Geolocation service failed.');
 }
 
 function createMarker(pos){

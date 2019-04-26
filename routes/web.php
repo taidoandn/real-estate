@@ -46,6 +46,7 @@ Route::group(['prefix' => 'ajax','as'=>'ajax.'], function () {
     Route::get('/cities', 'AjaxController@getCities')->name('cities');
     Route::get('/post-type','AjaxController@getPostType')->name('post-type');
     Route::get('/load-notifications', 'AjaxController@getNotification')->name('notifications');
+    Route::post('/report-post', 'AjaxController@reportPost')->name('report-post');
 });
 
 
