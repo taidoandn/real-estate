@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DistrictTableSeeder extends Seeder
+class CitiesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,11 +12,10 @@ class DistrictTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create('vi_VN');
-        for ($i=1; $i <= 50 ; $i++) {
-            DB::table('districts')->insert(
+        for ($i=1; $i <= 5 ; $i++) {
+            DB::table('cities')->insert(
                 [
-                    'name'       => $faker->unique()->province,
-                    'city_id'    => $faker->numberBetween(1,5),
+                    'name'       => $faker->unique()->city,
                     'created_at' => now(),
                     'updated_at' => now()
                 ]

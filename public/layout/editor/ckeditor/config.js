@@ -34,19 +34,18 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Set the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
-
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
-	config.filebrowserBrowseUrl = 'http://codehacking.test/layout/editor/ckfinder/ckfinder.html';
+	config.filebrowserBrowseUrl = base_url + '/layout/editor/ckfinder/ckfinder.html';
 
-	config.filebrowserImageBrowseUrl = 'http://codehacking.test/layout/editor/ckfinder/ckfinder.html?type=Images';
+	config.filebrowserImageBrowseUrl = base_url + '/layout/editor/ckfinder/ckfinder.html?type=Images';
 
-	config.filebrowserFlashBrowseUrl = 'http://codehacking.test/layout/editor/ckfinder/ckfinder.html?type=Flash';
+	config.filebrowserFlashBrowseUrl = base_url + '/layout/editor/ckfinder/ckfinder.html?type=Flash';
 
-	config.filebrowserUploadUrl = 'http://codehacking.test/layout/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files';
+	config.filebrowserUploadUrl = base_url + '/layout/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files';
 
-	config.filebrowserImageUploadUrl = 'http://codehacking.test/layout/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
+	config.filebrowserImageUploadUrl = base_url + '/layout/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
 
-	config.filebrowserFlashUploadUrl = 'http://codehacking.test/layout/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
+	config.filebrowserFlashUploadUrl = base_url + '/layout/editor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
 
 };

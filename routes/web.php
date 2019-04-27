@@ -11,23 +11,35 @@
 |
 */
 
-Route::get('blog', function () {
-    return view('backend.blog.create');
-});
+// Route::get('test', function () {
+//     return view('frontend.page.contact');
+// });
+
 Auth::routes();
+Route::get('/logout','Auth\LoginController@userLogout')->name('user.logout');
 
+//Home
 Route::get('/', 'HomeController@index')->name('home');
+//Blog
+Route::get('/blogs','HomeController@getBlogs')->name('blogs.index');
+Route::get('/blogs/{blog}','HomeController@showBlog')->name('blogs.show');
 
+//Contact
+Route::get('/contact-us','HomeController@getContact')->name('contacts.get');
+Route::post('/contact-us','HomeController@postContact')->name('contacts.post');
+
+//Search
 Route::get('/search', 'SearchController@getSearch')->name('getSearch');
 Route::post('/search', 'SearchController@postSearch')->name('postSearch');
 
+
+//Post
 Route::resource('/posts', 'PostController')->except('show');
 Route::get('/posts/favorite-list','PostController@getFavoritePosts')->name('posts.favorite-list');
-Route::get('/posts/{slug}','PostController@show')->name('posts.show');
+Route::get('/posts/{post}','PostController@show')->name('posts.show');
 
 //Favorite
 Route::post('/posts/favorite','FavoriteController')->name('posts.favorite');
-
 
 Route::group(['prefix' => 'profile','middleware'=>'auth'], function () {
     Route::get('/', 'ProfileController@index')->name('profile.index');
@@ -37,8 +49,7 @@ Route::group(['prefix' => 'profile','middleware'=>'auth'], function () {
     Route::post('/change-pass', 'ProfileController@postChangePass')->name('profile.post-change-pass');
 });
 
-Route::get('/logout','Auth\LoginController@userLogout')->name('user.logout');
-
+//Ajax
 Route::group(['prefix' => 'ajax','as'=>'ajax.'], function () {
     Route::post('/upload-image','AjaxController@uploadImage')->name('upload-image');
     Route::get('/delete-image','AjaxController@deleteImage')->name('delete-image');

@@ -19,7 +19,7 @@
                     Thêm bài viết</a>
             </li>
             <li>
-                <a href="https://demo.themeqx.com/themeqxestate/blog"> <i class="fa fa-rss"></i> Blog</a>
+                <a href="{{ route('blogs.index') }}"> <i class="fa fa-rss"></i> Blog</a>
             </li>
             <li>
                 <a href="https://demo.themeqx.com/themeqxestate/contact-us"> <i class="fa fa-mail-forward"></i>Liên hệ

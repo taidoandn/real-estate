@@ -26,7 +26,7 @@ class ReportRequest extends FormRequest
     {
         return [
             'reason'  => ['required', Rule::in(['duplicate', 'spam','unavailable','others'])],
-            'message' => ['required','min:10'],
+            'message' => ['required','min:10','max:191'],
             'email'   => ['required','email']
         ];
     }

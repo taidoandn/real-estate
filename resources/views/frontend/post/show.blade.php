@@ -241,7 +241,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email" class="control-label">Email:</label>
-                        <input type="text" class="form-control" name="email" id="email" autofocus>
+                        <input type="email" class="form-control" name="email" id="email" autofocus>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="control-label">Message:</label>

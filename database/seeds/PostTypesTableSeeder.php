@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\PostType;
 
-class PostTypeTableSeeder extends Seeder
+class PostTypesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

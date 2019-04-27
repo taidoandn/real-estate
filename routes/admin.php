@@ -48,4 +48,8 @@ Route::group(['as' => 'admin.','middleware'=>'auth:admin'], function () {
     Route::get('/list-post-types','PostTypeController@getPostTypes')->name('api.post-types');
     Route::resource('/post-types', 'PostTypeController',['except'=>['show']]);
 
+    //Route: distances
+    Route::get('/list-blogs','BlogController@getBlogs')->name('api.blogs');
+    Route::resource('/blogs', 'BlogController',['except'=>['show']]);
+
 });

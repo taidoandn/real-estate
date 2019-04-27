@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Mail;
 class PostController extends Controller
 {
     protected $paginate = 5;
+
     public function __construct(){
         $this->middleware('auth')->except('index','show');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -91,9 +93,9 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($slug)
     {
-        $post->load('user');
+        $post = Post::with('user','detail','district.city')->isPublished()->where('slug',$slug)->firstOrFail();
         return view('frontend.post.show',compact('post'));
     }
 

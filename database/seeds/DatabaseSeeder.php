@@ -12,17 +12,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            PropertyTypeTableSeeder::class,
-            PostTypeTableSeeder::class,
-            // CityTableSeeder::class,
-            // DistrictTableSeeder::class,
-            PermissionTableSeeder::class,
-            RoleTableSeeder::class,
-            AdminTableSeeder::class,
-            UserTableSeeder::class,
-            ConvenienceTableSeeder::class,
-            DistanceTableSeeder::class,
-            FavoriteTableSeeder::class,
+            PropertyTypesTableSeeder::class,
+            PostTypesTableSeeder::class,
+            // CitiesTableSeeder::class,
+            // DistrictsTableSeeder::class,
+            PermissionsTableSeeder::class,
+            RolesTableSeeder::class,
+            AdminsTableSeeder::class,
+            UsersTableSeeder::class,
+            ConveniencesTableSeeder::class,
+            DistancesTableSeeder::class,
+            FavoritesTableSeeder::class,
         ]);
     }
 }

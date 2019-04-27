@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UserTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,7 +18,7 @@ class UserTableSeeder extends Seeder
         // \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         factory(App\Models\User::class,20)->create()->each(function($u){
             $u->posts()
-                ->saveMany(factory(App\Models\Post::class,rand(1,3))->make())
+                ->saveMany(factory(App\Models\Post::class,rand(1,5))->make())
                 ->each(function($p){
                     $p->detail()->save(factory(App\Models\PropertyDetail::class)->make());
                 });

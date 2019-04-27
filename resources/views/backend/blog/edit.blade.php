@@ -1,9 +1,9 @@
 @extends('backend.master')
-@section('title','Create Blog')
+@section('title','Edit Blog')
 @section('content')
 <section class="content-header">
     <h1>
-        Create Blog
+        Edit Blog
         <small>Version 2.0</small>
     </h1>
     <ol class="breadcrumb">
@@ -19,9 +19,9 @@
                 <div class="box-header with-border">
                     <h2 style="text-align: center;">Blog Form</h2>
                 </div>
-                <!-- /.box-header -->
-                <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.blogs.update',$blog->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="box-body">
                         <div class="row">
                             <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <input type="text" class="form-control" name="title"
-                                        placeholder="Enter Title of blog ..." value="{{ old('title') }}">
+                                        placeholder="Enter Title of blog ..." value="{{ old('title',$blog->title) }}">
                                     <strong class="help-block" role="alert">
                                         {{ $errors->first('title') }}
                                     </strong>
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <textarea class="form-control ckeditor" row="10" name="content"
-                                        placeholder="Enter Content of blog ...">{{ old('content') }}</textarea>
+                                        placeholder="Enter Content of blog ...">{{ old('content',$blog->content) }}</textarea>
                                     <strong class="help-block" role="alert">
                                         {{ $errors->first('content') }}
                                     </strong>
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <input type="text" class="form-control" name="author"
-                                        placeholder="Enter author of blog ..." value="{{ old('author') }}">
+                                        placeholder="Enter author of blog ..." value="{{ old('author',$blog->author) }}">
                                     <strong class="help-block" role="alert">
                                         {{ $errors->first('author') }}
                                     </strong>
@@ -74,7 +74,7 @@
                                 <div class="col-md-12">
                                     <input type="file" name="fImage" id="img" class="form-control hidden"
                                         onchange="changeImg(this)">
-                                    <img id="avatar" src="{{ asset('layout/backend/img/new_seo-10-512.png') }}">
+                                    <img id="avatar" src="{{ asset(@$blog->image ? 'uploads/images/'.$blog->image : 'layout/backend/img/new_seo-10-512.png') }}">
                                     <strong class="help-block" role="alert">
                                         {{ $errors->first('fImage') }}
                                     </strong>

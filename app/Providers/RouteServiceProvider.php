@@ -29,10 +29,6 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        Route::bind('slug',function($slug){
-            return Post::with('user','detail','district.city')->isPublished()->where('slug',$slug)->firstOrFail();
-        });
     }
 
     /**

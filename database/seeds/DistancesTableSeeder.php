@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DistanceTableSeeder extends Seeder
+class DistancesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

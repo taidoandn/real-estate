@@ -57,11 +57,11 @@
             <div class="form-group">
                 <label>Price (Min-Max)</label>
                 <div class="row">
-                    <div class="col-xs-6">
-                        <input type="number" class="form-control input-selector" min="0" name="min_price" value="" id="min" placeholder="Min price" />
+                    <div class="col-xs-12 m-b-10">
+                        <input type="text" class="form-control input-selector" min="0" name="min_price" value="" id="min"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Min price" onchange="filter_data()" />
                     </div>
-                    <div class="col-xs-6">
-                        <input type="number" class="form-control input-selector" min="0" name="max_price" value="" id="max" placeholder="Max price" />
+                    <div class="col-xs-12">
+                        <input type="text"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control input-selector" min="0" name="max_price" value="" id="max" placeholder="Max price" onchange="filter_data()" />
                     </div>
                 </div>
             </div>

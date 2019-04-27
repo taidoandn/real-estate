@@ -49,6 +49,12 @@
                     <span>Property Type</span>
                 </a>
             </li>
+            <li class="{{ Request::is("admin/blogs*") ? "active" : "" }}">
+                <a href="{{ route('admin.blogs.index') }}">
+                    <i class="fa fa-building"></i>
+                    <span>Blog</span>
+                </a>
+            </li>
             <li class="{{ Request::is("admin/post-types*") ? "active" : "" }}">
                 <a href="{{ route('admin.post-types.index') }}">
                     <i class="fa fa-building"></i>
