@@ -17,4 +17,11 @@ class Blog extends Model
     public function getContentHtmlAttribute(){
         return \Parsedown::instance()->text($this->content);
     }
+
+    public static function boot(){
+        parent::boot();
+        static::deleting(function($blog){
+            unlinkImage($blog->image);
+        });
+    }
 }

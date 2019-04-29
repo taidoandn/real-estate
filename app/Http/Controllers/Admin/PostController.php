@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Mail;
 use Carbon\Carbon;
 use App\Models\Post;
 use App\Models\User;
-use App\Mail\NewPostCreated;
 use Illuminate\Http\Request;
+use App\Jobs\NewPostCreatedJob;
 use Yajra\DataTables\DataTables;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
-use Mail;
 
 class PostController extends Controller
 {
@@ -43,6 +43,7 @@ class PostController extends Controller
      */
     public function store(PostRequest $request){
         $this->authorize("create-post");
+
         $data = $request->all();
         $data['user_id'] = $request->user_id;
         $data['negotiable'] = $request->negotiable ? true : false;
@@ -80,8 +81,11 @@ class PostController extends Controller
             }
         }
 
-        $user = User::findOrFail($request->user_id)->email;
-        Mail::to($user)->send(new NewPostCreated($post));
+        $user = User::findOrFail($request->user_id);
+
+        //Send Mail , dispatch send mail job
+        dispatch(new NewPostCreatedJob($user,$post));
+
         return redirect()->route('admin.posts.index')->with('success','Thêm bài viết thành công');
     }
 
@@ -132,9 +136,11 @@ class PostController extends Controller
 
         $post->conveniences()->sync($request->conveniences);
 
-        foreach ($request->distances as $key => $distance) {
-            $post->distances()->updateExistingPivot($key,['meters'=> $distance]);
+        $array_distances = [];
+        foreach($request->distances as $key => $distance){
+            $array_distances[$key] = ['meters' => $distance];
         }
+        $post->distances()->sync($array_distances,false);
 
         return redirect()->route('admin.posts.index')->with('success','Cập nhật bài viết thành công');
     }
@@ -149,13 +155,6 @@ class PostController extends Controller
     {
         $this->authorize('delete-post');
         $post = Post::findOrFail($id);
-
-        unlinkImage($post->image);
-
-        $property_images = $post->images;
-        foreach ($property_images as $image) {
-            unlinkImage($image->path);
-        }
         $post->delete();
         return "Xóa thành công";
     }

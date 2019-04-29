@@ -1,4 +1,5 @@
 @extends('frontend.master')
+@section('title','Danh sách bài viết')
 @section('content')
 <div class="container">
     <div id="wrapper">

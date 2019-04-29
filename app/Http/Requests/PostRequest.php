@@ -69,7 +69,7 @@ class PostRequest extends FormRequest
                     'latitude'         => 'required',
                     'longitude'        => 'required',
                     'unit'             => 'required',
-                    // 'fImage'           => 'required|mimes:jpg,jpeg,bmp,png|max:2048',
+                    'fImage'           => 'required|mimes:jpg,jpeg,bmp,png|max:2048',
                     'fImageDetails.*'  => 'mimes:jpg,jpeg,bmp,png|max:2048',
                     'property_type_id' => 'required|exists:property_types,id',
                     'floor'            => 'required',

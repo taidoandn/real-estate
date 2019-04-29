@@ -21,13 +21,13 @@
                     <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown"
                         class="dropdown-toggle" href="#">Short by <span class="caret"></span></a>
                     <ul class="dropdown-menu" id="sortList">
-                        <li class="{{ $sort == 'price_desc' ? 'active' : ''}}"><a href="javascript::void(0)"
+                        <li class="{{ $sort == 'price_desc' ? 'active' : ''}}"><a href="javascript:void(0)"
                                 data-sort="price_desc">Price
                                 high to low</a></li>
-                        <li class="{{ $sort == 'price_asc' ? 'active' : ''}}"><a href="javascript::void(0)"
+                        <li class="{{ $sort == 'price_asc' ? 'active' : ''}}"><a href="javascript:void(0)"
                                 data-sort="price_asc">Price
                                 low to high</a></li>
-                        <li class="{{ $sort == 'latest' ? 'active' : ''}}"><a href="javascript::void(0)"
+                        <li class="{{ $sort == 'latest' ? 'active' : ''}}"><a href="javascript:void(0)"
                                 data-sort="latest">Latest</a>
                         </li>
                     </ul>
@@ -44,7 +44,7 @@
 <div class="ad-box-wrap">
     <h3>Danh sách kết quả</h3>
     @if (count($posts)>0)
-    <div class="ad-box-grid-view" style="display: {{ $grid === 'true' ? 'block' : 'none' }}; ">
+    <div class="ad-box-grid-view" style="display: {{ $grid  ? 'block' : 'none' }}; ">
         <div class="row">
             @foreach ($posts as $post)
             <div class="col-md-4 col-sm-6 col-xs-12">
@@ -119,7 +119,7 @@
     </div>
 </div>
 
-<div class="ad-box-list-view" style="display: {{ $grid === 'true' ? 'none' : 'block' }};">
+<div class="ad-box-list-view" style="display: {{ $grid === false ? 'block' : 'none' }};">
     <div class="row">
         <div class="col-md-12">
             <table class="table table-bordered table-responsive">

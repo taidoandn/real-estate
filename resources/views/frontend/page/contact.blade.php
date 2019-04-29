@@ -38,12 +38,15 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group ">
+                            <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                                 <label for="name">Tên :</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name"
                                     value="{{ old('name',Auth::user()->name ?? null) }}" required="required" />
+                                    <strong class="help-block" role="alert">
+                                        {{ $errors->first('name') }}
+                                    </strong>
                             </div>
-                            <div class="form-group ">
+                            <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
                                 <label for="email">Email :</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
@@ -51,13 +54,19 @@
                                     </span>
                                     <input type="email" class="form-control" id="email"
                                         placeholder="Enter email address" name="email" value="{{ old('email',Auth::user()->email ?? null) }}" required="required" />
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('email') }}
+                                        </strong>
                                 </div>
                             </div>
 
-                            <div class="form-group ">
+                            <div class="form-group {{ $errors->has('message') ? 'has-error' : ''}}">
                                 <label for="name">Tin nhắn :</label>
                                 <textarea name="message" id="message" class="form-control" required="required"
                                     placeholder="Message">{{ old('message') }}</textarea>
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('message') }}
+                                </strong>
                             </div>
                         </div>
 

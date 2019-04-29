@@ -38,6 +38,7 @@ class NewPostCreated extends Mailable
         $vat         = $price * 10 /100;
         $total_price = $price + $vat;
         return $this->from('admin@example.com')->markdown('emails.posts.post-created')
+                ->subject('Xác nhận đăng bài viết')
                 ->with([
                     'post'        => $this->post,
                     'diff_date'   => $diff_date,

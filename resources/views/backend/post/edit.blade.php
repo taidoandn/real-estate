@@ -397,18 +397,24 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group {{ $errors->has('start_date') ? 'has-error' : '' }}">
                                     <label class="col-md-4 control-label">Ngày bắt đầu</label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control datetimepicker" id="start_date" name="start_date" value="{{ old('start_date',$post->start_date) }}">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('start_date') }}
+                                        </strong>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group {{ $errors->has('end_date') ? 'has-error' : '' }}">
                                     <label class="col-md-4 control-label">Ngày kết thúc</label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control datetimepicker" id="end_date" name="end_date" value="{{ old('end_date',$post->end_date) }}">
+                                        <strong class="help-block" role="alert">
+                                            {{ $errors->first('end_date') }}
+                                        </strong>
                                     </div>
                                 </div>
                             </div>

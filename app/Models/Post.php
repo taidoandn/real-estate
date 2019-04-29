@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Admin;
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\NewPostNotification;
-use function GuzzleHttp\json_decode;
 
 class Post extends Model
 {
@@ -30,6 +29,15 @@ class Post extends Model
                 if ($admin->hasRole('Admin')) {
                     $admin->notify(new NewPostNotification($post));
                 }
+            }
+        });
+
+        static::deleting(function($post){
+            unlinkImage($post->image);
+
+            $images = $post->images;
+            foreach ($images as $image) {
+                unlinkImage($image->path);
             }
         });
 
@@ -108,7 +116,7 @@ class Post extends Model
     public function scopeSort($q,$sortBy){
         switch ($sortBy) {
             case 'latest':
-                $q->orderBy('created_at','desc');
+                $q->latest();
                 break;
             case 'price_asc':
                 $q->orderBy('price','asc');

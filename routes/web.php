@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('test', function () {
-//     return view('frontend.page.contact');
-// });
+Route::get('test', function () {
+    return view('auth.passwords.reset');
+});
 
 Auth::routes();
 Route::get('/logout','Auth\LoginController@userLogout')->name('user.logout');

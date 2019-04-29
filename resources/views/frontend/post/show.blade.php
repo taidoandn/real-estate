@@ -41,12 +41,17 @@
 
                     <h3>Thông tin cơ bản:</h3>
                     <p>
-                        <strong><i class="far fa-money-bill-alt"></i> Giá : {!! $post->priceFormat !!} @if ($post->negotiable == 1)
+                        <strong><i class="fa fa-money"></i> Giá : {!! $post->priceFormat !!}
+                            @if ($post->negotiable == 1)
                             (Có thể thỏa thuận)
-                            @endif</strong>
+                            @endif
+                        </strong>
                     </p>
                     <p>
-                        <strong><i class="fas fa-map-marker-alt"></i> Địa điểm :</strong> {{ $post->address }}
+                        <strong><i class="fa fa-map-marker"></i> Địa điểm :</strong> {{ $post->address }} , {{ $post->district->name.", ".$post->district->city->name }}
+                    </p>
+                    <p>
+                        <strong> <i class="fa fa-eye"></i> Lượt xem :</strong> {{ $post->views }}
                     </p>
                     <p><strong><i class="fa fa-check-circle-o"></i> Điều kiện</strong> </p>
 
@@ -77,12 +82,11 @@
                             {{ $post->property_type->name }}
                         </li>
                         <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-arrows-alt "></i>
-                            Diện tích  {{ $post->area }} m<sup>2</sup>
+                            Diện tích : {{ $post->area }} m<sup>2</sup>
                         </li>
                         <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-bed"></i>
                             {{ $post->detail->bed_room}} Phòng ngủ
                         </li>
-
                         <li class="list-group-item col-sm-4 col-xs-6"><i class="fa fa-bath"></i>
                             {{ $post->detail->bath }} Bồn tắm
                         </li>
@@ -114,7 +118,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <h4 class="ads-detail-title">Mô tả</h4>
-                    <p>{!! $post->description_html !!}</p>
+                    {!! $post->description_html !!}
             </div>
             <div class="ads-detail bg-white">
 
@@ -241,7 +245,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email" class="control-label">Email:</label>
-                        <input type="email" class="form-control" name="email" id="email" autofocus>
+                        <input type="email" class="form-control" name="email" value="{{ Auth::user()->email ?? null }}" id="email" autofocus>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="control-label">Message:</label>
@@ -293,6 +297,7 @@ $(document).ready(function () {
     });
 });
 </script>
+
 <script>
 $(document).ready(function () {
     $("#report_button").click(function (e) {

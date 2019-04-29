@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Admin;
 use App\Mail\NewPostCreated;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use App\Jobs\NewPostCreatedJob;
 
 class PostController extends Controller
 {
@@ -82,8 +83,9 @@ class PostController extends Controller
             }
         }
 
-        //Send Mail
-        Mail::to(auth()->user())->send(new NewPostCreated($post));
+        //Send Mail , dispatch send mail job
+        dispatch(new NewPostCreatedJob(auth()->user(),$post));
+
         return redirect()->route('posts.index')->with('success','Tạo bài viết thành công. Vui lòng check email để tiếp tục thực hiện!!');
     }
 
@@ -95,7 +97,13 @@ class PostController extends Controller
      */
     public function show($slug)
     {
-        $post = Post::with('user','detail','district.city')->isPublished()->where('slug',$slug)->firstOrFail();
+        $post = Post::with('user','detail','district.city')->where('slug',$slug)->isPublished()->firstOrFail();
+
+        $post_key = 'post_'.$post->id;
+        if (!Session::has($post_key)) {
+            $post->increment('views');
+            Session::put($post_key, 1);
+        }
         return view('frontend.post.show',compact('post'));
     }
 
@@ -127,7 +135,7 @@ class PostController extends Controller
         $data = $request->except(['start_date','end_date','type_id']);
 
         $data['negotiable'] = $request->negotiable ? true : false;
-        $data['user_id'] = auth()->id();
+
         if ($request->hasFile('fImage')) {
             unlinkImage($post->image);
             $image_name = saveImage($request->file('fImage'));
@@ -148,9 +156,13 @@ class PostController extends Controller
 
         $post->conveniences()->sync($request->conveniences);
 
-        foreach ($request->distances as $key => $distance) {
-            $post->distances()->updateExistingPivot($key,['meters'=> $distance]);
+        $array_distances = [];
+
+        foreach($request->distances as $key => $distance){
+            $array_distances[$key] = ['meters' => $distance];
         }
+
+        $post->distances()->sync($array_distances,false);
 
         return redirect()->route('posts.index')->with('success','Cập nhật bài viết thành công');
     }
@@ -165,13 +177,6 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $this->authorize('delete', $post);
-
-        unlinkImage($post->image);
-
-        $property_images = $post->images;
-        foreach ($property_images as $image) {
-            unlinkImage($image->path);
-        }
 		$post->delete();
 		return redirect()->back()->with('success','Xóa thành công');
     }

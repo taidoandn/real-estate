@@ -28,18 +28,18 @@
 </script>
 <script>
     $(document).ready(function () {
-        var gridView = true;
+        var gridView = 'grid';
         var sort ;
         filter_data();
         $(document).on('click','#showGridView',function (e) {
             e.preventDefault();
-            gridView = true;
+            gridView = 'grid';
             $(".ad-box-grid-view").show();
             $(".ad-box-list-view").hide();
         });
         $(document).on('click','#showListView',function (e) {
             e.preventDefault();
-            gridView = false;
+            gridView = 'list';
             $(".ad-box-grid-view").hide();
             $(".ad-box-list-view").show();
         });

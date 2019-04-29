@@ -1,4 +1,5 @@
 @extends('frontend.master')
+@section('title','Bài viết yêu thích')
 @section('content')
 <div class="container">
     <div id="wrapper">

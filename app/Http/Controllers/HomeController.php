@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\ContactRequest;
+use App\Models\Contact;
 
 class HomeController extends Controller
 {
@@ -31,12 +33,13 @@ class HomeController extends Controller
         return view('frontend.blog.show',compact('blog'));
     }
 
-    public function getContact(Request $request){
+    public function getContact(){
         return view('frontend.page.contact');
     }
 
-    public function postContact(){
-
+    public function postContact(ContactRequest $request){
+        Contact::create($request->all());
+        return back()->with('success','Gửi liên hệ thành công!');
     }
 
 }

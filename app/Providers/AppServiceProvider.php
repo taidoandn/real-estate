@@ -31,7 +31,8 @@ class AppServiceProvider extends ServiceProvider
             'frontend.post.edit',
             'frontend.post.create',
             'backend.post.create',
-            'backend.post.edit'
+            'backend.post.edit',
+            'backend.page.dashboard'
         ];
         View::composer($views, function ($view) {
             $cities = City::get();

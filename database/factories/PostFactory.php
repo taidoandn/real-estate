@@ -12,10 +12,8 @@ $factory->define(App\Models\Post::class, function () use($faker){
         $rent = ['month' , 'year'];
         $unit = $rent[array_rand($rent)];
     }
-    $start = Carbon::now();
-    $end   = Carbon::now()->addDays(30);
     return [
-        'title'            => rtrim($faker->sentence(rand(3,5)) ,"."),
+        'title'            => rtrim($faker->sentence(rand(4,7)) ,"."),
         'image'            => $faker->randomElement(['call-to-action.jpg','themeqx-cover.jpeg']),
         'area'             => $faker->randomNumber(2),
         'description'      => $faker->paragraphs(rand(3,7),true),
@@ -30,8 +28,8 @@ $factory->define(App\Models\Post::class, function () use($faker){
         'property_type_id' => App\Models\PropertyType::pluck('id')->random(),
         'type_id'          => App\Models\PostType::pluck('id')->random(),
         'district_id'      => App\Models\District::pluck('id')->random(),
-        'start_date'       => $start,
-        'end_date'         => $end,
+        'start_date'       => Carbon::now(),
+        'end_date'         => Carbon::now()->addDays(random_int(7,30)),
         'created_at'       => now(),
         'updated_at'       => now()
     ];

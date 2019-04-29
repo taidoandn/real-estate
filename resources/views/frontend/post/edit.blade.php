@@ -35,7 +35,7 @@
                         <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                             <label for="description" class="col-sm-3 control-label">Mô tả</label>
                             <div class="col-sm-9">
-                                <textarea name="description" class="form-control ckeditor" rows="8">{!! old('description',$post->description_html) !!}</textarea>
+                                <textarea name="description" class="form-control ckeditor" rows="8">{{ old('description',$post->description_html) }}</textarea>
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('description') }}
                                 </strong>
@@ -347,16 +347,22 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('start_date') ? 'has-error' : '' }}">
                             <label class="col-md-4 control-label">Ngày bắt đầu</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control datetimepicker" readonly id="start_date" name="start_date" value="{{ old('start_date',$post->start_date) }}">
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('start_date') }}
+                                </strong>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('end_date') ? 'has-error' : '' }}">
                             <label class="col-md-4 control-label">Ngày kết thúc</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control datetimepicker" readonly id="end_date" name="end_date" value="{{ old('end_date',$post->end_date) }}">
+                                <strong class="help-block" role="alert">
+                                    {{ $errors->first('end_date') }}
+                                </strong>
                             </div>
                         </div>
                         <div class="form-group">

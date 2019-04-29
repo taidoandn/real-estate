@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Post;
-use App\Mail\NewPostCreated;
 use Illuminate\Http\Request;
+use App\Jobs\NewPostCreatedJob;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\PostResource;
 
 class PostController extends Controller
@@ -72,7 +71,9 @@ class PostController extends Controller
                 $post->images()->create(['path'=>$file_name]);
             }
         }
-        Mail::to(auth('api')->user())->send(new NewPostCreated($post));
+       //Send Mail , dispatch send mail job
+        dispatch(new NewPostCreatedJob(auth()->user(),$post));
+
         return response()->json($post,201);
     }
 
@@ -97,6 +98,7 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
+        $this->authorize('update', $post);
         $data = $request->all();
         $data['negotiable'] = $request->negotiable ? true : false;
         if ($request->hasFile('fImage')) {
@@ -120,11 +122,13 @@ class PostController extends Controller
             $post->conveniences()->sync($request->conveniences);
         }
 
+        $array_distances = [];
         if ($request->distances) {
-            foreach ($request->distances as $key => $distance) {
-                $post->distances()->updateExistingPivot($key,['meters'=> $distance]);
+            foreach($request->distances as $key => $distance){
+                $array_distances[$key] = ['meters' => $distance];
             }
         }
+        $post->distances()->sync($array_distances,false);
 
         return response()->json($post->load('user','district.city','detail','property_type','images','distances'));
     }
@@ -137,16 +141,12 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        unlinkImage($post->image);
-        $property_images = $post->images;
-        foreach ($property_images as $image) {
-            unlinkImage($image->path);
-        }
+        $this->authorize('delete', $post);
         $post->delete();
         return response()->json(['success'=>'deleted!']);
     }
 
-    public function postByAuth(Request $request)
+    public function postByAuth()
     {
         $posts = auth('api')->user()->posts()->with('district.city')->orderBy('created_at')->paginate($this->paginate);
         return response()->json($posts, 200);

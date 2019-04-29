@@ -28,7 +28,7 @@ class CreatePostsTable extends Migration
             $table->bigInteger('price');
             $table->enum('unit',['total_area','m2','month','year']);
             $table->tinyInteger('negotiable')->default(0);
-            $table->enum('status', ['pending', 'published','exprired'])->default('pending');
+            $table->enum('status', ['pending', 'published','expired'])->default('pending');
             $table->unsignedInteger('views')->default(0);
             $table->unsignedInteger('property_type_id');
             $table->foreign('property_type_id')->references('id')->on('property_types')->onDelete('cascade');

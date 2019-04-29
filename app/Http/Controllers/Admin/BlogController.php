@@ -88,12 +88,11 @@ class BlogController extends Controller
     public function destroy($id)
     {
         $blog = Blog::findOrFail($id);
-        unlinkImage($blog->image);
         $blog->delete();
         return 'Xóa bài viết thành công';
     }
 
-    public function getBlogs(Request $request){
+    public function getBlogs(){
         $blogs = Blog::query();
         return DataTables::of($blogs)
                 ->addColumn('action',function ($blog){
