@@ -25,8 +25,8 @@ Route::get('/blogs','HomeController@getBlogs')->name('blogs.index');
 Route::get('/blogs/{blog}','HomeController@showBlog')->name('blogs.show');
 
 //Contact
-Route::get('/contact-us','HomeController@getContact')->name('contacts.get');
-Route::post('/contact-us','HomeController@postContact')->name('contacts.post');
+Route::get('/contact','HomeController@getContact')->name('contacts.get');
+Route::post('/contact','HomeController@postContact')->name('contacts.post');
 
 //Search
 Route::get('/search', 'SearchController@getSearch')->name('getSearch');

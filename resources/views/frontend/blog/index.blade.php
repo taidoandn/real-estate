@@ -28,29 +28,29 @@
            @foreach ($blogs as $blog)
            <section class="post">
                 <div class="row">
-                    <div itemtype="http://schema.org/NewsArticle">
+                    <div>
                         <div class="col-md-4">
                             <div class="image" style="height: 196px;">
-                                <a href="{{ route('blogs.show',$blog->slug) }}">
+                                <a href="{{ $blog->url }}">
                                     <img class="img-responsive" alt="Vacation gift with toronto visit"
-                                        src="{{ asset(@$blog->image ? 'uploads/images/'.$blog->image : 'layout/backend/img/placeholder.png') }}">
+                                        src="{{ $blog->image_url ?? asset('layout/placeholder.png') }}">
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-8">
-                            <h2><a href="{{ route('blogs.show', $blog->slug) }}"
+                            <h2><a href="{{ $blog->url }}"
                                     class="blog-title">{{ $blog->title }}</a></h2>
                             <div class="clearfix">
                                 <p class="author-category">By <strong>{{ $blog->author }}</strong></p>
                                 <p class="date-comments">
-                                    <i class="fa fa-calendar"></i> {{ $blog->created_at->diffForHumans() }}
+                                    <i class="fa fa-calendar"></i> {{ $blog->created_at->toDateTimeString() }}
                                 </p>
                             </div>
                             <p class="intro" itemprop="description">
                                {!! str_limit($blog->content, 200) !!}
                             </p>
                             <p class="read-more">
-                                <a href="{{ route('blogs.show',$blog->slug) }}"
+                                <a href="{{ $blog->url }}"
                                 class="btn btn-template-main">Continue reading</a>
                             </p>
                             <p></p>
@@ -58,7 +58,10 @@
                     </div>
                 </div>
             </section>
-           @endforeach
+            @endforeach
+            <div class="text-center">
+                {{ $blogs->links() }}
+            </div>
         </div>
     </div>
 </div>

@@ -28,7 +28,7 @@
                                     ['city_id'=>$post->district->city->id,'district_id'=>$post->district->id]) }}">
                                         {{ $post->district->name }}</a>,
                                     <a href="{{ route('getSearch', ['city_id'=>$post->district->city->id]) }}"> {{ $post->district->city->name }}</a>
-                                    <br /> <i class="fa fa-clock-o"></i> Favorited at : {{ $post->pivot->created_at->format('d M. Y') }}
+                                    <br /> <i class="fa fa-clock-o"></i> Favorited at : {{ $post->pivot->created_at->toDateTimeString() }}
                                 </p>
                             </td>
                         </tr>

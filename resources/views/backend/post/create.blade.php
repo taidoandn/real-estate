@@ -355,7 +355,7 @@
                                 <label class="col-md-4 control-label">Loại tin rao</label>
                                 <div class="col-md-8">
                                     <select name="type_id" class="form-control col-md-4">
-                                        @foreach ($post_type as $type)
+                                        @foreach ($post_types as $type)
                                             <option {{ old('type_id') == $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
                                         @endforeach
                                     </select>
@@ -432,8 +432,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="col-md-12">
+                        </div><br />
+                        <div class="col-md-12" style="text-align: right;">
                             <input type="submit" class="btn bg-blue" value="Thêm mới" name="btn-add">
                         </div>
                     </div>

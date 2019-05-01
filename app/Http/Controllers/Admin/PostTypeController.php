@@ -16,7 +16,7 @@ class PostTypeController extends Controller
      */
     public function index()
     {
-        return view('backend.post_type.show');
+        return view('backend.post_type.index');
     }
 
     public function getPostTypes(){

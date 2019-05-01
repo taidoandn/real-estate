@@ -31,9 +31,7 @@ class NewPostCreated extends Mailable
      */
     public function build()
     {
-        $start       = Carbon::parse($this->post->start_date);
-        $end         = Carbon::parse($this->post->end_date);
-        $diff_date   = $start->diffInDays($end);
+        $diff_date   = diffDate($this->post->start_date,$this->post->end_date);
         $price       = $this->post->type->price * $diff_date;
         $vat         = $price * 10 /100;
         $total_price = $price + $vat;

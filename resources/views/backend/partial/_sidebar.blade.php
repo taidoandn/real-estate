@@ -33,7 +33,7 @@
             </li>
             <li class="treeview {{ Request::is("admin/cities*") || Request::is("admin/districts*") ? "active" : "" }}">
                 <a href="#">
-                    <i class="fa fa-edit"></i> <span>Location</span>
+                    <i class="fa fa-map-marker"></i> <span>Location</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -51,15 +51,33 @@
             </li>
             <li class="{{ Request::is("admin/blogs*") ? "active" : "" }}">
                 <a href="{{ route('admin.blogs.index') }}">
-                    <i class="fa fa-building"></i>
+                    <i class="fa fa-book"></i>
                     <span>Blog</span>
+                </a>
+            </li>
+            <li class="{{ Request::is("admin/reports*") ? "active" : "" }}">
+                <a href="{{ route('admin.reports.index') }}">
+                    <i class="fa fa-exclamation"></i>
+                    <span>Report</span>
                 </a>
             </li>
             <li class="{{ Request::is("admin/post-types*") ? "active" : "" }}">
                 <a href="{{ route('admin.post-types.index') }}">
-                    <i class="fa fa-building"></i>
+                    <i class="fa fa-file"></i>
                     <span>Post Type</span>
                 </a>
+            </li>
+            <li class="treeview {{ Request::is("admin/posts*") ? "active" : "" }}">
+                <a href="#">
+                    <i class="fa fa-file-text"></i> <span>Posts</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ Request::is("admin/posts") ? "active" : "" }}"><a href="{{ route('admin.posts.index') }}"><i class="fa fa-circle-o"></i> List Posts</a></li>
+                    <li class="{{ Request::is("admin/posts/create") ? "active" : "" }}"><a href="{{ route('admin.posts.create') }}"><i class="fa fa-circle-o"></i> Add New</a></li>
+                </ul>
             </li>
             <li class="{{ Request::is("admin/conveniences*") ? "active" : "" }}">
                 <a href="{{ route('admin.conveniences.index') }}">
@@ -75,36 +93,24 @@
             </li>
             <li class="{{ Request::is("admin/accounts*") ? "active" : "" }}">
                 <a href="{{ route('admin.accounts.index') }}">
-                    <i class="fa fa-user-circle-o"></i>
+                    <i class="fa fa-users"></i>
                     <span>Account</span>
                 </a>
             </li>
             @can('isSuperAdmin', Model::class)
                 <li class="{{ Request::is("admin/users*") ? "active" : "" }}">
                     <a href="{{ route('admin.users.index') }}">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-user-circle-o"></i>
                         <span>User Admin</span>
                     </a>
                 </li>
                 <li class="{{ Request::is("admin/roles") ? "active" : "" }}">
                     <a href="{{ route('admin.roles.index') }}">
-                        <i class="fa fa-user-times"></i>
+                        <i class="fa fa-wrench"></i>
                         <span>Role</span>
                     </a>
                 </li>
             @endcan
-            <li class="treeview {{ Request::is("admin/posts*") ? "active" : "" }}">
-                <a href="#">
-                    <i class="fa fa-edit"></i> <span>Bài viết</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="{{ Request::is("admin/posts") ? "active" : "" }}"><a href="{{ route('admin.posts.index') }}"><i class="fa fa-circle-o"></i> Danh sách bài viết</a></li>
-                    <li class="{{ Request::is("admin/posts/create") ? "active" : "" }}"><a href="{{ route('admin.posts.create') }}"><i class="fa fa-circle-o"></i> Thêm bài viết</a></li>
-                </ul>
-            </li>
         </ul>
     </section>
     <!-- /.sidebar -->

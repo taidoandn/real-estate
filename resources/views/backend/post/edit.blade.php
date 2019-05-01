@@ -140,7 +140,7 @@
                             <div class="form-group {{ $errors->has('fImage') ? 'has-error' : '' }}">
                                 <label for="img" class="col-md-2 control-label">Hình ảnh</label>
                                 <input type="file" name="fImage" id="img" class="form-control hidden" onchange="changeImg(this)">
-                                <img id="avatar"  src="{{ asset(@$post->image ? 'uploads/images/'.$post->image : 'layout/backend/img/new_seo-10-512.png') }}">
+                                <img id="avatar"  src="{{ $post->image_url ?? asset('layout/backend/img/new_seo-10-512.png') }}">
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('fImage') }}
                                 </strong>
@@ -159,7 +159,7 @@
                                 @forelse ($post->images as $image)
                                     <div class="creating-ads-img-wrap" id="image-{{ $image->id }}">
                                     @if (file_exists(public_path('uploads/images/').$image->path))
-                                        <img src="{{ asset('uploads/images/'.$image->path) }}" class="img-responsive">
+                                        <img src="{{ $post->imageDetail($image->path) }}" class="img-responsive">
                                         <div class="img-action-wrap">
                                             <a href="javascript:void(0)" id="{{ $image->id }}" class="imgDeleteBtn"><i class="fa fa-trash-o"></i> </a>
                                         </div>
@@ -389,7 +389,7 @@
                                     <label class="col-md-4 control-label">Loại tin rao</label>
                                     <div class="col-md-8">
                                         <select name="type_id" class="form-control col-md-4">
-                                            @foreach ($post_type as $type)
+                                            @foreach ($post_types as $type)
                                                 <option {{ old('type_id',$post->type_id) === $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
                                             @endforeach
                                         </select>
@@ -466,9 +466,8 @@
                                     </tbody>
                                 </table>
                             </div>
-
-                        </div>
-                        <div class="col-md-12">
+                        </div><br />
+                        <div class="col-md-12" style="text-align: right;">
                             <input type="submit" class="btn bg-blue" value="Cập nhật" name="btn-edit">
                         </div>
                     </div>

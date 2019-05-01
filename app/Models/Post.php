@@ -14,6 +14,8 @@ class Post extends Model
         'area','unit','district_id','user_id','detail_id','type_id', 'property_type_id'
     ];
 
+    protected $appends = ['url'];
+
     protected $currency = "VND";
 
     public function setTitleAttribute($value){
@@ -83,8 +85,25 @@ class Post extends Model
         return $query->where('status','published')->where('start_date',"<=",$now)->where('end_date','>=',$now);
     }
 
+    public function scopeIsExpired($query){
+        $now = date('Y-m-d');
+        return $query->where('status','expired')->orWhere('status','published')->where('end_date','<',$now);
+    }
+
     public function getUrlAttribute(){
         return route('posts.show',$this->slug);
+    }
+
+    public function getImageUrlAttribute(){
+        if (!empty($this->image)) {
+            return asset('uploads/images/'.$this->image);
+        }
+    }
+
+    public function imageDetail($path){
+        if (optional($this->images)->contains('path',$path)) {
+            return asset('uploads/images/'.$path);
+        }
     }
 
     public function getPriceFormatAttribute(){
@@ -150,4 +169,14 @@ class Post extends Model
         return $this->favorites()->where('user_id',auth()->id())->count() > 0;
     }
 
+    public function getTotalPriceAttribute(){
+        $price_per_day = ($this->getDateDiff() * $this->type->price) ;
+        $vat           = $price_per_day * 10/100; //vat : 10%
+        return $price_per_day + $vat;
+    }
+
+
+    public function getDateDiff(){
+        return dateDiff($this->start_date,$this->end_date);
+    }
 }

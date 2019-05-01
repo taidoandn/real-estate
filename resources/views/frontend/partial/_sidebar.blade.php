@@ -21,15 +21,6 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="#"><i class="fa fa-rss-square"></i> Blog<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li> <a href="#">Posts</a> </li>
-                    <li>
-                        <a href="#">Post a blog</a>
-                    </li>
-                </ul>
-            </li>
         </ul>
     </div>
     <!-- /.sidebar-collapse -->

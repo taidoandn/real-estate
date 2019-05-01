@@ -25,9 +25,9 @@
                 <div class="col-sm-7 col-xs-12">
                     <div class="ads-gallery">
                         <div class="fotorama" data-nav="thumbs">
-                            <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-responsive" >
+                            <img src="{{ $post->image_url }}" class="img-responsive" >
                             @foreach ($post->images as $image)
-                            <img src="{{ asset('uploads/images/'.$image->path) }}" class="img-responsive" >
+                            <img src="{{ $post->imageDetail($image->path) }}" class="img-responsive" >
                             @endforeach
                         </div>
                     </div>
@@ -225,11 +225,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Is there something wrong with this ad?</h4>
+                <h4 class="modal-title">Có điều gì sai với quảng cáo này??</h4>
             </div>
             <div class="modal-body">
-                <p>We're constantly working hard to assure that our ads meet high standards and we are very
-                    grateful for any kind of feedback from our users.</p>
+                <p>Chúng tôi liên tục làm việc chăm chỉ để đảm bảo rằng quảng cáo của chúng tôi đáp ứng các tiêu chuẩn cao và chúng tôi rất biết ơn về bất kỳ loại phản hồi nào từ người dùng của chúng tôi.</p>
                 <form id="form-report" method="post" action="{{ route('ajax.report-post') }}" >
                     @csrf
                     <div class="form-group">
@@ -248,7 +247,7 @@
                         <input type="email" class="form-control" name="email" value="{{ Auth::user()->email ?? null }}" id="email" autofocus>
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="control-label">Message:</label>
+                        <label for="message-text" class="control-label">Tin nhắn:</label>
                         <textarea class="form-control" name="message" id="message"></textarea>
                     </div>
                 </form>

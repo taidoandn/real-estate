@@ -16,7 +16,7 @@ class CityController extends Controller
      */
     public function index()
     {
-        return view('backend.city.show');
+        return view('backend.city.index');
     }
 
     public function getCities(){

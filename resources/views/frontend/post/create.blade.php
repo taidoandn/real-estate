@@ -300,7 +300,7 @@
                             <label class="col-md-4 control-label">Loại tin rao</label>
                             <div class="col-md-8">
                                 <select name="type_id" class="form-control col-md-4">
-                                    @foreach ($post_type as $type)
+                                    @foreach ($post_types as $type)
                                         <option {{ old('type_id') == $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
                                 </select>

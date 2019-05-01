@@ -16,7 +16,7 @@ class ConvenienceController extends Controller
      */
     public function index()
     {
-        return view('backend.convenience.show');
+        return view('backend.convenience.index');
     }
 
     public function getConveniences(){

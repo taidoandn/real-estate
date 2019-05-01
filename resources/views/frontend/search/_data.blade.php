@@ -51,8 +51,7 @@
                 <div class="ads-item-thumbnail {{ $post->type->slug == "tin-vip" ? 'ad-box-premium' : 'ad-box-regular' }}">
                     <div class="ads-thumbnail">
                         <a href="{{ $post->url }}">
-                            <img src="{{ asset('uploads/images/'.$post->image) }}" height="400px" class="img-bordered"
-                                alt="{{ $post->title }}">
+                            <img src="{{ $post->image_url }}" height="400px" class="img-bordered" alt="{{ $post->title }}">
                             <span class="modern-sale-rent-indicator">
                                 {{ $post->purpose_format }}
                             </span>
@@ -127,7 +126,7 @@
                 <tr class="ad-{{ $post->type->slug == "tin-vip" ? 'premium' : 'regular' }}">
                     <td width="200px">
                         <a  href="{{ $post->url }}">
-                            <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-responsive"
+                            <img src="{{ $post->image_url }}" class="img-responsive"
                                 alt="{{ $post->title }}">
                             <span class="modern-sale-rent-indicator">
                                 {{ $post->purpose_format }}

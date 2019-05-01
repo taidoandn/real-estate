@@ -10,7 +10,8 @@ use App\Models\Contact;
 
 class HomeController extends Controller
 {
-    private $limit = 6;
+    private static $limit = 6;
+    private static $paginate = 6;
 
     /**
      * Show the application dashboard.
@@ -19,12 +20,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $latest_posts = Post::with('detail','district.city','type')->isPublished()->latest()->take($this->limit)->get();
-        return view('frontend.page.home',compact('latest_posts'));
+        $latest_posts = Post::with('detail','district.city','type')
+                        ->isPublished()->latest()->take(self::$limit)->get();
+        $premium_posts = Post::with('detail','district.city','type')->isPublished()
+                        ->where('type_id',2)->latest()->take(self::$limit)->get();
+        $vip_posts = Post::with('detail','district.city','type')->isPublished()
+                        ->where('type_id',3)->latest()->take(self::$limit)->get();
+        $latest_blogs = Blog::latest()->take(self::$limit)->get();
+        return view('frontend.page.home',compact('latest_posts','premium_posts','vip_posts','latest_blogs'));
     }
 
     public function getBlogs(){
-        $blogs = Blog::latest()->get();
+        $blogs = Blog::latest()->paginate(self::$paginate);
         return view('frontend.blog.index',compact('blogs'));
     }
 

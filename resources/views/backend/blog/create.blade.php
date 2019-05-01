@@ -83,7 +83,6 @@
                         </div><br />
                         <div class="box-footer" style="text-align: right;">
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <button type="submit" class="btn btn-default">Cancel</button>
                         </div>
                     </div>
                 </form>

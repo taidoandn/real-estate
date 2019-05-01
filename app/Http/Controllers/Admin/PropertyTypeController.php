@@ -16,7 +16,7 @@ class PropertyTypeController extends Controller
      */
     public function index()
     {
-        return view('backend.property-type.show');
+        return view('backend.property-type.index');
     }
 
     public function getPropertyTypes(){

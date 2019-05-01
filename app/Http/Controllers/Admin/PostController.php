@@ -21,7 +21,7 @@ class PostController extends Controller
      */
     public function index(){
         $this->authorize("read-post");
-        return view('backend.post.show');
+        return view('backend.post.index');
     }
 
     /**
@@ -99,7 +99,7 @@ class PostController extends Controller
     {
         $this->authorize("update-post");
         $users = User::get();
-        $post  = Post::with('detail','district.city','property_type','conveniences','type','distances')->findOrFail($id);
+        $post  = Post::with('detail','district.city','property_type','conveniences','type','distances','images')->findOrFail($id);
         return view('backend.post.edit',compact('post','users'));
     }
 

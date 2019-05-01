@@ -31,14 +31,14 @@
                             <div class="clearfix">
                                 <p class="author-category">By <strong>{{ $blog->author }}</strong></p>
                                 <p class="date-comments">
-                                    <i class="fa fa-calendar"></i> {{ $blog->created_at->diffForHumans() }}
+                                    <i class="fa fa-calendar"></i> {{ $blog->created_at->toDateTimeString() }}
                                 </p>
                             </div>
                             <hr />
                             @if ($blog->image)
                             <div class="row">
                                 <div class="col-md-12">
-                                    <img class="img-responsive" alt="There are many variations of passages of Lorem " title="{{ $blog->title }}" src="{{ asset('uploads/images/'.$blog->image ) }}" style="width: 100%">
+                                    <img class="img-responsive" alt="{{ $blog->title }}" title="{{ $blog->title }}" src="{{ $blog->image_url }}" style="width: 100%">
                                 </div>
                             </div>
                             @endif

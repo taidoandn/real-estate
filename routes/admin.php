@@ -52,4 +52,8 @@ Route::group(['as' => 'admin.','middleware'=>'auth:admin'], function () {
     Route::get('/list-blogs','BlogController@getBlogs')->name('api.blogs');
     Route::resource('/blogs', 'BlogController',['except'=>['show']]);
 
+    //Route: reports
+    Route::get('/list-reports','ReportController@getReports')->name('api.reports');
+    Route::resource('/reports', 'ReportController',['only'=>['show','index','destroy']]);
+
 });

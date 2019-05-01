@@ -18,7 +18,7 @@ class AccountController extends Controller
     public function index()
     {
         $this->authorize('read-account');
-        return view('backend.account.show');
+        return view('backend.account.index');
     }
 
     public function getUsers(Request $request)

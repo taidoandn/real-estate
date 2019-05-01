@@ -24,4 +24,14 @@ class Blog extends Model
             unlinkImage($blog->image);
         });
     }
+
+    public function getUrlAttribute(){
+        return route('blogs.show',$this->slug);
+    }
+
+    public function getImageUrlAttribute(){
+        if (!empty($this->image)) {
+            return asset('uploads/images/'.$this->image);
+        }
+    }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Report;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\DataTables;
 
 class ReportController extends Controller
 {
@@ -14,28 +16,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('backend.report.index');
     }
 
     /**
@@ -46,30 +27,8 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        $report = Report::with('post')->findOrFail($id);
+        return response()->json($report, 200);
     }
 
     /**
@@ -80,6 +39,22 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $report = Report::findOrFail($id);
+        $report->delete();
+    }
+
+    public function getReports(Request $request){
+        if ($request->ajax()) {
+            $reports = Report::query();
+            return  DataTables::of($reports)
+                        ->addColumn('action',function ($report){
+                            return view('backend.report._action',compact('report'));
+                        })
+                        ->editColumn('reason',function($report){
+                            return "<span class='label label-warning'>".ucwords($report->reason)."</span>";
+                        })
+                        ->rawColumns(['action', 'reason'])
+                        ->make(true);
+        }
     }
 }

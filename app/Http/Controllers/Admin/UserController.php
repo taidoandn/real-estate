@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $roles = Role::with('admins')->get();
-        return view('backend.user.show',compact('roles'));
+        return view('backend.user.index',compact('roles'));
     }
 
     public function getUsers(Request $request)

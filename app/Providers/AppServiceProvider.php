@@ -39,18 +39,18 @@ class AppServiceProvider extends ServiceProvider
             $conveniences = Convenience::get();
             $property_types = PropertyType::get();
             $distances = Distance::get();
-            $post_type = PostType::get();
+            $post_types = PostType::get();
             $view->with([
                 'cities'         => $cities,
                 'conveniences'   => $conveniences,
                 'property_types' => $property_types,
                 'distances'      => $distances,
-                'post_type'      => $post_type,
+                'post_types'      => $post_types,
             ]);
         });
         if(! $this->app->runningInConsole() ){
-            \Auth::guard('admin')->loginUsingId(1);
-            \Auth::guard('web')->loginUsingId(1);
+            // \Auth::guard('admin')->loginUsingId(1);
+            // \Auth::guard('web')->loginUsingId(1);
         }
     }
 

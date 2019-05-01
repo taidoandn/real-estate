@@ -97,7 +97,7 @@ class PostController extends Controller
      */
     public function show($slug)
     {
-        $post = Post::with('user','detail','district.city')->where('slug',$slug)->isPublished()->firstOrFail();
+        $post = Post::with('user','detail','district.city','images')->where('slug',$slug)->isPublished()->firstOrFail();
 
         $post_key = 'post_'.$post->id;
         if (!Session::has($post_key)) {
@@ -117,7 +117,7 @@ class PostController extends Controller
     {
         $post     = Post::findOrFail($id);
         $this->authorize('update', $post);
-        $post->load('district.city','detail','property_type');
+        $post->load('district.city','detail','property_type','images');
         return view('frontend.post.edit',compact('post'));
     }
 

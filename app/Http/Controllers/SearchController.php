@@ -49,7 +49,6 @@ class SearchController extends Controller
         $query->when(request()->sort , function ($q){
             $q->sort(request()->sort);
         });
-        $query->toSql();
         $sort    = $request->sort;
         $min     = $request->min;
         $max     = $request->max;

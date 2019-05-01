@@ -74,7 +74,7 @@
                                 <div class="col-md-12">
                                     <input type="file" name="fImage" id="img" class="form-control hidden"
                                         onchange="changeImg(this)">
-                                    <img id="avatar" src="{{ asset(@$blog->image ? 'uploads/images/'.$blog->image : 'layout/backend/img/new_seo-10-512.png') }}">
+                                    <img id="avatar" src="{{ $blog->image_url ?? asset('layout/backend/img/new_seo-10-512.png') }}">
                                     <strong class="help-block" role="alert">
                                         {{ $errors->first('fImage') }}
                                     </strong>
@@ -83,7 +83,6 @@
                         </div><br />
                         <div class="box-footer" style="text-align: right;">
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <button type="submit" class="btn btn-default">Cancel</button>
                         </div>
                     </div>
                 </form>

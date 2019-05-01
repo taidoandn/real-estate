@@ -18,7 +18,7 @@ class DistrictController extends Controller
     public function index()
     {
         $cities = City::get();
-        return view('backend.district.show',compact('cities'));
+        return view('backend.district.index',compact('cities'));
     }
 
     public function getDistricts(){

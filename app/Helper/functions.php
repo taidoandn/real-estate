@@ -40,3 +40,9 @@ if (!function_exists('randomString')) {
         return $str;
     }
 }
+
+if (!function_exists('dateDiff')) {
+    function dateDiff($start_date, $end_date){
+        return \Carbon\Carbon::parse($start_date)->diffInDays(\Carbon\Carbon::parse($end_date));
+    }
+}

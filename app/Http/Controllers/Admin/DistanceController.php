@@ -16,7 +16,7 @@ class DistanceController extends Controller
      */
     public function index()
     {
-        return view('backend.distance.show');
+        return view('backend.distance.index');
     }
 
     public function getDistances(){
