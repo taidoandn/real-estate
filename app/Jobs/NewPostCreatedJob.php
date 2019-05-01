@@ -15,6 +15,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 class NewPostCreatedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    public $tries = 5;
+    public $timeout = 30;
 
     protected $user;
     protected $post;

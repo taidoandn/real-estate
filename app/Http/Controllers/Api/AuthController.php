@@ -32,7 +32,7 @@ class AuthController extends Controller
         ]);
 
         $data = $request->only('email', 'name', 'password','phone','address');
-
+        $data['password'] = bcrypt($request->password);
         $user = User::create($data);
         return response()->json($user, 200);
     }

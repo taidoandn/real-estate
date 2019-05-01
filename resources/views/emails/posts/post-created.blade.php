@@ -5,7 +5,7 @@
 Thời gian tin bắt đầu vào {{ $post->start_date }} và kết thúc vào ngày
 {{ $post->end_date }}
 <br>
-Số ngày : {{ $diff_date }} ngày
+Số ngày : {{ $date_diff }} ngày
 <br>
 Giá loại <strong>{{ $post->type->name }}</strong> : {{ number_format($post->type->price,0,",",".") }} ngày / đồng
 <br>

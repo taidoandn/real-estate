@@ -31,7 +31,7 @@ class NewPostCreated extends Mailable
      */
     public function build()
     {
-        $diff_date   = diffDate($this->post->start_date,$this->post->end_date);
+        $date_diff   = dateDiff($this->post->start_date,$this->post->end_date);
         $price       = $this->post->type->price * $diff_date;
         $vat         = $price * 10 /100;
         $total_price = $price + $vat;
@@ -39,7 +39,7 @@ class NewPostCreated extends Mailable
                 ->subject('Xác nhận đăng bài viết')
                 ->with([
                     'post'        => $this->post,
-                    'diff_date'   => $diff_date,
+                    'diff_date'   => $date_diff,
                     'vat'         => $vat,
                     'price'       => $price,
                     'total_price' => $total_price,
