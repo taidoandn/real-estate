@@ -11,7 +11,7 @@
                 <div class="blog-breadcrumb">
                     <ul class="breadcrumb">
                         <li>
-                            <a href="https://demo.themeqx.com/themeqxestate">Home</a>
+                            <a href="{{ route('home') }}">Home</a>
                         </li>
                         <li>
                             <span>Blog</span>
@@ -41,7 +41,7 @@
                             <h2><a href="{{ $blog->url }}"
                                     class="blog-title">{{ $blog->title }}</a></h2>
                             <div class="clearfix">
-                                <p class="author-category">By <strong>{{ $blog->author }}</strong></p>
+                                <p class="author-category">Viết bởi <strong>{{ $blog->author }}</strong></p>
                                 <p class="date-comments">
                                     <i class="fa fa-calendar"></i> {{ $blog->created_at->toDateTimeString() }}
                                 </p>
@@ -51,7 +51,7 @@
                             </p>
                             <p class="read-more">
                                 <a href="{{ $blog->url }}"
-                                class="btn btn-template-main">Continue reading</a>
+                                class="btn btn-template-main">Tiếp tục đọc</a>
                             </p>
                             <p></p>
                         </div>

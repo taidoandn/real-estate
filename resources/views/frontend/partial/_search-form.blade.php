@@ -4,7 +4,7 @@
             <div class="modern-top-hom-cat-section">
                 <div class="modern-home-search-bar-wrap">
                     <div class="search-wrapper">
-                        <h3> <i class="fa fa-home"></i> Find your property</h3>
+                        <h3> <i class="fa fa-home"></i> Tìm kiếm</h3>
 
                         <form class="form-inline" action="{{ route('getSearch') }}" method="get">
                             <div class="form-group">

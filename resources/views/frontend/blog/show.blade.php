@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="clearfix">
-                                <p class="author-category">By <strong>{{ $blog->author }}</strong></p>
+                                <p class="author-category">Viết bởi <strong>{{ $blog->author }}</strong></p>
                                 <p class="date-comments">
                                     <i class="fa fa-calendar"></i> {{ $blog->created_at->toDateTimeString() }}
                                 </p>
@@ -38,7 +38,7 @@
                             @if ($blog->image)
                             <div class="row">
                                 <div class="col-md-12">
-                                    <img class="img-responsive" alt="{{ $blog->title }}" title="{{ $blog->title }}" src="{{ $blog->image_url }}" style="width: 100%">
+                                    <img class="img-responsive" height="300px" alt="{{ $blog->title }}" title="{{ $blog->title }}" src="{{ $blog->image_url }}" style="width: 100%">
                                 </div>
                             </div>
                             @endif
@@ -52,7 +52,8 @@
                 </section>
 
                 <div class="comments-title">
-                    <h2> <i class="fa fa-comment"></i> Comments</h2>
+                    <h2> <i class="fa fa-comment"></i> Bình luận</h2>
+                    <div class="fb-comments" data-href="{{ Request::url() }}" data-width="100%" data-numposts="5"></div>
                 </div>
             </div>
         </div>

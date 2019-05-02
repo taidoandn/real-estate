@@ -6,7 +6,7 @@
         <div class="page-wrapper" style="min-height: 546px;">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"> Change Password </h1>
+                    <h1 class="page-header"> Thay đổi mật khẩu </h1>
                 </div> <!-- /.col-lg-12 -->
             </div> <!-- /.row -->
             <div class="row">
@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-3 col-md-10">
-                                <button type="submit" class="btn btn-info">Change Password</button>
+                                <button type="submit" class="btn btn-info">Đổi mật khẩu</button>
                             </div>
                         </div>
                     </form>

@@ -114,7 +114,7 @@ class PostController extends Controller
         $this->authorize("update-post");
         $post = Post::findOrFail($id);
         $data = $request->all();
-        $data['negotiable'] = $request->negotiable ? true : false;
+        $data['negotiable'] = $request->negotiable == 1 ? true : false;
 
         if ($request->hasFile('fImage')) {
             unlinkImage($post->image);

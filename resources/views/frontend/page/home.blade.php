@@ -268,7 +268,7 @@
                         </div>
 
                         <h2><a href="{{ $blog->url }}"
-                                class="blog-title">{{ $blog->title }}</a></h2>
+                                class="blog-title">{{ str_limit($blog->title, 30) }}</a></h2>
 
                         <div class="blog-post-carousel-meta-info">
                             <span class="pull-left">By {{ $blog->author }}</span>

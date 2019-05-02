@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Models\PropertyImage;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ReportRequest;
-use Intervention\Image\Facades\Image;
 
 class AjaxController extends Controller
 {

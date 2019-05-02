@@ -37,7 +37,7 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $data = $request->all();
-        $data['negotiable'] = $request->negotiable ? true : false;
+        $data['negotiable'] = $request->negotiable == 1 ? true : false;
         $data['user_id'] =  auth('api')->id();
         if ($request->hasFile('fImage')) {
             $image_name = saveImage($request->file('fImage'));

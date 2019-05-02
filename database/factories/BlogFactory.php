@@ -3,7 +3,7 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Models\Blog::class, function (Faker $faker) {
-    $title = rtrim($faker->sentence(rand(3,5)) ,".");
+    $title = rtrim($faker->sentence(rand(4,7)) ,".");
     return [
         'title'   => $title,
         'slug'    => str_slug($title),

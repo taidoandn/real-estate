@@ -30,13 +30,13 @@
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3 col-xs-12">
             <div class="login">
-                <h3 class="authTitle">Sign up or <a href="{{ route('login') }}">Login</a> </h3>
+                <h3 class="authTitle">Đăng ký | <a href="{{ route('login') }}">Đăng nhập</a> </h3>
                 <form method="POST" action="{{ route('register') }}" accept-charset="UTF-8" role="form">
                     @csrf
                     <hr />
                     <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                         <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}"
-                            placeholder="Your Name" >
+                            placeholder="Tên của bạn" >
                         @if ($errors->has('name'))
                         <span class="help-block" role="alert">
                             <strong>{{ $errors->first('name') }}</strong>
@@ -46,7 +46,7 @@
 
                     <div class="form-group  {{ $errors->has('email') ? 'has-error' : '' }}">
                         <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}"
-                            placeholder="Email Address" >
+                            placeholder="Email" >
                         @if ($errors->has('email'))
                         <span class="help-block" role="alert">
                             <strong>{{ $errors->first('email') }}</strong>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group  {{ $errors->has('address') ? 'has-error' : '' }}">
                         <input type="text" name="address" id="address" class="form-control" value="{{ old('address') }}"
-                            placeholder="Address" >
+                            placeholder="Địa chỉ" >
                         @if ($errors->has('address'))
                         <span class="help-block" role="alert">
                             <strong>{{ $errors->first('address') }}</strong>
@@ -65,7 +65,7 @@
 
                     <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                         <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone') }}"
-                            placeholder="Phone Number" >
+                            placeholder="Số điện thoại" >
                         @if ($errors->has('phone'))
                         <span class="help-block" role="alert">
                             <strong>{{ $errors->first('phone') }}</strong>
@@ -76,7 +76,7 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                                 <input type="password" name="password" id="password" class="form-control"
-                                    placeholder="Password" >
+                                    placeholder="Mật khẩu" >
                                 @if ($errors->has('password'))
                                 <span class="help-block" role="alert">
                                     <strong>{{ $errors->first('password') }}</strong>
@@ -87,7 +87,7 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
                                 <input type="password" name="password_confirmation" id="password_confirmation"
-                                    class="form-control" placeholder="Confirm Password" >
+                                    class="form-control" placeholder="Xác nhận" >
                                 @if ($errors->has('password_confirmation'))
                                 <span class="help-block" role="alert">
                                     <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -99,7 +99,7 @@
                     <hr />
                     <div class="row">
                         <div class="col-xs-12">
-                            <input type="submit" value="Register" class="btn btn-primary btn-block btn-lg" ></div>
+                            <input type="submit" value="Đăng ký" class="btn btn-primary btn-block btn-lg" ></div>
                     </div>
                 </form>
             </div>

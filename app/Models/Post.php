@@ -175,7 +175,6 @@ class Post extends Model
         return $price_per_day + $vat;
     }
 
-
     public function getDateDiff(){
         return dateDiff($this->start_date,$this->end_date);
     }
