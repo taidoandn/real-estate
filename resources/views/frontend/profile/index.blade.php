@@ -12,10 +12,6 @@
             </div> <!-- /.row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="profile-avatar">
-                        <img src="https://demo.themeqx.com/themeqxestate/uploads/avatar/1472334656eic9y-i04.png"
-                            class="img-thumbnail img-circle">
-                    </div>
 
                     <table class="table table-bordered table-striped">
                         <tbody>

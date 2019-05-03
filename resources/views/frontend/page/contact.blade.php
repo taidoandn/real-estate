@@ -17,10 +17,10 @@
             <form>
                 <legend><span class="glyphicon glyphicon-globe"></span> Công ty chúng tôi</legend>
                 <address>
-                    <strong>ThemeqxEstate</strong>
+                    <strong>Địa chỉ</strong>
                     <br />
                     <i class="fa fa-map-marker"></i>
-                    2/21 Barden Loop <br /> Cupertino, CA 774636
+                    03 Quang Trung <br /> Đà Nẵng, Việt Nam
                     <br><i class="fa fa-phone"></i>
                     <abbr title="Phone">(123) 456-7890</abbr>
                 </address>
@@ -40,7 +40,7 @@
                         <div class="col-md-12">
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                                 <label for="name">Tên :</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name"
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Nhập họ tên"
                                     value="{{ old('name',Auth::user()->name ?? null) }}" required="required" />
                                     <strong class="help-block" role="alert">
                                         {{ $errors->first('name') }}
@@ -53,7 +53,7 @@
                                         <span class="glyphicon glyphicon-envelope"></span>
                                     </span>
                                     <input type="email" class="form-control" id="email"
-                                        placeholder="Enter email address" name="email" value="{{ old('email',Auth::user()->email ?? null) }}" required="required" />
+                                        placeholder="Nhập Email" name="email" value="{{ old('email',Auth::user()->email ?? null) }}" required="required" />
                                         <strong class="help-block" role="alert">
                                             {{ $errors->first('email') }}
                                         </strong>
@@ -63,7 +63,7 @@
                             <div class="form-group {{ $errors->has('message') ? 'has-error' : ''}}">
                                 <label for="name">Tin nhắn :</label>
                                 <textarea name="message" id="message" class="form-control" required="required"
-                                    placeholder="Message">{{ old('message') }}</textarea>
+                                    placeholder="Tin nhắn">{{ old('message') }}</textarea>
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('message') }}
                                 </strong>
@@ -71,8 +71,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary pull-right" id="btnContactUs"> Send
-                                Message</button>
+                            <button type="submit" class="btn btn-primary pull-right" id="btnContactUs"> Gửi</button>
                         </div>
                     </div>
                 </form>

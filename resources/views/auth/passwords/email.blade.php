@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3 col-xs-12">
             <div class="login">
-                <h3 class="authTitle">{{ __('Reset Password') }}
+                <h3 class="authTitle">Quên mật khẩu
                 </h3>
                 <div class="row row-sm-offset-3">
                     <div class="col-xs-12">
@@ -14,7 +14,7 @@
                             <div class="input-group {{ $errors->has('email') ? 'has-error' : '' }}">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}"
-                                    placeholder="email address" autofocus>
+                                    placeholder="Email" autofocus>
                             </div>
 
                             <span class="help-block" role="alert">
@@ -23,7 +23,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Send Password Reset Link') }}
+                                        Gửi link khôi phục
                                     </button>
                                 </div>
                             </div>
