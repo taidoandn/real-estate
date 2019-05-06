@@ -148,12 +148,23 @@
                         <div class="col-md-12">
                             <legend>Ảnh chi tiết</legend>
                             <div class="form-group {{ $errors->has('fImageDetails.*') ? 'has-error' : '' }}">
-                                <input type="file" name="fImageDetails[]" class="m-l-10" id="fImageDetails" multiple>
+                                {{-- <input type="file" name="fImageDetails[]" class="m-l-10" id="fImageDetails" multiple style="display: none"> --}}
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('fImageDetails.*') }}
                                 </strong>
                             </div>
                             <div id="image_preview">
+                                <div id="uploaded-image-wrapper">
+                                </div>
+                                <div class="file-upload-wrap">
+                                    <label>
+                                    <input type="file" name="fImageDetails[]" class="m-l-10 hidden" multiple id="fImageDetails" >
+                                        <div class="inner-wrap">
+                                            <i class="fa fa-cloud-upload"></i>
+                                            <p>Upload image...</p>
+                                        </div>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -509,7 +520,6 @@ $(document).ready(function () {
 </script>
 <script>
     $(document).ready(function () {
-        $('.select2').select2();
 
         $("[name='purpose']").on('change', function () {
             if ($(this).val() == 'sale') {
@@ -546,6 +556,7 @@ $(document).ready(function () {
 </script>
 <script>
       $(document).ready(function () {
+        $('.select2').select2();
         $('select[name="city_id"]').change(function () {
             $('select[name="district_id"]').select2('val',"");
             var city_id = $(this).val();
@@ -564,7 +575,7 @@ $(document).ready(function () {
             data : { city_id : city_id },
             success : function (data) {
                 var options = '';
-                options += '<option value="" selected> Chọn quận/huyện </option>';
+                options += '<option value=""> Chọn quận/huyện </option>';
                 if (data.length > 0) {
                     $.each(data, function (key, value) {
                         options += "<option value='" + value.id + "'>" + value.name + "</option>";

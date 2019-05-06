@@ -155,9 +155,9 @@
                                 </div>
                             </div>
                             <div id="image_preview">
-                                <div id="uploaded-ads-image-wrap">
+                                <div id="uploaded-image-wrapper">
                                 @forelse ($post->images as $image)
-                                    <div class="creating-ads-img-wrap" id="image-{{ $image->id }}">
+                                    <div class="img-wrapper" id="image-{{ $image->id }}">
                                     @if (file_exists(public_path('uploads/images/').$image->path))
                                         <img src="{{ $post->imageDetail($image->path) }}" class="img-responsive">
                                         <div class="img-action-wrap">
@@ -549,7 +549,6 @@ $(document).ready(function () {
 
 <script>
     $(document).ready(function () {
-
         $("[name='purpose']").on('change', function () {
             if ($(this).val() == 'sale') {
                 loadUnit('sale');

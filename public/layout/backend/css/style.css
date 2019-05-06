@@ -47,7 +47,7 @@
     font-size: 50px;
     cursor: pointer;
 }
-.creating-ads-img-wrap{
+.img-wrapper{
     border: 1px solid #dddddd;
     float: left;
     height: 150px;
@@ -56,7 +56,7 @@
     margin: 5px;
     position: relative;
 }
-.creating-ads-img-wrap img{
+.img-wrapper img{
     height: 120px;
     width: auto;
 }

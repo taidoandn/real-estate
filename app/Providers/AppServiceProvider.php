@@ -7,7 +7,6 @@ use App\Models\Distance;
 use App\Models\PostType;
 use App\Models\Convenience;
 use App\Models\PropertyType;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         if (env('APP_ENV') === 'production') {
             \URL::forceScheme('https');
         }
+
         Schema::defaultStringLength(191);
         $views = [
             'frontend.search._sidebar',

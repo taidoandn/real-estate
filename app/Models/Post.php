@@ -10,8 +10,7 @@ class Post extends Model
 {
     protected $table = 'posts';
     protected $fillable = [
-        'title','image','purpose','address','latitude','longitude','price','negotiable','view','status','description','start_date','end_date',
-        'area','unit','district_id','user_id','detail_id','type_id', 'property_type_id'
+        'title','image','purpose','address','latitude','longitude','price','negotiable','view','status','description','start_date','end_date','area','unit','district_id','user_id','detail_id','type_id', 'property_type_id'
     ];
 
     protected $appends = ['url'];

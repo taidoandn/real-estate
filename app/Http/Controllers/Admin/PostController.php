@@ -41,9 +41,8 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request){
+    public function store(Request $request){
         $this->authorize("create-post");
-
         $data = $request->all();
         $data['user_id'] = $request->user_id;
         $data['negotiable'] = $request->negotiable ? true : false;

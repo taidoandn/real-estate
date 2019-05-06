@@ -19,13 +19,13 @@ $(document).ready(function () {
 
 $("#fImageDetails").on("change", function() {
     var total_file = $(this)[0].files.length;
-    $("#image_preview").html('');
+    $("#uploaded-image-wrapper").html('');
     for(var i=0;i<total_file;i++)
     {
-        $('#image_preview').append("<div class='creating-ads-img-wrap'><img src='"+URL.createObjectURL(event.target.files[i])+"'class='img-responsive'></div>");
+        var images = '';
+        images += "<div class='img-wrapper'>";
+        images += "<img src='"+URL.createObjectURL(event.target.files[i])+"'class='img-responsive'>";
+        images += "</div>";
+        $('#uploaded-image-wrapper').append(images);
     }
 });
-
-
-
-

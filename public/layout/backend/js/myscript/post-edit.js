@@ -27,7 +27,7 @@ $(document).ready(function () {
                 return xhr;
             },
             success: function (data) {
-                $("#uploaded-ads-image-wrap").append(data);
+                $("#uploaded-image-wrapper").append(data);
                 toastr.success("Thêm ảnh thành công");
                 $(".progress").hide("slow");
                 $("#progressBar").attr("aria-valuenow",0).css("width",0+"%").text(0 + "%");
