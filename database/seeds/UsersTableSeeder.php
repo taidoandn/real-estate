@@ -11,16 +11,14 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        // \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        // \DB::table('property_details')->truncate();
-        // \DB::table('posts')->truncate();
-        // \DB::table('users')->truncate();
-        // \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         factory(App\Models\User::class,20)->create()->each(function($u){
             $u->posts()
                 ->saveMany(factory(App\Models\Post::class,rand(1,5))->make())
                 ->each(function($p){
                     $p->detail()->save(factory(App\Models\PropertyDetail::class)->make());
+
+                    $ids = range(1,App\Models\Distance::count());
+                    $p->distances()->attach($ids,['meters'=> random_int(1,30)]);
                 });
         });
     }

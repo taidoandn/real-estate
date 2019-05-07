@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PropertyTypesTableSeeder::class,
             PostTypesTableSeeder::class,
+            DistancesTableSeeder::class,
             // CitiesTableSeeder::class,
             // DistrictsTableSeeder::class,
             PermissionsTableSeeder::class,
@@ -21,7 +22,6 @@ class DatabaseSeeder extends Seeder
             AdminsTableSeeder::class,
             UsersTableSeeder::class,
             ConveniencesTableSeeder::class,
-            DistancesTableSeeder::class,
             FavoritesTableSeeder::class,
         ]);
     }

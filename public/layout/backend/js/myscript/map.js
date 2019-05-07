@@ -65,8 +65,8 @@ function showMap(pos = {lat: 16.047079, lng: 108.206230},zoom = 12) {
                             address.push(value.long_name);
                         }
                     });
-                    $("#address").val(address.join(", "));
-                    // $("#address").val(results[0].formatted_address);
+                    // $("#address").val(address.join(", "));
+                    $("#address").val(results[0].formatted_address);
                 }
             }
         });

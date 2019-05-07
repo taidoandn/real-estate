@@ -36,4 +36,3 @@ $factory->define(App\Models\PropertyType::class, function () use ($faker) {
         'updated_at' => now()
     ];
 });
-

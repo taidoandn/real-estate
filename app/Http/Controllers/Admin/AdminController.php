@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Blog;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Admin;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

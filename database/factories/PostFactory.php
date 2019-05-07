@@ -28,10 +28,9 @@ $factory->define(App\Models\Post::class, function () use($faker){
         'property_type_id' => App\Models\PropertyType::pluck('id')->random(),
         'type_id'          => App\Models\PostType::pluck('id')->random(),
         'district_id'      => App\Models\District::pluck('id')->random(),
-        'start_date'       => Carbon::now(),
+        'start_date'       => Carbon::now()->subDays(random_int(0,7)),
         'end_date'         => Carbon::now()->addDays(random_int(7,30)),
         'created_at'       => now(),
         'updated_at'       => now()
     ];
 });
-
