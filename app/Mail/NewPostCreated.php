@@ -39,7 +39,7 @@ class NewPostCreated extends Mailable
                 ->subject('Xác nhận đăng bài viết')
                 ->with([
                     'post'        => $this->post,
-                    'diff_date'   => $date_diff,
+                    'date_diff'   => $date_diff,
                     'vat'         => $vat,
                     'price'       => $price,
                     'total_price' => $total_price,
