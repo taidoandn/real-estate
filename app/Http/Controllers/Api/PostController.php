@@ -100,7 +100,7 @@ class PostController extends Controller
     {
         $this->authorize('update', $post);
         $data = $request->all();
-        $data['negotiable'] = $request->negotiable ? true : false;
+        $data['negotiable'] = $request->negotiable == 1 ? true : false;
         if ($request->hasFile('fImage')) {
             unlinkImage($post->image);
             $image_name = saveImage($request->file('fImage'));

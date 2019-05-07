@@ -246,7 +246,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group   {{ $errors->has('district_id') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('district_id') ? 'has-error' : '' }}">
                             <label for="category_name" class="col-sm-3 control-label">Quận/huyện</label>
                             <div class="col-sm-9">
                                 <select class="form-control select2" id="district_id" name="district_id">
@@ -267,7 +267,7 @@
                                 </strong>
                             </div>
                         </div>
-                        <div class="form-group {{ $errors->has('latityde') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('latitude') ? 'has-error' : '' }}">
                             <label for="latitude" class="col-sm-3 control-label">Vĩ độ</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" readonly id="latitude" value="{{ old('latitude') }}" name="latitude"

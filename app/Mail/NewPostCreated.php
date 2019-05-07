@@ -32,7 +32,7 @@ class NewPostCreated extends Mailable
     public function build()
     {
         $date_diff   = dateDiff($this->post->start_date,$this->post->end_date);
-        $price       = $this->post->type->price * $diff_date;
+        $price       = $this->post->type->price * $date_diff;
         $vat         = $price * 10 /100;
         $total_price = $price + $vat;
         return $this->from('admin@example.com')->markdown('emails.posts.post-created')

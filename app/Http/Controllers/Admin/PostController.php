@@ -41,11 +41,10 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(PostRequest $request){
         $this->authorize("create-post");
         $data = $request->all();
-        $data['user_id'] = $request->user_id;
-        $data['negotiable'] = $request->negotiable ? true : false;
+        $data['negotiable'] = $request->negotiable == 1 ? true : false;
         if ($request->hasFile('fImage')) {
             $image_name = saveImage($request->file('fImage'));
             $data['image'] = $image_name;
@@ -68,7 +67,7 @@ class PostController extends Controller
 
         if ($request->distances) {
             foreach ($request->distances as $key => $distance) {
-                $post->distances()->attach($key, ['meters' => (int)$distance]);
+                $post->distances()->attach($key, ['meters' => $distance]);
             }
         }
 
