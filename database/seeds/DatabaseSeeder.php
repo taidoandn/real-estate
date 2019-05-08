@@ -15,14 +15,15 @@ class DatabaseSeeder extends Seeder
             PropertyTypesTableSeeder::class,
             PostTypesTableSeeder::class,
             DistancesTableSeeder::class,
+            ConveniencesTableSeeder::class,
             // CitiesTableSeeder::class,
             // DistrictsTableSeeder::class,
             PermissionsTableSeeder::class,
             RolesTableSeeder::class,
             AdminsTableSeeder::class,
             UsersTableSeeder::class,
-            ConveniencesTableSeeder::class,
             FavoritesTableSeeder::class,
+            BlogsTableSeeder::class,
         ]);
     }
 }

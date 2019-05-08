@@ -27,7 +27,7 @@ class AdminsTableSeeder extends Seeder
         factory(App\Models\Admin::class, 20)->create()->each(function($user){
             $boolean = random_int(0,1);
             if ($boolean) {
-                $ids = App\Models\Role::all()->random(random_int(1,3));
+                $ids = App\Models\Role::pluck('id')->random(random_int(1,App\Models\Role::count()));
                 $user->roles()->attach($ids);
             }
         });

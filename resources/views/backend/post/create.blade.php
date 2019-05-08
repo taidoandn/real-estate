@@ -34,7 +34,7 @@
                                 <label for="description" class="col-md-2 control-label">Thông tin mô tả</label>
                                 <div class="col-md-8">
                                     <textarea id="description" class="ckeditor form-control" name="description">
-										{{ old('description') }}
+										{!! old('description') !!}
 									</textarea>
                                     <strong class="help-block" role="alert">
                                         {{ $errors->first('description') }}

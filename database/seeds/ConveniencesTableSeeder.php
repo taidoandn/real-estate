@@ -59,9 +59,16 @@ class ConveniencesTableSeeder extends Seeder
         $generator->name = "Internet/wifi";
         $generator->type = "exterior";
         $generator->save();
-        foreach (Convenience::all() as $convenience) {
-            $ids = App\Models\Post::all()->random(random_int(1,App\Models\Post::count()));
-            $convenience->posts()->attach($ids);
-        }
+
+        //võng
+        $hammock = new Convenience();
+        $hammock->name = "Võng";
+        $hammock->type = "interior";
+        $hammock->save();
+
+        $fridge = new Convenience();
+        $fridge->name = "Tủ lạnh";
+        $fridge->type = "interior";
+        $fridge->save();
     }
 }

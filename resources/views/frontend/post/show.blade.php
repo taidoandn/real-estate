@@ -121,9 +121,8 @@
                     {!! $post->description_html !!}
             </div>
             <div class="ads-detail bg-white">
-
+                @if ($post->conveniences->contains('type','interior'))
                 <legend>Nội thất</legend>
-
                 <div class="single-at-a-glance">
                     <ul class="list-group ">
                         @foreach ($post->conveniences as $convenience)
@@ -136,7 +135,8 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-
+                @endif
+                @if ($post->conveniences->contains('type','exterior'))
                 <legend>Ngoại thất</legend>
                 <div class="single-at-a-glance">
                     <ul class="list-group ">
@@ -150,6 +150,7 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
+                @endif
 
             </div>
 

@@ -35,7 +35,7 @@
                         <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                             <label for="description" class="col-sm-3 control-label">Mô tả</label>
                             <div class="col-sm-9">
-                                <textarea name="description" class="form-control ckeditor" rows="8">{{ old('description',$post->description_html) }}</textarea>
+                                <textarea name="description" class="form-control ckeditor" rows="8">{!! old('description',$post->description_html) !!}</textarea>
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('description') }}
                                 </strong>
@@ -47,7 +47,7 @@
                             <div class="col-sm-9">
                                 <select name="property_type_id" id="property_type_id" class="form-control">
                                     @foreach ($property_types as $property)
-                                    <option {{ old('property_type_id',$post->property_id) == $property->id ? 'selected' : '' }} value="{{ $property->id }}">{{ $property->name }}</option>
+                                    <option {{ old('property_type_id',$post->property_type_id) == $property->id ? 'selected' : '' }} value="{{ $property->id }}">{{ $property->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -247,17 +247,17 @@
                                 </div>
                             </div>
                             <div id="image_preview">
-                                <div id="uploaded-ads-image-wrap">
+                                <div id="uploaded-image-wrapper">
                                 @forelse ($post->images as $image)
-                                <div class="creating-ads-img-wrap" id="image-{{ $image->id }}">
-                                @if (file_exists(public_path('uploads/images/').$image->path))
-                                    <img src="{{ asset('uploads/images/'.$image->path) }}" class="img-responsive">
-                                    <div class="img-action-wrap">
-                                        <a href="javascript:void(0)" id="{{ $image->id }}" class="imgDeleteBtn"><i class="fa fa-trash-o"></i> </a>
+                                    <div class="img-wrapper" id="image-{{ $image->id }}">
+                                    @if (file_exists(public_path('uploads/images/').$image->path))
+                                        <img src="{{ asset('uploads/images/'.$image->path) }}" class="img-responsive">
+                                        <div class="img-action-wrap">
+                                            <a href="javascript:void(0)" id="{{ $image->id }}" class="imgDeleteBtn"><i class="fa fa-trash-o"></i> </a>
+                                        </div>
+                                    @endif
                                     </div>
-                                @endif
-                                </div>
-                                @empty
+                                    @empty
                                 @endforelse
                                 </div>
                                 <div class="file-upload-wrap">

@@ -25,6 +25,7 @@ class CreateConveniencesTable extends Migration
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->unsignedInteger('convenience_id');
             $table->foreign('convenience_id')->references('id')->on('conveniences')->onDelete('cascade');
+            $table->unique(['post_id','convenience_id']);
         });
     }
 

@@ -149,7 +149,7 @@ class Post extends Model
     }
 
     public function getDescriptionHtmlAttribute(){
-        return \Parsedown::instance()->text($this->description);
+        return clean(\Parsedown::instance()->text($this->description));
     }
 
     public function getCreatedDateAttribute(){

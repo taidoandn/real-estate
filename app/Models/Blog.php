@@ -15,7 +15,7 @@ class Blog extends Model
     }
 
     public function getContentHtmlAttribute(){
-        return \Parsedown::instance()->text($this->content);
+        return clean(\Parsedown::instance()->text($this->content));
     }
 
     public static function boot(){

@@ -222,12 +222,23 @@
                         </div>
                         <legend>Hình ảnh chi tiết</legend>
                         <div class="form-group {{ $errors->has('fImageDetails.*') ? 'has-error' : '' }}">
-                                <input type="file" name="fImageDetails[]" class="m-l-10" id="fImageDetails" multiple>
+                                {{-- <input type="file" name="fImageDetails[]" class="m-l-10" id="fImageDetails" multiple> --}}
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('fImageDetails.*') }}
                                 </strong>
                             </div>
                         <div id="image_preview">
+                            <div id="uploaded-image-wrapper">
+                            </div>
+                            <div class="file-upload-wrap">
+                                <label>
+                                <input type="file" name="fImageDetails[]" class="m-l-10 hidden" multiple id="fImageDetails" >
+                                    <div class="inner-wrap">
+                                        <i class="fa fa-cloud-upload"></i>
+                                        <p>Upload image...</p>
+                                    </div>
+                                </label>
+                            </div>
                         </div>
                         <div class="m-t-10"></div>
                         <legend>Thông tin địa điểm</legend>
@@ -371,7 +382,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-5">
-                                <button type="submit" class="btn btn-primary">Create a post</button>
+                                <button type="submit" class="btn btn-primary">Tạo bài viết</button>
                             </div>
                         </div>
                     </form>
@@ -402,7 +413,6 @@
 <script>
     function loadPrice() {
         if ($(".diff-date").val() && $(".price").val()) {
-
             let price = $(".diff-date").val() * $(".price").val();
             let price_format = $.number(price);
             $("#pricePost").html(price_format + " đồng");

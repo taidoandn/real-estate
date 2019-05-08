@@ -28,6 +28,20 @@ class AdminController extends Controller
      */
     public function index()
     {
+        // $posts = Post::with('district.city','property_type','user')->where('id' ,'>=' ,1)->get();
+        // foreach ($posts as $key => $post) {
+        //     $post->update([
+        //         'title'       => "{$post->purpose_format} {$post->property_type->name} tại {$post->district->name} / {$post->district->city->name}",
+        //         'description' => "<b>Thông tin dự án:</b>
+        //         - Vị trí: {$post->district->name} / {$post->district->city->name}.
+        //         - Quy mô dự án {$post->title}: {$post->area} m<sup>2</sup>.
+        //         - Chủ đầu tư và phân phối: {$post->user->name}.
+        //         - Hạ tầng: Hoàn thiện 100%, đường nội bộ 9 - 15m, điện âm, nước máy, nước thủy cục, hệ thống nước mưa - nước thải riêng biệt, hệ thống viễn thông đầy đủ...
+        //         - Tiện ích nội khu: Trường mầm non, công viên, khu thương mại, dịch vụ và hồ cảnh quan..."
+        //     ]);
+        // }
+        // die('success');
+
         $pending_posts         = Post::where('status','pending')->orderBy('created_at','desc')->get();
         $total_posts           = Post::get()->count();
         $published_posts_count = Post::isPublished()->count();

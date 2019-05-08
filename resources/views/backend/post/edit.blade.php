@@ -35,7 +35,7 @@
                                 <label for="description" class="col-md-2 control-label">Thông tin mô tả</label>
                                 <div class="col-md-8">
                                     <textarea class="ckeditor form-control" id="editor" name="description">
-										{{ old('description',$post->description) }}
+										{!! old('description',$post->description_html) !!}
                                     </textarea>
                                     <strong class="help-block" role="alert">
                                         {{ $errors->first('description') }}
@@ -49,7 +49,7 @@
                                 <div class="col-md-8">
                                     <select class="form-control select2" id="property_type_id" name="property_type_id">
                                         @foreach ($property_types as $property)
-                                        <option {{ $post->property_id == $property->id ? 'selected' : '' }} value="{{ $property->id }}">{{$property->name}}</option>
+                                        <option {{ old('property_type_id',$post->property_type_id) == $property->id ? 'selected' : '' }} value="{{ $property->id }}">{{$property->name}}</option>
                                         @endforeach
                                     </select>
                                     <strong class="help-block" role="alert">
@@ -166,7 +166,7 @@
                                     @endif
                                     </div>
                                     @empty
-                                    @endforelse
+                                @endforelse
                                 </div>
                                 <div class="file-upload-wrap">
                                     <label>

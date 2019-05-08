@@ -25,6 +25,7 @@ class CreateDistancesTable extends Migration
             $table->unsignedInteger('distance_id');
             $table->foreign('distance_id')->references('id')->on('distances')->onDelete('cascade');
             $table->integer('meters')->unsigned()->nullable();
+            $table->unique(['post_id','distance_id']);
         });
     }
 
