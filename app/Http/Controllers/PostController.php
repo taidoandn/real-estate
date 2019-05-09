@@ -113,9 +113,8 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post     = Post::findOrFail($id);
         $this->authorize('update', $post);
         $post->load('district.city','detail','property_type','images');
         return view('frontend.post.edit',compact('post'));
@@ -128,9 +127,8 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request,$id)
+    public function update(PostRequest $request,Post $post)
     {
-        $post = Post::findOrFail($id);
         $this->authorize('update', $post);
         $data = $request->except(['start_date','end_date','type_id']);
 
@@ -173,9 +171,8 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        $post = Post::findOrFail($id);
         $this->authorize('delete', $post);
 		$post->delete();
 		return redirect()->back()->with('success','Xóa thành công');
