@@ -9,9 +9,9 @@ Số ngày : {{ $date_diff }} ngày
 <br>
 Giá loại <strong>{{ $post->type->name }}</strong> : {{ number_format($post->type->price,0,",",".") }} ngày / đồng
 <br>
-Bạn cần thanh toán trước khi thời gian đưa tin bắt đầu trước 1 ngày.
+Bạn cần thanh toán trước khi thời gian đưa tin bắt đầu trước ít nhất 1 ngày.
 <br>
-Vui lòng thanh toán vào TK 0041000250743 ngần hàng Vietcombank, tên TK: Ngô Đình Dũng trụ sở Đà Nẵng.
+Vui lòng thanh toán vào TK 0041000250743 ngần hàng Vietcombank, tên TK: Ngô Đình Dũng trụ sở Đà Nẵng với nội dung: #P-{{ $post->id }} {{ $post->user->email }}
 @endcomponent
 
 @component('mail::table')

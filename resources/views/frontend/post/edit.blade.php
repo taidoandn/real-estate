@@ -145,7 +145,7 @@
                             <label for="balcony" class="col-sm-3 control-label">Ban công</label>
                             <div class="col-sm-9">
                                 <input type="number" class="form-control" id="balcony" value="{{ old('balcony',$post->detail->balcony) }}" name="balcony"
-                                    placeholder="Balcony(ies)">
+                                    placeholder="Ban công">
                                     <strong class="help-block" role="alert">
                                         {{ $errors->first('balcony') }}
                                     </strong>

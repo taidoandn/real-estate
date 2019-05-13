@@ -74,7 +74,7 @@ class PostController extends Controller
        //Send Mail , dispatch send mail job
         dispatch(new NewPostCreatedJob(auth()->user(),$post));
 
-        return response()->json($post,201);
+        return response()->json($post->load('user','district.city','detail','property_type','images','distances'),201);
     }
 
     /**

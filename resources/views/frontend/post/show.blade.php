@@ -120,6 +120,7 @@
                 <h4 class="ads-detail-title">Mô tả</h4>
                     {!! $post->description_html !!}
             </div>
+            @if ($post->conveniences->isNotEmpty())
             <div class="ads-detail bg-white">
                 @if ($post->conveniences->contains('type','interior'))
                 <legend>Nội thất</legend>
@@ -153,11 +154,9 @@
                 @endif
 
             </div>
-
+            @endif
             <div class="ads-detail bg-white">
-
                 <legend>Khoảng cách</legend>
-
                 <div class="single-at-a-glance">
                     <ul class="list-group ">
                        @foreach ($post->distances as $distance)

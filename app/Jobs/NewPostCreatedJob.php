@@ -39,6 +39,6 @@ class NewPostCreatedJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->user)->send(new NewPostCreated($this->post));
+        Mail::to($this->user->email)->send(new NewPostCreated($this->post));
     }
 }

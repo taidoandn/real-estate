@@ -89,7 +89,7 @@ function successCallback(position) {
     };
     var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en&key=AIzaSyCQuDQmtiHkS7CcriyEiYXWja3ODrG4vFI';
     $.getJSON(GEOCODING).done(function(location) {
-        showMap(latlng,20);
+        showMap(latlng,15);
         createMarker(latlng);
         $("#latitude").val(latlng.lat);
         $("#longitude").val(latlng.lng);

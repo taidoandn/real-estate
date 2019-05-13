@@ -130,7 +130,7 @@
                                     <td><a href="pages/examples/invoice.html">{{ $post->id }}</a></td>
                                     <td>{{ str_limit($post->title, 30) }}</td>
                                     <td><span class="label label-{{ $post->purpose == 'sale' ? 'success' : 'warning' }}">{{ ucwords($post->purpose) }}</span></td>
-                                    <td>{{ dateDiff($post->start_date,$post->end_date) }}</td>
+                                    <td>{{ $post->getDateDiff() }}</td>
                                     <td>{{ number_format($post->total_price,0,',','.') }}</td>
                                     <td>
                                        <a class="btn btn-sm btn-primary" href="{{ route('admin.posts.edit',$post->id) }}">Detail</a>
