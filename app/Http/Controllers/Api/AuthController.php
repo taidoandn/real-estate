@@ -44,6 +44,10 @@ class AuthController extends Controller
      */
     public function login()
     {
+        request()->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
         $credentials = request(['email', 'password']);
 
         if (! $token = auth('api')->attempt($credentials)) {

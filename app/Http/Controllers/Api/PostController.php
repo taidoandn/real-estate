@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use Gate;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Jobs\NewPostCreatedJob;
-use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\ApiPostRequest;
 
 class PostController extends Controller
 {
@@ -35,7 +35,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(ApiPostRequest $request)
     {
         $data = $request->all();
         $data['negotiable'] = $request->negotiable == 1 ? true : false;
@@ -97,11 +97,8 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, Post $post)
+    public function update(ApiPostRequest $request, Post $post)
     {
-        if (Gate::denies('update', $post)) {
-            return response()->json(['error'=>'unauthorized'], 404);
-        }
         $data = $request->all();
         $data['negotiable'] = $request->negotiable == 1 ? true : false;
 
@@ -134,7 +131,6 @@ class PostController extends Controller
             }
             $post->distances()->sync($array_distances,false);
         }
-
 
         return response()->json($post->load('user','district.city','detail','property_type','images','distances'));
     }
