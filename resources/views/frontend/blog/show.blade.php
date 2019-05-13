@@ -14,7 +14,7 @@
                         <ul class="breadcrumb">
                             <li> <a href="{{ route('home') }}">Home</a> </li>
                             <li> <a href="{{ route('blogs.index') }}">Blog</a> </li>
-                            <li> <span>{{ $blog->title }}</span> </li>
+                            <li> <a href="{{ $blog->url }}">{{ $blog->title }}</a> </li>
                         </ul>
                     </div>
                 </div>

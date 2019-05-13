@@ -47,7 +47,7 @@
                                 </p>
                             </div>
                             <p class="intro" itemprop="description">
-                               {!! str_limit($blog->content, 200) !!}
+                               {!! str_limit($blog->content_html, 200) !!}
                             </p>
                             <p class="read-more">
                                 <a href="{{ $blog->url }}"

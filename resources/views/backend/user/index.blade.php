@@ -1,5 +1,5 @@
 @extends('backend.master')
-@section('title','Tài khoản')
+@section('title','User Admin')
 @section('content')
 
 <section class="content-header">
@@ -15,7 +15,6 @@
 @include('backend.user._modal')
 <!-- Main content -->
 <section class="content">
-    {{-- {{ dd($roles[0]->admins[0]->name) }} --}}
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">

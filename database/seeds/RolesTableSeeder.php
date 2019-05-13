@@ -21,9 +21,9 @@ class RolesTableSeeder extends Seeder
         $editor->name = "Editor";
         $editor->save();
 
-        $writer = new Role();
-        $writer->name = "Writer";
-        $writer->save();
+        $manager = new Role();
+        $manager->name = "Manager";
+        $manager->save();
 
         foreach (App\Models\Role::all() as $role) {
             $ids = \App\Models\Permission::pluck('id')->random(random_int(1,App\Models\Role::count()));

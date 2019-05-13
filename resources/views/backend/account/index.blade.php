@@ -1,5 +1,5 @@
 @extends('backend.master')
-@section('title','Tài khoản')
+@section('title','Account')
 @section('content')
 
 <section class="content-header">

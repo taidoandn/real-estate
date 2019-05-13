@@ -1,5 +1,5 @@
 @extends('backend.master')
-@section('title', 'Dashboad')
+@section('title', 'Dashboard')
 @section('content')
 <!-- Thong ke - Bao cao -->
 <section class="content-header">

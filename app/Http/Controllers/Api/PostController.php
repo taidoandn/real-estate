@@ -101,7 +101,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         if (Gate::denies('update', $post)) {
-            return response()->json(['error'=>'unauthorized'], 404);
+            return response()->json(['error'=>'Unauthorized. Sorry, you are not authorized to access this page.'], 404);
         }
         $request->validate([
             'title'            => 'required|max:100|unique:posts,title,'.$post->id.',id',
@@ -123,7 +123,7 @@ class PostController extends Controller
             'balcony'          => 'required|numeric',
             'toilet'           => 'required|numeric',
         ]);
-        $data = $request->all();
+        $data = $request->except(['start_date','end_date','type_id']);
         $data['negotiable'] = $request->negotiable == 1 ? true : false;
 
         if ($request->hasFile('fImage')) {
@@ -168,7 +168,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         if (Gate::denies('delete', $post)) {
-            return response()->json(['error' => 'unauthorized'], 404);
+            return response()->json(['error' => 'Unauthorized. Sorry, you are not authorized to access this page.'], 404);
         }
         $post->delete();
         return response()->json(['success'=>'deleted!']);

@@ -1,5 +1,5 @@
 @extends('backend.master')
-@section('title','Convenience')
+@section('title','Distance')
 @section('content')
 
 <section class="content-header">
