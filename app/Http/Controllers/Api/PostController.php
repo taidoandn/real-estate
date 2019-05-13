@@ -8,6 +8,7 @@ use App\Jobs\NewPostCreatedJob;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -98,9 +99,12 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
-        $this->authorize('update', $post);
+        if (Gate::denies('update', $post)) {
+            return response()->json(['error'=>'unauthorized'], 404);
+        }
         $data = $request->all();
         $data['negotiable'] = $request->negotiable == 1 ? true : false;
+
         if ($request->hasFile('fImage')) {
             unlinkImage($post->image);
             $image_name = saveImage($request->file('fImage'));
@@ -108,12 +112,13 @@ class PostController extends Controller
         }
 
         $post->update($data);
+
         $post->detail()->update([
-            'floor'        => $request->floor,
-            'bath'         => $request->bath,
-            'balcony'      => $request->balcony,
-            'toilet'       => $request->toilet,
-            'bed_room'     => $request->bed_room,
+            'floor'        => (int)$request->floor,
+            'bath'         => (int)$request->bath,
+            'balcony'      => (int)$request->balcony,
+            'toilet'       => (int)$request->toilet,
+            'bed_room'     => (int)$request->bed_room,
             'dinning_room' => $request->dinning_room ? true : false,
             'living_room'  => $request->living_room ? true : false,
         ]);
@@ -122,13 +127,14 @@ class PostController extends Controller
             $post->conveniences()->sync($request->conveniences);
         }
 
-        $array_distances = [];
         if ($request->distances) {
+            $array_distances = [];
             foreach($request->distances as $key => $distance){
                 $array_distances[$key] = ['meters' => $distance];
             }
+            $post->distances()->sync($array_distances,false);
         }
-        $post->distances()->sync($array_distances,false);
+
 
         return response()->json($post->load('user','district.city','detail','property_type','images','distances'));
     }
@@ -141,7 +147,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->authorize('delete', $post);
+        if (Gate::denies('delete', $post)) {
+            return response()->json(['error' => 'unauthorized'], 404);
+        }
         $post->delete();
         return response()->json(['success'=>'deleted!']);
     }

@@ -42,6 +42,14 @@ class AdminController extends Controller
         // }
         // die('success');
 
+
+        $blogs = Blog::get();
+        foreach ($blogs as $key => $blog) {
+            $blog->update=([
+                'content' => ""
+            ]);
+        }
+
         $pending_posts         = Post::where('status','pending')->orderBy('created_at','desc')->get();
         $total_posts           = Post::get()->count();
         $published_posts_count = Post::isPublished()->count();
