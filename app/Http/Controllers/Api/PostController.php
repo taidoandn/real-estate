@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use Gate;
 use App\Models\Post;
+use App\Rules\UnitRule;
 use Illuminate\Http\Request;
 use App\Jobs\NewPostCreatedJob;
+use App\Rules\BelongsToCityRule;
+use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PostResource;
-use App\Http\Requests\ApiPostRequest;
 
 class PostController extends Controller
 {
@@ -35,7 +36,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ApiPostRequest $request)
+    public function store(PostRequest $request)
     {
         $data = $request->all();
         $data['negotiable'] = $request->negotiable == 1 ? true : false;
@@ -97,8 +98,31 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(ApiPostRequest $request, Post $post)
+    public function update(Request $request, Post $post)
     {
+        if (Gate::denies('update', $post)) {
+            return response()->json(['error'=>'unauthorized'], 404);
+        }
+        $request->validate([
+            'title'            => 'required|max:100|unique:posts,title,'.$post->id.',id',
+            'purpose'          => 'required|in:sale,rent',
+            'price'            => 'required|numeric',
+            'area'             => 'required|numeric',
+            'description'      => 'required|min:40',
+            'district_id'      => ['required','exists:districts,id', new BelongsToCityRule('city_id')],
+            'unit'             => ['required','in:m2,total_area,month,year', new UnitRule('purpose')],
+            'city_id'          => 'required|exists:cities,id',
+            'type_id'          => 'exists:post_types,id',
+            'address'          => 'required|string',
+            'latitude'         => 'required',
+            'longitude'        => 'required',
+            'property_type_id' => 'required|exists:property_types,id',
+            'floor'            => 'required|numeric',
+            'bed_room'         => 'required|numeric',
+            'bath'             => 'required|numeric',
+            'balcony'          => 'required|numeric',
+            'toilet'           => 'required|numeric',
+        ]);
         $data = $request->all();
         $data['negotiable'] = $request->negotiable == 1 ? true : false;
 
