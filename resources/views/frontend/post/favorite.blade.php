@@ -55,6 +55,5 @@
     $(function () {
         $('#side-menu').metisMenu();
     });
-
 </script>
 @endpush

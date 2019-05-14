@@ -1,7 +1,6 @@
 <div class="bg-white">
     <div class="sidebar-filter-wrapper">
-        <form method="GET" action="https://demo.themeqx.com/themeqxestate/listing" accept-charset="UTF-8"
-            id="listingFilterForm">
+        <form method="GET" action="" accept-charset="UTF-8" id="listingFilterForm">
             <div class="row">
                 <div class="col-xs-12">
                     <p class="listingSidebarLeftHeader">Tìm kiếm nâng cao <span id="loaderListingIcon" class="pull-right"
@@ -12,13 +11,13 @@
             </div>
 
             <div class="form-group">
-                <input type="text" id="q" class="form-control input-selector" autofocus name="q" value="{{ request()->get('q') ?? '' }}" placeholder="Search keywords" />
+                <input type="text" id="q" class="form-control input-selector" autofocus name="q" value="{{ request()->get('q') ?? '' }}" placeholder="Từ khóa" />
             </div>
             <hr />
 
             <div class="form-group">
                 <label>Tiện ích</label>
-                <select class="form-control select2 selector" name="convenience" data-placeholder="Select a Convenience"  multiple="multiple" id="convenience">
+                <select class="form-control select2 selector" name="convenience" data-placeholder="Chọn tiện ích"  multiple="multiple" id="convenience">
                     <optgroup label="Nội thất">
                     @foreach ($conveniences as $convenience)
                         @if ($convenience->type == "interior")

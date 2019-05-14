@@ -35,7 +35,6 @@ class SearchController extends Controller
         });
         $query->when(isset(request()->q) , function ($q){
             $q->where('title','LIKE',"%".request()->q."%");
-            $q->orWhere('slug','LIKE',"%".request()->q."%");
         });
         $query->when(request()->min , function ($q){
             $q->where('price','>=',(int)request()->min);

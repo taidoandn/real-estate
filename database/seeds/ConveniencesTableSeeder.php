@@ -42,12 +42,6 @@ class ConveniencesTableSeeder extends Seeder
         $garden->type = "exterior";
         $garden->save();
 
-        //garden
-        $garden = new Convenience();
-        $garden->name = "Vườn hoa";
-        $garden->type = "exterior";
-        $garden->save();
-
         //Generator
         $generator = new Convenience();
         $generator->name = "Máy phát điện";
@@ -70,5 +64,10 @@ class ConveniencesTableSeeder extends Seeder
         $fridge->name = "Tủ lạnh";
         $fridge->type = "interior";
         $fridge->save();
+
+        $pool = new Convenience();
+        $pool->name = "Bể bơi";
+        $pool->type = "exterior";
+        $pool->save();
     }
 }

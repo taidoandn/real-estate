@@ -385,16 +385,6 @@
 </script>
 <script>
     var district_id = '{{ request()->district_id ?? null }}';
-    $(document).ready(function () {
-        $('select[name="city_id"]').change(function () {
-            $('select[name="district_id"]').select2('val',"");
-            var city_id = $(this).val();
-            getDistrict(city_id);
-        });
-        if($('select[name="city_id"]').val()) {
-            var city_id = $('select[name="city_id"]').val();
-            getDistrict(city_id,district_id);
-        }
-    });
 </script>
+<script src="{{ asset('layout/frontend/js/myscript/.js')}}"></script>
 @endpush

@@ -79,33 +79,6 @@
     <script src="{{ asset('layout/frontend/select2-3.5.3/select2.min.js') }}"></script>
     <script src="{{ asset('layout/frontend/plugins/nprogress/nprogress.js') }}"></script>
     <script src="{{ asset('layout/frontend/plugins/owl.carousel.min.js') }}"></script>
-    <script>
-        var district_id;
-    </script>
-    <script>
-        function getDistrict(city_id,district_id = null){
-            $.ajax({
-                type : 'get',
-                url : '{{ route('ajax.districts') }}',
-                data : { city_id : city_id },
-                success : function (data) {
-                    var options = '';
-                    options += '<option value="" selected> Chọn Quận/huyện </option>';
-                    if (data.length > 0) {
-                        $.each(data, function (key, value) {
-                            options += "<option value='" + value.id + "'>" + value.name + "</option>";
-                        });
-                        $('select[name="district_id"]').html(options);
-                        $('select[name="district_id"]').select2();
-                        $('select[name="district_id"]').val(district_id).change();
-                    }else {
-                        $('select[name="district_id"]').html(options);
-                        $('select[name="district_id"]').select2();
-                    }
-                }
-            });
-        }
-    </script>
     @stack('js')
 
     <script type="text/javascript">

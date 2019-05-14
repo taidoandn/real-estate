@@ -175,7 +175,7 @@
             <div class="ads-detail bg-white">
                 <legend>Bản đồ</legend>
                 <div id="map" style="width: 100%; height: 400px; margin: 20px 0;"></div>
-                <button onclick="getGeolocation()" class="btn btn-primary">Direction to your location</button>
+                <button onclick="getGeolocation()" class="btn btn-primary">Dẫn đường</button>
                 <input type="hidden" id="longitude" value="{{ $post->longitude }}" name="longitude">
                 <input type="hidden" id="latitude" value="{{ $post->latitude }}" name="latitude">
                 <div id="panel" style="width:100%;height:auto;"></div>
@@ -190,7 +190,7 @@
                 <div class="sidebar-user-info">
                     <div class="row">
                         <div class="col-xs-3">
-                            <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-circle img-responsive" />
+                            <img src="{{ asset('layout/user-icon.jpg') }}" class="img-circle img-responsive" />
                         </div>
                         <div class="col-xs-9">
                             <h5>{{ $post->user->name }}</h5>

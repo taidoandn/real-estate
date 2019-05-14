@@ -441,102 +441,15 @@
 <script src="{{ asset('layout/backend/js/myscript/datetime-custom.js')}}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQuDQmtiHkS7CcriyEiYXWja3ODrG4vFI&callback=initMap&libraries=places"></script>
 <script>
-    function loadPrice() {
-        if ($(".diff-date").val() && $(".price").val()) {
-
-            let price = $(".diff-date").val() * $(".price").val();
-            let price_format = $.number(price);
-            $("#pricePost").html(price_format + " đồng");
-
-            let vat = $(".diff-date").val() * $(".price").val() / 10;
-            let vat_format = $.number(vat);
-            $("#vat").html(vat_format + " đồng");
-
-            let total_price = vat + price;
-            let total_format = $.number(total_price);
-            $("#totalPrice").html(total_format + " đồng");
-        }else{
-            return false;
-        }
-    }
-    $(document).ready(function () {
-        $("[name='type_id']").on('change',function(){
-            loadPostType($(this).val());
-        });
-        if ($("[name='type_id']").val()) {
-            var type_id = $("[name='type_id']").val();
-            loadPostType(type_id);
-        }
-    function loadPostType(type) {
-        $.ajax({
-            type: "get",
-            url: "{{ route('ajax.post-type') }}",
-            data: {
-                "type" : type
-            },
-            dataType: "json",
-            success: function (data) {
-                $("#type-name").html(data.name);
-                $("#type-description").html(data.description);
-                $(".price").val(data.price);
-                let number_format = $.number(data.price);
-                $("#type-price").html(number_format + " đồng / Ngày");
-                loadPrice();
-            }
-        });
-    }
-});
-</script>
-<script>
     $(function () {
         $('#side-menu').metisMenu();
     });
-
-    $(document).ready(function () {
-        $("[name='purpose']").on('change', function () {
-            if ($(this).val() == 'sale') {
-                loadUnit('sale');
-            } else if ($(this).val() == 'rent') {
-                loadUnit('rent');
-            }else{
-                $('select[name="unit"]').html('');
-            }
-        });
-
-        if($('select[name="purpose"]').val()) {
-            var purpose = $('select[name="purpose"]').val();
-            loadUnit(purpose);
-        }
-
-        function loadUnit(purpose) {
-            var old_purpose = "{{ old('purpose',$post->purpose) }}";
-            var old_unit = "{{ old('unit',$post->unit) }}";
-            if (purpose == 'sale') {
-                var options = "<option value='total_area'>Tổng diện tích</option><option value='m2'>Mét vuông</option>";
-                $('select[name="unit"]').html(options);
-            }else{
-                var options = "<option value='month'>Tháng</option><option value='year'>Năm</option>";
-                $('select[name="unit"]').html(options);
-            }
-
-            if(old_purpose == purpose && old_unit) {
-                $('select[name="unit"]').val(old_unit);
-            }
-        }
-    });
+    var district_id = '{{ old("district_id",$post->district_id) ?? null }}'
+    var old_purpose = "{{ old('purpose',$post->purpose) }}";
+    var old_unit    = "{{ old('unit',$post->unit) }}";
 </script>
-<script>
-$(document).ready(function () {
-    $('select[name="city_id"]').change(function () {
-        $('select[name="district_id"]').select2('val',"");
-        var city_id = $(this).val();
-        getDistrict(city_id);
-    });
-    if($('select[name="city_id"]').val()) {
-        var city_id = $('select[name="city_id"]').val();
-        var district_id = '{{ old("district_id",$post->district_id) ?? null }}'
-        getDistrict(city_id,district_id);
-    }
-});
-</script>
+
+<script src="{{ asset('layout/frontend/js/myscript/load-unit.js')}}"></script>
+<script src="{{ asset('layout/frontend/js/myscript/load-district.js')}}"></script>
+<script src="{{ asset('layout/frontend/js/myscript/load-price.js')}}"></script>
 @endpush

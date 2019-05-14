@@ -19,16 +19,14 @@
             <ul class="listingViewIcon pull-right">
                 <li class="dropdown shortByListingLi">
                     <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown"
-                        class="dropdown-toggle" href="#">Short by <span class="caret"></span></a>
+                        class="dropdown-toggle" href="#">Sắp xếp <span class="caret"></span></a>
                     <ul class="dropdown-menu" id="sortList">
                         <li class="{{ $sort == 'price_desc' ? 'active' : ''}}"><a href="javascript:void(0)"
-                                data-sort="price_desc">Price
-                                high to low</a></li>
+                                data-sort="price_desc">Giá cao xuống thấp</a></li>
                         <li class="{{ $sort == 'price_asc' ? 'active' : ''}}"><a href="javascript:void(0)"
-                                data-sort="price_asc">Price
-                                low to high</a></li>
+                                data-sort="price_asc">Giá thấp lên cao</a></li>
                         <li class="{{ $sort == 'latest' ? 'active' : ''}}"><a href="javascript:void(0)"
-                                data-sort="latest">Latest</a>
+                                data-sort="latest">Mới nhất</a>
                         </li>
                     </ul>
                 </li>

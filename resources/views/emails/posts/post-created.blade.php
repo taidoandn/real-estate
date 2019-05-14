@@ -1,17 +1,19 @@
 @component('mail::message')
-# Hello, {{ $post->user->name }}
+# Chào, {{ $post->user->name }}
 @component('mail::panel')
 # Cảm ơn bạn đã đăng tin bất động sản tại công ty chúng tôi.<br>
-Thời gian tin bắt đầu vào {{ $post->start_date }} và kết thúc vào ngày
-{{ $post->end_date }}
+Thời gian đăng tin bắt đầu vào {{ $post->start_date }} và đến hết ngày {{ $post->end_date }}
 <br>
-Số ngày : {{ $date_diff }} ngày
+#Số ngày : {{ $date_diff }} ngày
 <br>
-Giá loại <strong>{{ $post->type->name }}</strong> : {{ number_format($post->type->price,0,",",".") }} ngày / đồng
+#Loại <strong>{{ $post->type->name }}</strong> : {{ number_format($post->type->price,0,",",".") }} ngày / đồng
 <br>
-Bạn cần thanh toán trước khi thời gian đưa tin bắt đầu trước ít nhất 1 ngày.
+#Bạn cần thanh toán trước khi thời gian đưa tin bắt đầu trước ít nhất 1 ngày.
 <br>
-Vui lòng thanh toán vào TK 0041000250743 ngần hàng Vietcombank, tên TK: Ngô Đình Dũng trụ sở Đà Nẵng với nội dung: #P-{{ $post->id }} {{ $post->user->email }}
+#Vui lòng thanh toán vào <br>
+#Số tài khoản : 0041000250743 <br>
+#Ngân hàng : Vietcombank <br>
+#Chủ TK: Ngô Đình Dũng trụ sở Đà Nẵng với nội dung: #P-{{ $post->id }} {{ $post->user->email }}
 @endcomponent
 
 @component('mail::table')
