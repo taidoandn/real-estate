@@ -263,7 +263,7 @@
                     <div>
                         <div class="image">
                             <a href="{{ $blog->url }}">
-                                <img alt="{{ $blog->title }}" src="{{ $blog->image_url ?? asset('layout/placeholder.png') }}">
+                                <img alt="{{ $blog->title }}" height="150px" src="{{ $blog->image_url ?? asset('layout/placeholder.png') }}">
                             </a>
                         </div>
 

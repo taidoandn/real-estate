@@ -178,7 +178,7 @@ class PostController extends Controller
                         return $post->user->email;
                     })
                     ->editColumn('image',function ($post){
-                        $url= asset('uploads/images/'.$post->image);
+                        $url= $post->image_url;
                         return '<img src="'.$url.'" alt="'.$post->title.'" width="200px" >';
                     })
                     ->editColumn('price',function($post){

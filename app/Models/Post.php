@@ -96,6 +96,8 @@ class Post extends Model
     public function getImageUrlAttribute(){
         if (!empty($this->image)) {
             return asset('uploads/images/'.$this->image);
+        }else{
+            return asset('layout/placeholder.png');
         }
     }
 
