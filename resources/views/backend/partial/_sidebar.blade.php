@@ -61,6 +61,12 @@
                     <span>Report</span>
                 </a>
             </li>
+            <li class="{{ Request::is("admin/contacts*") ? "active" : "" }}">
+                <a href="{{ route('admin.contacts.index') }}">
+                    <i class="fa fa-exclamation"></i>
+                    <span>Contact</span>
+                </a>
+            </li>
             <li class="{{ Request::is("admin/post-types*") ? "active" : "" }}">
                 <a href="{{ route('admin.post-types.index') }}">
                     <i class="fa fa-file"></i>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\Report;
 use App\Models\PostType;
 use Illuminate\Http\Request;
@@ -54,5 +55,11 @@ class AjaxController extends Controller
         if ($request->ajax()) {
             Report::create($request->all());
         }
+    }
+
+    public function publishPost(Request $request,$id){
+        $post = Post::findOrFail($id);
+        $post->update(['status' => 'published']);
+        return back()->with('success','Cập nhật thành công!');
     }
 }

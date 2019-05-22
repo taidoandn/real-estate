@@ -106,7 +106,7 @@
                         <div class="form-group  {{ $errors->has('floor') ? 'has-error' : '' }}">
                             <label for="floor" class="col-sm-3 control-label">Tầng</label>
                             <div class="col-sm-9">
-                                <input type="number" min="0" class="form-control" id="floor" value="{{ old('floor') }}" name="floor" placeholder="Tầng">
+                                <input type="number" min="0" max="20" class="form-control" id="floor" value="{{ old('floor') }}" name="floor" placeholder="Tầng">
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('floor') }}
                                 </strong>
@@ -116,7 +116,7 @@
                         <div class="form-group  {{ $errors->has('bed_room') ? 'has-error' : '' }}">
                             <label for="bed_room" class="col-sm-3 control-label">Phòng ngủ</label>
                             <div class="col-sm-9">
-                                <input type="number" min="0" class="form-control" id="bed_room" value="{{ old('bed_room') }}" name="bed_room"
+                                <input type="number" min="0" max="20" class="form-control" id="bed_room" value="{{ old('bed_room') }}" name="bed_room"
                                     placeholder="Phòng ngủ">
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('bed_room') }}
@@ -127,7 +127,7 @@
                         <div class="form-group  {{ $errors->has('bath') ? 'has-error' : '' }}">
                             <label for="attached_bath"  class="col-sm-3 control-label">Phòng tắm</label>
                             <div class="col-sm-9">
-                                <input type="number" min="0" class="form-control" id="bath" value="{{ old('bath') }}"
+                                <input type="number" min="0" max="20" class="form-control" id="bath" value="{{ old('bath') }}"
                                     name="bath" placeholder="Phòng tắm">
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('bath') }}
@@ -138,7 +138,7 @@
                         <div class="form-group  {{ $errors->has('balcony') ? 'has-error' : '' }}">
                             <label for="balcony"  class="col-sm-3 control-label">Ban công</label>
                             <div class="col-sm-9">
-                                <input type="number"  class="form-control" id="balcony" value="{{ old('balcony') }}" name="balcony"
+                                <input type="number" min="0" max="20" class="form-control" id="balcony" value="{{ old('balcony') }}" name="balcony"
                                     placeholder="Ban công">
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('balcony') }}
@@ -149,7 +149,7 @@
                         <div class="form-group  {{ $errors->has('toilet') ? 'has-error' : '' }}">
                             <label for="toilet" class="col-sm-3 control-label">Toilet</label>
                             <div class="col-sm-9">
-                                <input type="number" min="0" class="form-control" id="toilet" value="{{ old('toilet') }}" name="toilet"
+                                <input type="number" min="0" max="20" class="form-control" id="toilet" value="{{ old('toilet') }}" name="toilet"
                                     placeholder="Toilet">
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('toilet') }}

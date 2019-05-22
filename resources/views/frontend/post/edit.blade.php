@@ -234,7 +234,7 @@
                         <legend>Hình ảnh</legend>
                         <div class="form-group m-l-20 {{ $errors->has('fImage') ? 'has-error' : ''}}">
                             <input type="file" name="fImage" id="img" class="form-control hidden" onchange="changeImg(this)">
-                            <img id="avatar"  src="{{ asset('uploads/images/'.$post->image ?? 'layout/backend/img/new_seo-10-512.png') }}">
+                            <img id="avatar"  src="{{ !empty($post->image) ? $post->image_url : asset('layout/backend/img/new_seo-10-512.png') }}">
                             <strong class="help-block" role="alert">
                                 {{ $errors->first('fImage') }}
                             </strong>

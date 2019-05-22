@@ -44,7 +44,7 @@ class AdminController extends Controller
 
 
 
-        $pending_posts         = Post::where('status','pending')->orderBy('created_at','desc')->get();
+        $pending_posts         = Post::where('status','pending')->orderBy('id','desc')->get();
         $total_posts           = Post::get()->count();
         $published_posts_count = Post::isPublished()->count();
         $expired_posts_count   = Post::IsExpired()->count();

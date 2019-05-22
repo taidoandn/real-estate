@@ -55,5 +55,8 @@ Route::group(['as' => 'admin.','middleware'=>'auth:admin'], function () {
     //Route: reports
     Route::get('/list-reports','ReportController@getReports')->name('api.reports');
     Route::resource('/reports', 'ReportController',['only'=>['show','index','destroy']]);
+    //Route: contacts
+    Route::get('/list-contacts','ContactController@getContacts')->name('api.contacts');
+    Route::resource('/contacts', 'ContactController',['only'=>['show','index','destroy']]);
 
 });

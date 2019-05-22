@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -81,7 +82,7 @@ class AccountController extends Controller
         ]);
         $data = $request->all();
         if ($request->has('password')) {
-            $data['password'] = bcrypt($request->password);
+            $data['password'] = Hash::make($request->password);
         }
         $user = User::findOrFail($id);
         $user->update($data);

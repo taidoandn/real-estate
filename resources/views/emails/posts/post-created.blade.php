@@ -6,7 +6,7 @@ Thời gian đăng tin bắt đầu vào {{ $post->start_date }} và đế
 <br>
 #Số ngày : {{ $date_diff }} ngày
 <br>
-#Loại <strong>{{ $post->type->name }}</strong> : {{ number_format($post->type->price,0,",",".") }} ngày / đồng
+#Loại <strong>{{ $post->type->name }}</strong> : {{ number_format($post->type->price,0,",",".") }} đồng / ngày
 <br>
 #Bạn cần thanh toán trước khi thời gian đưa tin bắt đầu trước ít nhất 1 ngày.
 <br>

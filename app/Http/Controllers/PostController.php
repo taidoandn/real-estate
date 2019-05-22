@@ -27,7 +27,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Auth::user()->posts()->with('district.city')->orderBy('created_at')->paginate($this->paginate);
+        $posts = Auth::user()->posts()->with('district.city')->orderBy('created_at','desc')->paginate($this->paginate);
         return view('frontend.post.index',compact('posts'));
     }
 
@@ -84,7 +84,7 @@ class PostController extends Controller
         }
 
         //Send Mail , dispatch send mail job
-        dispatch(new NewPostCreatedJob(auth()->user(),$post));
+        dispatch(new NewPostCreatedJob(auth('web')->user(),$post));
 
         return redirect()->route('posts.index')->with('success','Tạo bài viết thành công. Vui lòng check email để tiếp tục thực hiện!!');
     }
@@ -127,19 +127,19 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request,Post $post)
+    public function update(PostRequest $request,$id)
     {
+        $post =  Post::findOrFail($id);
         $this->authorize('update', $post);
         $data = $request->except(['start_date','end_date','type_id']);
 
-        $data['negotiable'] = $request->negotiable ? true : false;
+        $data['negotiable'] = $request->negotiable == 1 ? true : false;
 
         if ($request->hasFile('fImage')) {
             unlinkImage($post->image);
             $image_name = saveImage($request->file('fImage'));
             $data['image'] = $image_name;
         }
-
         $post->update($data);
 
         $post->detail()->update([
@@ -179,7 +179,7 @@ class PostController extends Controller
     }
 
     public function getFavoritePosts(){
-        $posts = User::find(Auth::user()->id)->favorites()->isPublished()->paginate($this->paginate);
+        $posts = User::find(Auth::user('web')->id)->favorites()->isPublished()->paginate($this->paginate);
         return view('frontend.post.favorite',compact('posts'));
     }
 

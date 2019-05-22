@@ -136,6 +136,7 @@
                                     <td>{{ $post->created_at->diffForHumans() }}</td>
                                     <td>
                                        <a class="btn btn-sm btn-primary" href="{{ route('admin.posts.edit',$post->id) }}">Detail</a>
+                                       <a class="btn btn-sm btn-success" href="{{ route('ajax.publish-post',$post->id) }}">Publish</a>
                                     </td>
                                 </tr>
                               @endforeach

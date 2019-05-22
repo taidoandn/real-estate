@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="col-sm-5 col-xs-12">
-                    <h2 class="ad-title">
+                    <h2>
                         <a href="{{ $post->url }}">{{$post->title }}</a>
                     </h2>
                     <h2 class="modern-single-ad-price">{!! $post->priceFormat !!}</h2>
@@ -53,7 +53,7 @@
                     <p>
                         <strong> <i class="fa fa-eye"></i> Lượt xem :</strong> {{ $post->views }}
                     </p>
-                    <p><strong><i class="fa fa-check-circle-o"></i> Điều kiện</strong> </p>
+                    {{-- <p><strong><i class="fa fa-check-circle-o"></i> Điều kiện</strong> </p> --}}
 
                     {{-- <div class="modern-social-share-btn-group">
                         <h4>Chia sẻ</h4>

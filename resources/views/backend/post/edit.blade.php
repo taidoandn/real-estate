@@ -140,7 +140,7 @@
                             <div class="form-group {{ $errors->has('fImage') ? 'has-error' : '' }}">
                                 <label for="img" class="col-md-2 control-label">Hình ảnh</label>
                                 <input type="file" name="fImage" id="img" class="form-control hidden" onchange="changeImg(this)">
-                                <img id="avatar"  src="{{ $post->image_url ?? asset('layout/backend/img/new_seo-10-512.png') }}">
+                                <img id="avatar"  src="{{ !empty($post->image) ? $post->image_url : asset('layout/backend/img/new_seo-10-512.png') }}">
                                 <strong class="help-block" role="alert">
                                     {{ $errors->first('fImage') }}
                                 </strong>

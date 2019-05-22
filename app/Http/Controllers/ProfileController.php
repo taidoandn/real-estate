@@ -69,8 +69,8 @@ class ProfileController extends Controller
             return back()->with('error', 'Mật khẩu mới ko đc trùng với mật khẩu cũ');
         }
 
-        $user = auth()->user();
-        $user->password = Hash::make($request->new_pass);
+        $user = auth('web')->user();
+        $user->password = Hash::make($new_pass);
         $user->save();
 
         return back()->with('success','Thay đổi thành công');

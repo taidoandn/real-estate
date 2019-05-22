@@ -21,7 +21,7 @@
                         class="ads-item-thumbnail {{ $post->type->slug == "tin-vip" ? 'ad-box-premium' : 'ad-box-regular' }}">
                         <div class="ads-thumbnail">
                             <a href="{{ $post->url }}">
-                                <img src="{{ asset('uploads/images/'.$post->image) }}" class="img-responsive" alt="">
+                                <img src="{{ $post->image_url }}" class="img-responsive" alt="">
                                 <span class="modern-sale-rent-indicator">
                                     {{ $post->purpose_format }}
                                 </span>
@@ -386,5 +386,5 @@
 <script>
     var district_id = '{{ request()->district_id ?? null }}';
 </script>
-<script src="{{ asset('layout/frontend/js/myscript/.js')}}"></script>
+<script src="{{ asset('layout/frontend/js/myscript/load-district.js')}}"></script>
 @endpush

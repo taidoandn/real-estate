@@ -29,14 +29,14 @@
 
                         <button type="button" onclick="refresh()" class="btn bg-blue"><i class="fa fa-refresh"></i> Refresh</button>
 
-                        <div id="filter" class="collapse m-t-10">
-                            <form id="filter-form" class="col-md-4" action="">
-                                <div class="form-group">
-                                    <label for="keyword">Keyword:</label>
+                        <div id="filter" class="collapse m-t-12">
+                            <form id="filter-form" class="col-md-12" action="">
+                                <div class="form-group col-md-6">
+                                    <label for="keyword">Keyword :</label>
                                     <input type="text" name="keyword" class="form-control" id="keyword">
                                 </div>
-                                <div class="form-group">
-                                    <label for="status" class="control-label">Status</label>
+                                <div class="form-group col-md-6">
+                                    <label for="status" class="control-label">Status :</label>
                                     <select name="status" id="status" class="form-control">
                                         <option value="">Chọn trạng thái</option>
                                         <option value="pending">Pending</option>
@@ -44,7 +44,15 @@
                                         <option value="expired">Expired</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-default pull-right">Submit</button>
+                                <div class="form-group col-md-6">
+                                    <label for="keyword">Start Date:</label>
+                                    <input type="date" name="start_date" class="form-control" id="start_date">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="keyword">End Date :</label>
+                                    <input type="date" name="end_date" class="form-control" id="end_date">
+                                </div>
+                                <button type="submit" class="btn btn-default pull-right m-r-10">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -71,17 +79,27 @@
 <link rel="stylesheet" href="{{  asset('layout/backend/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 @endpush
 @push('script')
+<script src="{{  asset('layout/backend/js/moment.min.js') }}"></script>
 <script src="{{  asset('layout/backend/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{  asset('layout/backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <script>
+    $(function(){
+       $("#start_date").change(function (e) {
+           e.preventDefault();
+           var endDate = moment($(this).val()).add(1, 'days').format('YYYY-MM-DD');
+           $('#end_date').attr('min', endDate);
+       });
+    });
     var posts_table = $('#posts-table').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
             url: '{!! route('admin.api.posts') !!}',
             data: function (d) {
-                d.keyword = $('input[name=keyword]').val();
-                d.status  = $('select[name=status]').val();
+                d.keyword    = $('input[name=keyword]').val();
+                d.start_date = $('input[name=start_date]').val();
+                d.end_date   = $('input[name=end_date]').val();
+                d.status     = $('select[name=status]').val();
             }
         },
         columns: [

@@ -159,7 +159,7 @@ class PostController extends Controller
 
     public function getPosts(Request $request){
         if ($request->ajax()) {
-            $posts = Post::query();
+            $posts = Post::query()->orderBy('id','desc');
             $datatables =  Datatables::of($posts);
 
             if ($request->get('status')) {
@@ -168,12 +168,18 @@ class PostController extends Controller
             if ($request->get('keyword')) {
                 $posts->where('title','LIKE',"%".$request->get('keyword')."%");
             }
+            if ($request->get('start_date')) {
+                $posts->whereDate('start_date','>=',$request->get('start_date'));
+            }
+            if ($request->get('end_date')) {
+                $posts->whereDate('end_date','<=',$request->get('end_date'));
+            }
 
             return  $datatables
                     ->addColumn('action',function ($post){
                         return view('backend.post._action',compact('post'));
                     })
-                    ->editColumn('title', '{!! str_limit($title, 30) !!}')
+                    ->editColumn('title', '{!! str_limit($title, 50) !!}')
                     ->addColumn('owner',function ($post){
                         return $post->user->email;
                     })

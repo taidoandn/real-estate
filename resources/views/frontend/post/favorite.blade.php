@@ -15,9 +15,8 @@
                     <table class="table table-bordered table-striped table-responsive">
                       @foreach ($posts as $post)
                       <tr>
-                            <td width="100">
-                                <img src="{{ asset('uploads/images/'.$post->image) }}"
-                                    class="thumb-listing-table" alt="">
+                            <td width="100px">
+                                <a href="{{ $post->url }}"><img src="{{ $post->image_url }}" height="80px" class="thumb-listing-table" alt="{{ $post->title }}"></a>
                             </td>
                             <td>
                                 <h5><a href="{{ $post->url }}" target="_blank">{{ $post->title }}</a> (<span

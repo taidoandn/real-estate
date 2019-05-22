@@ -173,7 +173,7 @@
                             <div class="form-group {{ $errors->has('floor') ? 'has-error' : '' }}">
                                 <label class="col-md-4 control-label">Số tầng</label>
                                 <div class="col-md-6">
-                                    <input type="number" min="0" value="{{ old('floor') ?? null }}" placeholder="floor"
+                                    <input type="number" min="0" max="20" value="{{ old('floor') ?? null }}" placeholder="floor"
                                         name="floor" class="form-control">
                                         <strong class="help-block" role="alert">
                                             {{ $errors->first('floor') }}
@@ -184,7 +184,7 @@
                             <div class="form-group  {{ $errors->has('bed_room') ? 'has-error' : '' }}">
                                 <label class="col-md-4 control-label">Số phòng ngủ</label>
                                 <div class="col-md-6">
-                                    <input type="number" min="0" value="{{ old('bed_room') ?? null }}" placeholder="bed_room"
+                                    <input type="number" min="0" max="20" value="{{ old('bed_room') ?? null }}" placeholder="bed_room"
                                         name="bed_room" class="form-control">
                                         <strong class="help-block" role="alert">
                                             {{ $errors->first('bed_room') }}
@@ -195,7 +195,7 @@
                             <div class="form-group {{ $errors->has('bath') ? 'has-error' : '' }}">
                                 <label class="col-md-4 control-label">Số phòng tắm</label>
                                 <div class="col-md-6">
-                                    <input type="number" min="0" value="{{ old('bath') ?? null }}" placeholder="bath"
+                                    <input type="number" min="0" max="20" value="{{ old('bath') ?? null }}" placeholder="bath"
                                         name="bath" class="form-control">
                                         <strong class="help-block" role="alert">
                                             {{ $errors->first('bath') }}
@@ -206,7 +206,7 @@
                             <div class="form-group {{ $errors->has('balcony') ? 'has-error' : '' }}">
                                 <label class="col-md-4 control-label">Ban công</label>
                                 <div class="col-md-6">
-                                    <input type="number" min="0" value="{{ old('balcony') ?? null }}" placeholder="balcony"
+                                    <input type="number" min="0" max="20" value="{{ old('balcony') ?? null }}" placeholder="balcony"
                                         name="balcony" class="form-control">
                                         <strong class="help-block" role="alert">
                                             {{ $errors->first('balcony') }}
@@ -217,7 +217,7 @@
                             <div class="form-group {{ $errors->has('toilet') ? 'has-error' : '' }}">
                                 <label class="col-md-4 control-label">Toilet</label>
                                 <div class="col-md-6">
-                                    <input type="number" value="{{ old('toilet') ?? null }}" min="0" placeholder="toilet"
+                                    <input type="number" max="20" value="{{ old('toilet') ?? null }}" min="0" placeholder="toilet"
                                         name="toilet" class="form-control">
                                         <strong class="help-block" role="alert">
                                             {{ $errors->first('toilet') }}

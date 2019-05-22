@@ -15,14 +15,11 @@
                     <table class="table table-bordered table-striped table-responsive">
                       @foreach ($posts as $post)
                       <tr>
-                            <td width="100">
-                                <img src="{{ asset('uploads/images/'.$post->image) }}"
-                                    class="thumb-listing-table" alt="">
+                            <td width="100px">
+                                <a href="{{ $post->url }}"><img src="{{  $post->image_url }}"  class="thumb-listing-table" height="80px" alt="{{ $post->title }}"></a>
                             </td>
                             <td>
-                                <h5><a href="{{ $post->url }}"
-                                        target="_blank">{{ $post->title }}</a> (<span
-                                        class="text-success">{{ ucwords($post->status) }}</span>)</h5>
+                                <h5><a href="{{ $post->url }}" target="_blank">{{ $post->title }}</a> (<span class="text-success">{{ ucwords($post->status) }}</span>)</h5>
                                 <p class="text-muted">
                                     <i class="fa fa-map-marker"></i> {{ $post->address }}
                                     <a  href="{{ route('getSearch',['city_id'=>$post->district->city->id,'district_id'=>$post->district->id]) }}">
